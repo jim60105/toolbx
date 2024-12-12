@@ -6,7 +6,46 @@ ARG RELEASE=0
 ########################################
 # Install stage
 ########################################
-FROM registry.fedoraproject.org/fedora-toolbox:41 AS install
+FROM registry.fedoraproject.org/fedora-toolbox:41 AS base
+
+# Create directories with correct permissions
+ARG UID
+RUN install -d -m 775 -o $UID -g 0 /licenses
+
+# Copy licenses (OpenShift Policy)
+COPY --chown=$UID:0 --chmod=775 LICENSE /licenses/Dockerfile.LICENSE
+
+RUN cat <<-"EOF" > /usr/local/bin/host-runner
+#!/bin/bash
+executable="$(basename ${0})"
+exec flatpak-spawn --host "${executable}" "${@}"
+EOF
+
+# Setup host-runner script and symlinks
+RUN chmod 775 /usr/local/bin/host-runner && \
+    bins=( \
+    "btop" \
+    "firefox" \
+    "flatpak" \
+    "google-chrome" \
+    "htop" \
+    "podman" \
+    "rpm-ostree" \
+    "systemctl" \
+    "xdg-open" \
+    "kitty" \
+    ); \
+    for f in "${bins[@]}"; do \
+        ln -s host-runner /usr/local/bin/$f;\
+    done
+
+########################################
+# Install stage
+########################################
+FROM base AS install
+
+# Make sure the cache is refreshed
+ARG RELEASE
 
 # RUN mount cache for multi-arch: https://github.com/docker/buildx/issues/549#issuecomment-1788297892
 ARG TARGETARCH
@@ -37,35 +76,6 @@ RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/v
 # Final stage
 ########################################
 FROM install AS final
-
-# Create directories with correct permissions
-RUN install -d -m 775 -o $UID -g 0 /licenses
-
-# Copy licenses (OpenShift Policy)
-COPY --chown=$UID:0 --chmod=775 LICENSE /licenses/Dockerfile.LICENSE
-
-RUN cat <<-"EOF" > /usr/local/bin/host-runner
-#!/bin/bash
-executable="$(basename ${0})"
-exec flatpak-spawn --host "${executable}" "${@}"
-EOF
-
-# Setup host-runner script and symlinks
-RUN chmod 775 /usr/local/bin/host-runner && \
-    bins=( \
-    "btop" \
-    "firefox" \
-    "flatpak" \
-    "google-chrome" \
-    "htop" \
-    "podman" \
-    "rpm-ostree" \
-    "systemctl" \
-    "xdg-open" \
-    ); \
-    for f in "${bins[@]}"; do \
-        ln -s host-runner /usr/local/bin/$f;\
-    done
 
 ENV GCM_CREDENTIAL_STORE=gpg
 
