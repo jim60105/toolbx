@@ -8,6 +8,10 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
+# Sets the permissions granted to the GITHUB_TOKEN for the actions in this job.
+permissions:
+  security-events: write
+
 jobs:
   scan:
     name: Scan image
