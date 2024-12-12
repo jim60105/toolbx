@@ -4,7 +4,7 @@ ARG VERSION=EDGE
 ARG RELEASE=0
 
 ########################################
-# Final stage
+# Install stage
 ########################################
 FROM registry.fedoraproject.org/fedora-toolbox:41 AS install
 
@@ -33,6 +33,9 @@ RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/v
     # Fonts
     dnf -y install google-noto-sans-cjk-fonts
 
+########################################
+# Final stage
+########################################
 FROM install AS final
 
 # Create directories with correct permissions

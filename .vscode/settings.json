@@ -1,8 +1,12 @@
 {
     "cSpell.words": [
         "Buildx",
+        "containertoolbx",
         "distroless",
         "Dockerfiles",
-        "gplv"
+        "fedoraproject",
+        "gplv",
+        "sourcegit",
+        "toolbx"
     ]
 }
