@@ -47,7 +47,7 @@ runs:
       uses: docker/build-push-action@v5
       with:
         context: .
-        file: ./Dockerfile
+        file: ./Containerfile
         push: true
         target: final
         tags: ${{ steps.meta.outputs.tags }}
