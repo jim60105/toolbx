@@ -9,8 +9,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  scan-python:
-    name: Scan Python official base image
+  scan:
+    name: Scan image
     runs-on: ubuntu-latest
     if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
     steps:
@@ -21,63 +21,30 @@ jobs:
             .github/workflows/scan/html.tpl
           sparse-checkout-cone-mode: false
 
-      - name: Run Trivy vulnerability scanner for Python official image
+      - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@0.16.1
         with:
-          image-ref: "ghcr.io/jim60105/whisperx:no_model"
-          vuln-type: "os,library"
-          scanners: vuln
-          severity: "CRITICAL,HIGH"
-          format: "template"
-          template: "@.github/workflows/scan/html.tpl"
-          exit-code: '1'
-          ignore-unfixed: true
-          output: "trivy-results-python.html"
-
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: trivy-results-python
-          path: trivy-results-python.html
-          retention-days: 90
-
-  scan-ubi:
-    name: Scan Red Hat UBI base image
-    runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          sparse-checkout: |
-            .github/workflows/scan/html.tpl
-          sparse-checkout-cone-mode: false
-
-      - name: Run Trivy vulnerability scanner for UBI image
-        uses: aquasecurity/trivy-action@0.16.1
-        with:
-          image-ref: "ghcr.io/jim60105/whisperx:ubi-no_model"
+          image-ref: "ghcr.io/jim60105/toolbx:latest"
           vuln-type: "os,library"
           scanners: vuln
           severity: "CRITICAL,HIGH"
           format: "template"
           template: "@.github/workflows/scan/html.tpl"
           ignore-unfixed: true
-          output: "trivy-results-ubi.html"
+          output: "trivy-results.html"
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: trivy-results-ubi
-          path: trivy-results-ubi.html
+          name: trivy-results
+          path: trivy-results.html
           retention-days: 90
 
-      - name: Run Trivy vulnerability scanner for UBI image (SARIF)
+      - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@master
         if: always()
         with:
-          image-ref: "ghcr.io/jim60105/whisperx:ubi-no_model"
+          image-ref: "ghcr.io/jim60105/toolbx:latest"
           vuln-type: "os,library"
           scanners: vuln
           severity: "CRITICAL,HIGH"

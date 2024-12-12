@@ -5,10 +5,7 @@
 name: docker_publish
 
 on:
-  # Trigger the workflow on tags push that match the pattern v*, for example v1.0.0
   push:
-    tags:
-      - "*"
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -29,17 +26,9 @@ jobs:
         with:
           submodules: true
 
-      - name: Checkout submodule
-        run: |
-          cd static-ffmpeg && \
-          git fetch --all --tags && \
-          git checkout tags/${{ github.ref_name }} -b ${{ github.ref_name }}
-
       - name: Build docker
         uses: ./.github/workflows/docker-reused-steps
         with:
-          DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
-          DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
           QUAY_USERNAME: ${{ secrets.QUAY_USERNAME }}
           QUAY_TOKEN: ${{ secrets.QUAY_TOKEN }}
           tag: ${{ github.ref_name }}
