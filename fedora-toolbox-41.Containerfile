@@ -13,7 +13,7 @@ ARG UID
 RUN install -d -m 775 -o $UID -g 0 /licenses
 
 # Copy licenses (OpenShift Policy)
-COPY --chown=$UID:0 --chmod=775 LICENSE /licenses/Dockerfile.LICENSE
+COPY --chown=$UID:0 --chmod=775 LICENSE /licenses/Containerfile.LICENSE
 
 RUN cat <<-"EOF" > /usr/local/bin/host-runner
 #!/bin/bash
@@ -24,11 +24,7 @@ EOF
 # Setup host-runner script and symlinks
 RUN chmod 775 /usr/local/bin/host-runner && \
     bins=( \
-    "btop" \
-    "firefox" \
     "flatpak" \
-    "google-chrome" \
-    "htop" \
     "podman" \
     "rpm-ostree" \
     "systemctl" \
@@ -84,9 +80,9 @@ ARG RELEASE
 LABEL name="jim60105/toolbx" \
     # Authors for toolbox
     vendor="containertoolbx" \
-    # Maintainer for this docker image
+    # Maintainer for this container image
     maintainer="jim60105" \
-    # Dockerfile source repository
+    # Containerfile source repository
     url="https://github.com/jim60105/toolbx" \
     version=${VERSION} \
     # This should be a number, incremented with each change

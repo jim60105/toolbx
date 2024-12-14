@@ -7,21 +7,10 @@ inputs:
     required: true
   QUAY_TOKEN:
     required: true
-  tag:
-    required: true
 
 runs:
   using: composite
   steps:
-    - name: Container meta:${{ inputs.tag }}
-      id: meta
-      uses: docker/metadata-action@v5
-      with:
-        images: ghcr.io/${{ github.repository_owner }}/toolbx,quay.io/${{ github.repository_owner }}/toolbx
-        tags: |
-          ${{ inputs.tag }}
-          latest
-
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v3
 
@@ -43,21 +32,3 @@ runs:
         username: ${{ inputs.QUAY_USERNAME }}
         password: ${{ inputs.QUAY_TOKEN }}
 
-    - name: Build and push
-      uses: docker/build-push-action@v5
-      with:
-        context: .
-        file: ./Containerfile
-        push: true
-        target: final
-        tags: ${{ steps.meta.outputs.tags }}
-        labels: ${{ steps.meta.outputs.labels }}
-        build-args: |
-          VERSION=${{ inputs.tag }}
-          RELEASE=${{ github.run_number }}
-        platforms: linux/amd64
-        # Cache to registry instead of gha to avoid the capacity limit.
-        cache-from: type=registry,ref=ghcr.io/${{ github.repository_owner }}/toolbx:cache
-        cache-to: type=registry,ref=ghcr.io/${{ github.repository_owner }}/toolbx:cache,mode=max
-        sbom: true
-        provenance: true
