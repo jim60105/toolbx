@@ -1,50 +1,40 @@
 # My Personal Fedora Toolbox
 
-[![CodeFactor](https://www.codefactor.io/repository/github/jim60105/toolbx/badge?style=for-the-badge)](https://www.codefactor.io/repository/github/jim60105/toolbx) [![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/jim60105/toolbx/scan.yml?label=IMAGE%20SCAN&style=for-the-badge)](https://github.com/jim60105/toolbx/actions/workflows/scan.yml)
+[![CodeFactor](https://www.codefactor.io/repository/github/jim60105/toolbx/badge?style=for-the-badge)](https://www.codefactor.io/repository/github/jim60105/toolbx)
 
-This is a Fedora Toolbox image with some additional tools installed.
+This is the Fedora Toolbox images with some additional tools installed.
 
-Get the Containerfile at [GitHub](https://github.com/jim60105/toolbx), or pull the image from [ghcr.io](https://ghcr.io/jim60105/toolbx) or [quay.io](https://quay.io/repository/jim60105/toolbx?tab=tags).
+> [!NOTE]  
+> toolbx is not a typo, check <https://containertoolbx.org/>
 
-## Setup
+Get the Containerfile at [GitHub](https://github.com/jim60105/toolbx), or pull the image from [ghcr.io](https://github.com/jim60105?tab=packages&repo_name=toolbx) or [quay.io](https://quay.io/repository/jim60105/fedora-toolbox-41).
 
-Following this guide to setup os keyring to use gnome-libsecret: <https://code.visualstudio.com/docs/editor/settings-sync#_recommended-configure-the-keyring-to-use-with-vs-code>
+## fedora-toolbox-41
 
-## Installed Tools
+This image is for my main development environment. It contains the tools I use for my coding and development.
 
-- Gnome Seahorse
-- VSCode
-- .NET SDK 8.0
+> [!IMPORTANT]  
+> Following this guide to setup os keyring to use `gnome-libsecret`:  
+> <https://code.visualstudio.com/docs/editor/settings-sync#_recommended-configure-the-keyring-to-use-with-vs-code>
+
+### Installed Tools
+
+- Gnome Seahorse (for os keyring)
 - Git Credential Manager
-- Sourcegit
+- [**Sourcegit**](https://github.com/sourcegit-scm/sourcegit)
+- **VSCode**
+- .NET SDK 8.0
 - Fonts
   - Noto Sans CJK
 
-## Usage Command
+## Toolbox cheat sheet
 
-1. Make sure you have the toolbox installed
+- Remove and recreate the main toolbox
 
-   ```bash
-   sudo dnf install toolbox
-   ```
-
-2. Create the toolbox container
-
-   ```bash
-   toolbox create -i ghcr.io/jim60105/toolbx -c fedora-toolbox-41
-   ```
-
-3. Start the toolbox container
-
-   ```bash
-    toolbox enter -c fedora-toolbox-41
-    ```
-
-4. Or, execute the application directly
-
-   ```bash
-   toolbox run code
-   ```
+  ```bash
+  toolbox rm -f fedora-toolbox-41 && \
+  toolbox create -i quay.io/jim60105/fedora-toolbox-41:latest fedora-toolbox-41
+  ```
 
 ## LICENSE
 
