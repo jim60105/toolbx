@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Sourcegit
+Comment=Git Management Application
+Exec=toolbox run sourcegit
+Icon=sourcegit
+Terminal=false
+Type=Application
+Categories=Development;RevisionControl;Git;
+
