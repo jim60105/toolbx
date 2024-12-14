@@ -1,11 +1,15 @@
 {
     "cSpell.words": [
+        "aquasecurity",
+        "btop",
         "Buildx",
         "containertoolbx",
         "distroless",
-        "Dockerfiles",
         "fedoraproject",
         "gplv",
+        "libsecret",
+        "Noto",
+        "ostree",
         "sarif",
         "sourcegit",
         "toolbx"

@@ -4,7 +4,7 @@
 
 This is a Fedora Toolbox image with some additional tools installed.
 
-Get the Dockerfile at [GitHub](https://github.com/jim60105/toolbx), or pull the image from [ghcr.io](https://ghcr.io/jim60105/toolbx) or [quay.io](https://quay.io/repository/jim60105/toolbx?tab=tags).
+Get the Containerfile at [GitHub](https://github.com/jim60105/toolbx), or pull the image from [ghcr.io](https://ghcr.io/jim60105/toolbx) or [quay.io](https://quay.io/repository/jim60105/toolbx?tab=tags).
 
 ## Setup
 
@@ -59,11 +59,11 @@ This program is distributed in the hope that it will be useful, but WITHOUT ANY 
 You should have received a copy of the GNU General Public License along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 > [!CAUTION]
-> A GPLv3 licensed Dockerfile means that you _**MUST**_ **distribute the source code with the same license**, if you
+> A GPLv3 licensed Containerfile means that you _**MUST**_ **distribute the source code with the same license**, if you
 >
 > - Re-distribute the image. (You can simply point to this GitHub repository if you doesn't made any code changes.)
 > - Distribute a image that uses code from this repository.
-> - Or **distribute a image based on this image**. (`FROM ghcr.io/jim60105/toolbx` in your Dockerfile)
+> - Or **distribute a image based on this image**. (`FROM ghcr.io/jim60105/toolbx` in your Containerfile)
 >
 > "Distribute" means to make the image available for other people to download, usually by pushing it to a public registry. If you are solely using it for your personal purposes, this has no impact on you.
 >

@@ -1,8 +1,8 @@
 # Check this guide for more information about publishing to ghcr.io with GitHub Actions:
 # https://docs.github.com/en/packages/managing-github-packages-using-github-actions-workflows/publishing-and-installing-a-package-with-github-actions#upgrading-a-workflow-that-accesses-ghcrio
 
-# Build the Docker image and push it to the registry
-name: docker_publish
+# Build the container image and push it to the registry
+name: container_publish
 
 on:
   push:
@@ -16,7 +16,7 @@ permissions:
   packages: write
 
 jobs:
-  docker:
+  container:
     runs-on: ubuntu-latest
 
     steps:
@@ -25,8 +25,8 @@ jobs:
         with:
           submodules: true
 
-      - name: Build docker
-        uses: ./.github/workflows/docker-reused-steps
+      - name: Build container
+        uses: ./.github/workflows/container-reused-steps
         with:
           QUAY_USERNAME: ${{ secrets.QUAY_USERNAME }}
           QUAY_TOKEN: ${{ secrets.QUAY_TOKEN }}
