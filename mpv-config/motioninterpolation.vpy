@@ -52,15 +52,16 @@ if not (mpix > 2.5 or clip.fps_num/clip.fps_den > 59):
         'mode': 3,
     }
 
-    if mpix > 1.5:
-        # can't handle these on Full HD with Intel i5-2500k
-        # see the description of these parameters in http://avisynth.org.ru/mvtools/mvtools2.html#functions
-        analParams['search'] = 0
-        blockParams['mode'] = 0
-        quality = 'low'
-    else:
-        quality = 'high'
+    # if mpix > 1.5:
+    #     # can't handle these on Full HD with Intel i5-2500k
+    #     # see the description of these parameters in http://avisynth.org.ru/mvtools/mvtools2.html#functions
+    #     analParams['search'] = 0
+    #     blockParams['mode'] = 0
+    #     quality = 'low'
+    # else:
+    #     quality = 'high'
 
+    quality = 'high'
 
     dst_fps_num = int(dst_fps * 1e4)
     dst_fps_den = int(1e4)

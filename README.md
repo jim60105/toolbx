@@ -9,23 +9,42 @@ This is the Fedora Toolbox images with some additional tools installed.
 
 Get the Containerfile at [GitHub](https://github.com/jim60105/toolbx), or pull the image from [ghcr.io](https://github.com/jim60105?tab=packages&repo_name=toolbx) or [quay.io](https://quay.io/repository/jim60105/fedora-toolbox-41).
 
-## fedora-toolbox-41
+## fedora toolbox
 
 This image is for my main development environment. It contains the tools I use for my coding and development.
+
+```bash
+toolbox create -i quay.io/jim60105/toolbx:latest fedora-toolbox-41
+```
 
 > [!IMPORTANT]  
 > Following this guide to setup os keyring to use `gnome-libsecret`:  
 > <https://code.visualstudio.com/docs/editor/settings-sync#_recommended-configure-the-keyring-to-use-with-vs-code>
 
-### Installed Tools
-
 - Gnome Seahorse (for os keyring)
 - Git Credential Manager
-- [**Sourcegit**](https://github.com/sourcegit-scm/sourcegit)
-- **VSCode**
 - .NET SDK 8.0
 - Fonts
   - Noto Sans CJK
+- [**Sourcegit**](https://github.com/sourcegit-scm/sourcegit)
+- **VSCode**
+
+## video toolbox
+
+This image is for my video editing and video player.
+
+```bash
+toolbox create -i quay.io/jim60105/toolbx-video:latest vid
+```
+
+- Fonts
+  - Noto Sans CJK
+  - [Iansui 芫荽](https://github.com/ButTaiwan/iansui)
+- mpv
+  - vapoursynth + mvtools + [motion interpolation (to 60fps)](https://gist.github.com/phiresky/4bfcfbbd05b3c2ed8645)
+  - [uosc (Nice UI for mpv)](https://github.com/tomasklaen/uosc)
+- yt-dlp
+- ffmpeg
 
 ## Toolbox cheat sheet
 
@@ -34,6 +53,12 @@ This image is for my main development environment. It contains the tools I use f
   ```bash
   toolbox rm -f fedora-toolbox-41 && \
   toolbox create -i quay.io/jim60105/fedora-toolbox-41:latest fedora-toolbox-41
+  ```
+
+- Remove all toolboxes
+
+  ```bash
+  toolbox rm -a
   ```
 
 ## LICENSE
