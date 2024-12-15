@@ -26,6 +26,8 @@ toolbox create -i quay.io/jim60105/toolbx:latest fedora-toolbox-41
 - .NET SDK 8.0
 - Fonts
   - Noto Sans CJK
+  - Cascadia Code
+  - [Iansui 芫荽](https://github.com/ButTaiwan/iansui)
 - [**Sourcegit**](https://github.com/sourcegit-scm/sourcegit)
 - **VSCode**
 

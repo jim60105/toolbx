@@ -4,9 +4,35 @@ ARG VERSION=EDGE
 ARG RELEASE=0
 
 ########################################
-# Install stage
+# Base stage
 ########################################
 FROM registry.fedoraproject.org/fedora-toolbox:41 AS base
+
+# Set dnf config
+RUN cat <<-"EOF" > /etc/dnf/dnf.conf
+[main]
+install_weak_deps=False
+tsflags=nodocs
+EOF
+
+########################################
+# Font unpack stage
+########################################
+FROM base AS font-unpacker
+
+WORKDIR /fonts
+
+ADD https://github.com/ButTaiwan/iansui/releases/download/v1.000/iansui.zip /tmp/iansui.zip
+
+ADD https://github.com/ryanoasis/nerd-fonts/releases/download/v3.3.0/Hack.zip /tmp/hack.zip
+
+RUN unzip -uo /tmp/iansui.zip -d /fonts/iansui && \
+    unzip -uo /tmp/hack.zip -d /fonts/hack
+
+########################################
+# Final stage
+########################################
+FROM base AS final
 
 # Create directories with correct permissions
 ARG UID
@@ -33,13 +59,8 @@ RUN chmod 775 /usr/local/bin/host-runner && \
     "kitty" \
     ); \
     for f in "${bins[@]}"; do \
-        ln -s host-runner /usr/local/bin/$f;\
+    ln -s host-runner "/usr/local/bin/$f";\
     done
-
-########################################
-# Install stage
-########################################
-FROM base AS install
 
 # Make sure the cache is refreshed
 ARG RELEASE
@@ -48,37 +69,32 @@ ARG RELEASE
 ARG TARGETARCH
 ARG TARGETVARIANT
 
-# Set dnf config
-RUN cat <<-"EOF" > /etc/dnf/dnf.conf
-install_weak_deps=False
-tsflags=nodocs
-EOF
-
 RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/var/cache/dnf \
     dnf -y upgrade && \
     # Install os keyring
     # Following this guide to setup os keyring to use gnome-libsecret: https://code.visualstudio.com/docs/editor/settings-sync#_recommended-configure-the-keyring-to-use-with-vs-code
-    dnf -y install seahorse && \
-    # Install VSCode
-    rpm --import https://packages.microsoft.com/keys/microsoft.asc && \
-    echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" | tee /etc/yum.repos.d/vscode.repo > /dev/null && \
-    dnf -y install code && \
-    # Install .NET
-    dnf -y install dotnet-sdk-8.0 && \
-    # Install git-credential-manager
-    dotnet tool install -g git-credential-manager && \
-    /root/.dotnet/tools/git-credential-manager configure && \
-    # Install sourcegit
-    wget -O /tmp/sourcegit.rpm https://github.com/sourcegit-scm/sourcegit/releases/download/v8.42/sourcegit-8.42-1.x86_64.rpm && \
-    dnf -y install /tmp/sourcegit.rpm && \
-    rm -f /tmp/sourcegit.rpm && \
-    # Fonts
-    dnf -y install google-noto-sans-cjk-fonts
+    dnf -y install seahorse
 
-########################################
-# Final stage
-########################################
-FROM install AS final
+# Install VSCode
+RUN rpm --import https://packages.microsoft.com/keys/microsoft.asc && \
+    echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" | tee /etc/yum.repos.d/vscode.repo > /dev/null && \
+    dnf -y install code
+
+# Install .NET
+RUN dnf -y install dotnet-sdk-8.0
+
+# Install git-credential-manager
+RUN dotnet tool install -g git-credential-manager && \
+    /root/.dotnet/tools/git-credential-manager configure
+
+# Install sourcegit
+ADD https://github.com/sourcegit-scm/sourcegit/releases/download/v8.42/sourcegit-8.42-1.x86_64.rpm /tmp/sourcegit.rpm
+RUN dnf -y install /tmp/sourcegit.rpm && \
+    rm -f /tmp/sourcegit.rpm
+
+# Fonts
+RUN dnf -y install google-noto-sans-cjk-fonts cascadia-fonts-all
+COPY --chown=$UID:0 --chmod=775 --from=font-unpacker /fonts /usr/local/share/fonts
 
 ENV GCM_CREDENTIAL_STORE=gpg
 
@@ -95,5 +111,5 @@ LABEL name="jim60105/toolbx" \
     # This should be a number, incremented with each change
     release=${RELEASE} \
     io.k8s.display-name="toolbx"
-    # summary="" \
-    # description=""
+# summary="" \
+# description=""

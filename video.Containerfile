@@ -55,6 +55,7 @@ RUN install -d -m 775 -o $UID -g 0 /licenses
 
 # Copy licenses (OpenShift Policy)
 COPY --chown=$UID:0 --chmod=775 LICENSE /licenses/Containerfile.LICENSE
+
 # ffmpeg
 COPY --from=docker.io/mwader/static-ffmpeg:latest /ffmpeg /usr/bin/
 COPY --from=docker.io/mwader/static-ffmpeg:latest /ffprobe /usr/bin/
@@ -76,7 +77,7 @@ RUN bins=( \
     "kitty" \
     ); \
     for f in "${bins[@]}"; do \
-        ln -s host-runner "/usr/local/bin/$f";\
+    ln -s host-runner "/usr/local/bin/$f";\
     done
 
 # Copy fonts
@@ -119,5 +120,5 @@ LABEL name="jim60105/toolbx" \
     # This should be a number, incremented with each change
     release=${RELEASE} \
     io.k8s.display-name="toolbx-video"
-    # summary="" \
-    # description=""
+# summary="" \
+# description=""
