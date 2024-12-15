@@ -26,6 +26,7 @@ RUN chmod 775 /usr/local/bin/host-runner && \
     bins=( \
     "flatpak" \
     "podman" \
+    "docker" \
     "rpm-ostree" \
     "systemctl" \
     "xdg-open" \
@@ -46,6 +47,12 @@ ARG RELEASE
 # RUN mount cache for multi-arch: https://github.com/docker/buildx/issues/549#issuecomment-1788297892
 ARG TARGETARCH
 ARG TARGETVARIANT
+
+# Set dnf config
+RUN cat <<-"EOF" > /etc/dnf/dnf.conf
+install_weak_deps=False
+tsflags=nodocs
+EOF
 
 RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/var/cache/dnf \
     dnf -y upgrade && \

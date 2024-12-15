@@ -2,12 +2,12 @@
 # https://docs.github.com/en/packages/managing-github-packages-using-github-actions-workflows/publishing-and-installing-a-package-with-github-actions#upgrading-a-workflow-that-accesses-ghcrio
 
 # Build the container image and push it to the registry
-name: build-fedora-toolbox-41
+name: build-fedora
 
 on:
   push:
     paths:
-      - fedora-toolbox-41.Containerfile
+      - fedora.Containerfile
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -18,8 +18,10 @@ permissions:
   packages: write
 
 jobs:
-  build-fedora-toolbox-41:
+  build-fedora:
     runs-on: ubuntu-latest
+    env:
+      IMAGE_NAME: toolbx
 
     steps:
       - name: Checkout
@@ -37,16 +39,16 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ghcr.io/${{ github.repository_owner }}/fedora-toolbox-41,quay.io/${{ github.repository_owner }}/fedora-toolbox-41
+          images: ghcr.io/${{ github.repository_owner }}/{{ env.IMAGE_NAME }},quay.io/${{ github.repository_owner }}/{{ env.IMAGE_NAME }}
           tags: |
             ${{ github.ref_name }}
             latest
 
-      - name: Build and push fedora-toolbox-41
+      - name: Build and push toolbx
         uses: docker/build-push-action@v5
         with:
           context: .
-          file: ./fedora-toolbox-41.Containerfile
+          file: ./fedora.Containerfile
           push: true
           target: final
           tags: ${{ steps.meta.outputs.tags }}
@@ -56,7 +58,7 @@ jobs:
             RELEASE=${{ github.run_number }}
           platforms: linux/amd64
           # Cache to registry instead of gha to avoid the capacity limit.
-          cache-from: type=registry,ref=ghcr.io/${{ github.repository_owner }}/fedora-toolbox-41:cache
-          cache-to: type=registry,ref=ghcr.io/${{ github.repository_owner }}/fedora-toolbox-41:cache,mode=max
+          cache-from: type=registry,ref=ghcr.io/${{ github.repository_owner }}/{{ env.IMAGE_NAME }}:cache
+          cache-to: type=registry,ref=ghcr.io/${{ github.repository_owner }}/{{ env.IMAGE_NAME }}:cache,mode=max
           sbom: true
           provenance: true

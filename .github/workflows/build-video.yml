@@ -20,6 +20,8 @@ permissions:
 jobs:
   build-video:
     runs-on: ubuntu-latest
+    env:
+      IMAGE_NAME: toolbx-video
 
     steps:
       - name: Checkout
@@ -37,12 +39,12 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ghcr.io/${{ github.repository_owner }}/toolbx-video,quay.io/${{ github.repository_owner }}/toolbx-video
+          images: ghcr.io/${{ github.repository_owner }}/{{ env.IMAGE_NAME }},quay.io/${{ github.repository_owner }}/{{ env.IMAGE_NAME }}
           tags: |
             ${{ github.ref_name }}
             latest
 
-      - name: Build and push video
+      - name: Build and push toolbx
         uses: docker/build-push-action@v5
         with:
           context: .
@@ -56,7 +58,7 @@ jobs:
             RELEASE=${{ github.run_number }}
           platforms: linux/amd64
           # Cache to registry instead of gha to avoid the capacity limit.
-          cache-from: type=registry,ref=ghcr.io/${{ github.repository_owner }}/toolbx-video:cache
-          cache-to: type=registry,ref=ghcr.io/${{ github.repository_owner }}/toolbx-video:cache,mode=max
+          cache-from: type=registry,ref=ghcr.io/${{ github.repository_owner }}/{{ env.IMAGE_NAME }}:cache
+          cache-to: type=registry,ref=ghcr.io/${{ github.repository_owner }}/{{ env.IMAGE_NAME }}:cache,mode=max
           sbom: true
           provenance: true
