@@ -36,6 +36,20 @@ jobs:
           QUAY_USERNAME: ${{ secrets.QUAY_USERNAME }}
           QUAY_TOKEN: ${{ secrets.QUAY_TOKEN }}
 
+      - name: Login to GitHub Container Registry
+        uses: redhat-actions/podman-login@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ github.token }}
+  
+      - name: Login to Quay Container Registry
+        uses: redhat-actions/podman-login@v1
+        with:
+          registry: quay.io
+          username: ${{ secrets.QUAY_USERNAME }}
+          password: ${{ secrets.QUAY_TOKEN }}
+
       - name: Container meta:${{ github.ref_name }}
         id: meta
         uses: docker/metadata-action@v5
@@ -45,21 +59,31 @@ jobs:
             ${{ github.ref_name }}
             latest
 
-      - name: Build and push toolbx
-        uses: docker/build-push-action@v5
+      - name: Install latest buildah
+        run: |
+          sudo apt-get update
+          sudo apt-get -y install buildah
+          buildah version
+
+      - name: Buildah Action
+        uses: redhat-actions/buildah-build@v2
         with:
           context: .
-          file: ./video.Containerfile
-          push: true
-          target: final
+          containerfiles: |
+            ./video.Containerfile
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           build-args: |
             VERSION=${{ github.ref_name }}
             RELEASE=${{ github.run_number }}
           platforms: linux/amd64
-          # Cache to registry instead of gha to avoid the capacity limit.
-          cache-from: type=registry,ref=ghcr.io/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:cache
-          cache-to: type=registry,ref=ghcr.io/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:cache,mode=max
-          sbom: true
-          provenance: true
+          oci: true
+          extra-args: |
+            --cache-from=ghcr.io/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}
+            --cache-to=ghcr.io/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}
+            --layers=true
+
+      - name: Build and push toolbx
+        uses: redhat-actions/push-to-registry@v2
+        with:
+          tags: ${{ steps.meta.outputs.tags }}
