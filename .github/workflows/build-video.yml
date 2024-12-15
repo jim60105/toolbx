@@ -1,0 +1,62 @@
+# Check this guide for more information about publishing to ghcr.io with GitHub Actions:
+# https://docs.github.com/en/packages/managing-github-packages-using-github-actions-workflows/publishing-and-installing-a-package-with-github-actions#upgrading-a-workflow-that-accesses-ghcrio
+
+# Build the container image and push it to the registry
+name: build-video
+
+on:
+  push:
+    paths:
+      - video.Containerfile
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# Sets the permissions granted to the GITHUB_TOKEN for the actions in this job.
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  build-video:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: true
+
+      - name: Setup and login to Quay
+        uses: ./.github/workflows/container-reused-steps
+        with:
+          QUAY_USERNAME: ${{ secrets.QUAY_USERNAME }}
+          QUAY_TOKEN: ${{ secrets.QUAY_TOKEN }}
+
+      - name: Container meta:${{ github.ref_name }}
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ghcr.io/${{ github.repository_owner }}/toolbx-video,quay.io/${{ github.repository_owner }}/toolbx-video
+          tags: |
+            ${{ github.ref_name }}
+            latest
+
+      - name: Build and push video
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./video.Containerfile
+          push: true
+          target: final
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          build-args: |
+            VERSION=${{ github.ref_name }}
+            RELEASE=${{ github.run_number }}
+          platforms: linux/amd64
+          # Cache to registry instead of gha to avoid the capacity limit.
+          cache-from: type=registry,ref=ghcr.io/${{ github.repository_owner }}/toolbx-video:cache
+          cache-to: type=registry,ref=ghcr.io/${{ github.repository_owner }}/toolbx-video:cache,mode=max
+          sbom: true
+          provenance: true

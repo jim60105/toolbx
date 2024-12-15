@@ -4,14 +4,27 @@
         "btop",
         "Buildx",
         "containertoolbx",
+        "devel",
         "distroless",
         "fedoraproject",
+        "fftw",
         "gplv",
+        "hadolint",
+        "iansui",
+        "libfftw",
         "libsecret",
+        "libvapoursynth",
+        "mvtools",
+        "nasm",
+        "nodocs",
         "Noto",
         "ostree",
+        "pipefail",
         "sarif",
+        "setopt",
         "sourcegit",
-        "toolbx"
+        "toolbx",
+        "tsflags",
+        "vapoursynth"
     ]
 }

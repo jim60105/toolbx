@@ -1,0 +1,3 @@
+[submodule "vapoursynth-mvtools"]
+	path = vapoursynth-mvtools
+	url = https://github.com/dubhater/vapoursynth-mvtools.git
