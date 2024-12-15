@@ -40,9 +40,11 @@ RUN --mount=source=vapoursynth-mvtools,target=/vapoursynth-mvtools,z \
 ########################################
 FROM base AS font-unpacker
 
+WORKDIR /fonts
+
 ADD https://github.com/ButTaiwan/iansui/releases/download/v1.000/iansui.zip /tmp/iansui.zip
 
-RUN unzip /tmp/iansui.zip -d /fonts
+RUN unzip /tmp/iansui.zip -d /fonts/iansui
 
 ########################################
 # Final stage
@@ -81,7 +83,7 @@ RUN bins=( \
     done
 
 # Copy fonts
-COPY --chown=$UID:0 --chmod=775 --from=font-unpacker /fonts /usr/local/share/fonts/iansui
+COPY --chown=$UID:0 --chmod=775 --from=font-unpacker /fonts /usr/local/share/fonts
 
 # Copy mvtools and dependencies
 COPY --from=build-mvtools /lib64/libfftw3* /lib64/
