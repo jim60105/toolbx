@@ -52,7 +52,6 @@ RUN chmod 775 /usr/local/bin/host-runner && \
     bins=( \
     "flatpak" \
     "podman" \
-    "buildah" \
     "docker" \
     "rpm-ostree" \
     "systemctl" \
