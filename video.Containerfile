@@ -123,8 +123,14 @@ ADD --chown=$UID:0 --chmod=775 https://github.com/mpv-player/mpv/raw/refs/heads/
 COPY --chown=$UID:0 --chmod=775 video/desktop /usr/share/applications
 
 # Copy mpv-opener
-# Handle links protocol starting with mpv:// and open with mpv
-COPY --chown=$UID:0 --chmod=775 video/mpv-opener.sh /usr/local/bin/mpv-opener
+RUN cat <<-"EOF" > /usr/local/bin/mpv-opener && \
+    chmod 775 /usr/local/bin/mpv-opener
+#!/bin/bash
+# Remove the 'mpv:' prefix from the URL
+url=${1#mpv}
+# Run mpv with the modified URL
+mpv -- https"$url"
+EOF
 
 # RUN mount cache for multi-arch: https://github.com/docker/buildx/issues/549#issuecomment-1788297892
 ARG TARGETARCH
