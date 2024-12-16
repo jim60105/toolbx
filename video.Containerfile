@@ -31,7 +31,7 @@ RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/v
     dnf -y group install c-development development-tools && \
     dnf -y install meson cmake vapoursynth-devel fftw-devel nasm
 
-RUN --mount=source=vapoursynth-mvtools,target=/vapoursynth-mvtools,z \
+RUN --mount=source=video/vapoursynth-mvtools,target=/vapoursynth-mvtools,z \
     meson setup /vapoursynth-mvtools && \
     ninja install
 
@@ -113,10 +113,10 @@ COPY --from=build-mvtools /lib64/libvapoursynth.so /lib64/
 COPY --from=build-mvtools /usr/local/lib64/libmvtools.so /usr/local/lib64/
 
 # Copy mpv configs
-COPY --chown=$UID:0 --chmod=775 mpv-config /etc/mpv
+COPY --chown=$UID:0 --chmod=775 video/mpv-config /etc/mpv
 COPY --chown=$UID:0 --chmod=775 --from=uosc-unpacker /uosc /etc/mpv
-COPY --chown=$UID:0 --chmod=775 thumbfast/thumbfast.conf /etc/mpv/scripts-opts
-COPY --chown=$UID:0 --chmod=775 thumbfast/thumbfast.lua /etc/mpv/scripts
+COPY --chown=$UID:0 --chmod=775 video/thumbfast/thumbfast.conf /etc/mpv/scripts-opts
+COPY --chown=$UID:0 --chmod=775 video/thumbfast/thumbfast.lua /etc/mpv/scripts
 ADD --chown=$UID:0 --chmod=775 https://github.com/mpv-player/mpv/raw/refs/heads/master/TOOLS/lua/autoload.lua /etc/mpv/scripts/autoload.lua
 
 # Copy desktop files

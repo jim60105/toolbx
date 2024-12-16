@@ -1,6 +1,6 @@
-[submodule "vapoursynth-mvtools"]
-	path = vapoursynth-mvtools
+[submodule "video/vapoursynth-mvtools"]
+	path = video/vapoursynth-mvtools
 	url = https://github.com/dubhater/vapoursynth-mvtools.git
-[submodule "thumbfast"]
-	path = thumbfast
+[submodule "video/thumbfast"]
+	path = video/thumbfast
 	url = https://github.com/po5/thumbfast.git
