@@ -50,17 +50,12 @@ toolbox create -i quay.io/jim60105/toolbx-video:latest vid
 
 ## Toolbox cheat sheet
 
-- Remove and recreate the main toolbox
+- Recreate all the toolboxes
 
   ```bash
-  toolbox rm -f fedora-toolbox-41 && \
-  toolbox create -i quay.io/jim60105/fedora-toolbox-41:latest fedora-toolbox-41
-  ```
-
-- Remove all toolboxes
-
-  ```bash
-  toolbox rm -a
+  toolbox rm -af && \
+  toolbox create -i quay.io/jim60105/toolbx:latest fedora-toolbox-41 && \
+  toolbox create -i quay.io/jim60105/toolbx-video:latest video
   ```
 
 ## LICENSE
