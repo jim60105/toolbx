@@ -113,7 +113,8 @@ RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/v
     # Install yt-dlp
     yt-dlp \
     # Install fonts
-    google-noto-sans-cjk-fonts
+    google-noto-sans-cjk-fonts \
+    hanamin-fonts
 
 # Copy mpv configs
 COPY --chown=$UID:0 --chmod=775 mpv-config /etc/mpv
