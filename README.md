@@ -42,11 +42,15 @@ toolbox create -i quay.io/jim60105/toolbx-video:latest vid
 - Fonts
   - Noto Sans CJK
   - [Iansui 芫荽](https://github.com/ButTaiwan/iansui)
+  - Hina Mincho
 - mpv
   - vapoursynth + mvtools + [motion interpolation (to 60fps)](https://gist.github.com/phiresky/4bfcfbbd05b3c2ed8645)
-  - [uosc (Nice UI for mpv)](https://github.com/tomasklaen/uosc)
+  - [uosc (Nice UI for mpv)](https://github.com/tomasklaen/uosc) + [thumbfast](https://github.com/po5/thumbfast)
 - yt-dlp
 - ffmpeg
+
+> [!TIP]
+> Trigger motion interpolation in mpv by pressing `b` key.
 
 ## Toolbox cheat sheet
 
@@ -55,6 +59,13 @@ toolbox create -i quay.io/jim60105/toolbx-video:latest vid
   ```bash
   toolbox rm -af && \
   toolbox create -i quay.io/jim60105/toolbx:latest fedora-toolbox-41 && \
+  toolbox create -i quay.io/jim60105/toolbx-video:latest video
+  ```
+
+- Recreate video toolbox
+
+  ```bash
+  toolbox rm -f video && \
   toolbox create -i quay.io/jim60105/toolbx-video:latest video
   ```
 
