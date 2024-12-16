@@ -46,6 +46,7 @@ toolbox create -i quay.io/jim60105/toolbx-video:latest vid
 - mpv
   - vapoursynth + mvtools + [motion interpolation (to 60fps)](https://gist.github.com/phiresky/4bfcfbbd05b3c2ed8645)
   - [uosc (Nice UI for mpv)](https://github.com/tomasklaen/uosc) + [thumbfast](https://github.com/po5/thumbfast)
+  - [mpv-opener](./video/mpv-opener.sh)
 - yt-dlp
 - ffmpeg
 

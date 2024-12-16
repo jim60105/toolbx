@@ -120,7 +120,11 @@ COPY --chown=$UID:0 --chmod=775 video/thumbfast/thumbfast.lua /etc/mpv/scripts
 ADD --chown=$UID:0 --chmod=775 https://github.com/mpv-player/mpv/raw/refs/heads/master/TOOLS/lua/autoload.lua /etc/mpv/scripts/autoload.lua
 
 # Copy desktop files
-COPY --chown=$UID:0 --chmod=775 video/desktop/mpv.desktop /usr/share/applications
+COPY --chown=$UID:0 --chmod=775 video/desktop /usr/share/applications
+
+# Copy mpv-opener
+# Handle links protocol starting with mpv:// and open with mpv
+COPY --chown=$UID:0 --chmod=775 video/mpv-opener.sh /usr/local/bin/mpv-opener
 
 # RUN mount cache for multi-arch: https://github.com/docker/buildx/issues/549#issuecomment-1788297892
 ARG TARGETARCH
