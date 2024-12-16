@@ -86,9 +86,18 @@ RUN bins=( \
 COPY --chown=$UID:0 --chmod=775 --from=font-unpacker /fonts /usr/local/share/fonts
 
 # Copy mvtools and dependencies
-COPY --from=build-mvtools /lib64/libfftw3* /lib64/
-COPY --from=build-mvtools /lib64/libvapoursynth* /lib64/
-COPY --from=build-mvtools /usr/local/lib64/* /usr/local/lib64/
+COPY --from=build-mvtools /lib64/libfftw3q_threads.so /lib64/
+COPY --from=build-mvtools /lib64/libfftw3q_omp.so /lib64/
+COPY --from=build-mvtools /lib64/libfftw3q.so /lib64/
+COPY --from=build-mvtools /lib64/libfftw3l_threads.so /lib64/
+COPY --from=build-mvtools /lib64/libfftw3l_omp.so /lib64/
+COPY --from=build-mvtools /lib64/libfftw3l.so /lib64/
+COPY --from=build-mvtools /lib64/libfftw3f_threads.so /lib64/
+COPY --from=build-mvtools /lib64/libfftw3f_omp.so /lib64/
+COPY --from=build-mvtools /lib64/libfftw3f.so /lib64/
+COPY --from=build-mvtools /lib64/libvapoursynth-script.so /lib64/
+COPY --from=build-mvtools /lib64/libvapoursynth.so /lib64/
+COPY --from=build-mvtools /usr/local/lib64/libmvtools.so /lib64/
 
 # RUN mount cache for multi-arch: https://github.com/docker/buildx/issues/549#issuecomment-1788297892
 ARG TARGETARCH
@@ -100,7 +109,7 @@ RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/v
     dnf -y upgrade && \
     dnf -y install \
     # Install mpv and vapoursynth
-    mpv python3-vapoursynth \
+    mpv python3-vapoursynth vapoursynth-tools \
     # Install yt-dlp
     yt-dlp \
     # Install fonts

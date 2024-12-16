@@ -12,10 +12,14 @@
         "fftw",
         "gplv",
         "hadolint",
+        "hanamin",
+        "hwdec",
         "iansui",
         "libfftw",
+        "libmvtools",
         "libsecret",
         "libvapoursynth",
+        "motioninterpolation",
         "mvtools",
         "mwader",
         "nasm",
@@ -29,6 +33,7 @@
         "toolbx",
         "tsflags",
         "uosc",
-        "vapoursynth"
+        "vapoursynth",
+        "webp"
     ]
 }
