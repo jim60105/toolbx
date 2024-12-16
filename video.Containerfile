@@ -119,6 +119,9 @@ COPY --chown=$UID:0 --chmod=775 thumbfast/thumbfast.conf /etc/mpv/scripts-opts
 COPY --chown=$UID:0 --chmod=775 thumbfast/thumbfast.lua /etc/mpv/scripts
 ADD --chown=$UID:0 --chmod=775 https://github.com/mpv-player/mpv/raw/refs/heads/master/TOOLS/lua/autoload.lua /etc/mpv/scripts/autoload.lua
 
+# Copy desktop files
+COPY --chown=$UID:0 --chmod=775 video/desktop/mpv.desktop /usr/share/applications
+
 # RUN mount cache for multi-arch: https://github.com/docker/buildx/issues/549#issuecomment-1788297892
 ARG TARGETARCH
 ARG TARGETVARIANT

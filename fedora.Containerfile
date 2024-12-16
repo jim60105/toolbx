@@ -79,6 +79,7 @@ RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/v
 RUN rpm --import https://packages.microsoft.com/keys/microsoft.asc && \
     echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" | tee /etc/yum.repos.d/vscode.repo > /dev/null && \
     dnf -y install code
+COPY --chown=$UID:0 --chmod=775 fedora/desktop/code.desktop /usr/share/applications/
 
 # Install .NET
 RUN dnf -y install dotnet-sdk-8.0
@@ -91,6 +92,7 @@ RUN dotnet tool install -g git-credential-manager && \
 ADD https://github.com/sourcegit-scm/sourcegit/releases/download/v8.42/sourcegit-8.42-1.x86_64.rpm /tmp/sourcegit.rpm
 RUN dnf -y install /tmp/sourcegit.rpm && \
     rm -f /tmp/sourcegit.rpm
+COPY --chown=$UID:0 --chmod=775 fedora/desktop/sourcegit.desktop /usr/share/applications/
 
 # Fonts
 RUN dnf -y install google-noto-sans-cjk-fonts cascadia-fonts-all
