@@ -42,9 +42,22 @@ FROM base AS font-unpacker
 
 WORKDIR /fonts
 
-ADD https://github.com/ButTaiwan/iansui/releases/download/v1.000/iansui.zip /tmp/iansui.zip
+ADD https://github.com/ButTaiwan/iansui/releases/latest/download/iansui.zip /tmp/iansui.zip
 
 RUN unzip /tmp/iansui.zip -d /fonts/iansui
+
+########################################
+# UOSC unpack stage
+# (Mpv configs)
+########################################
+
+FROM base AS uosc-unpacker
+
+WORKDIR /uosc
+
+ADD https://github.com/tomasklaen/uosc/releases/latest/download/uosc.zip /tmp/uosc.zip
+
+RUN unzip /tmp/uosc.zip -d /uosc
 
 ########################################
 # Final stage
@@ -97,7 +110,14 @@ COPY --from=build-mvtools /lib64/libfftw3f_omp.so /lib64/
 COPY --from=build-mvtools /lib64/libfftw3f.so /lib64/
 COPY --from=build-mvtools /lib64/libvapoursynth-script.so /lib64/
 COPY --from=build-mvtools /lib64/libvapoursynth.so /lib64/
-COPY --from=build-mvtools /usr/local/lib64/libmvtools.so /lib64/
+COPY --from=build-mvtools /usr/local/lib64/libmvtools.so /usr/local/lib64/
+
+# Copy mpv configs
+COPY --chown=$UID:0 --chmod=775 mpv-config /etc/mpv
+COPY --chown=$UID:0 --chmod=775 --from=uosc-unpacker /uosc /etc/mpv
+COPY --chown=$UID:0 --chmod=775 thumbfast/thumbfast.conf /etc/mpv/scripts-opts
+COPY --chown=$UID:0 --chmod=775 thumbfast/thumbfast.lua /etc/mpv/scripts
+ADD --chown=$UID:0 --chmod=775 https://github.com/mpv-player/mpv/raw/refs/heads/master/TOOLS/lua/autoload.lua /etc/mpv/scripts/autoload.lua
 
 # RUN mount cache for multi-arch: https://github.com/docker/buildx/issues/549#issuecomment-1788297892
 ARG TARGETARCH
@@ -115,9 +135,6 @@ RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/v
     # Install fonts
     google-noto-sans-cjk-fonts \
     hanamin-fonts
-
-# Copy mpv configs
-COPY --chown=$UID:0 --chmod=775 mpv-config /etc/mpv
 
 ARG VERSION
 # ARG RELEASE

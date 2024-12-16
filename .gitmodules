@@ -1,3 +1,6 @@
 [submodule "vapoursynth-mvtools"]
 	path = vapoursynth-mvtools
 	url = https://github.com/dubhater/vapoursynth-mvtools.git
+[submodule "thumbfast"]
+	path = thumbfast
+	url = https://github.com/po5/thumbfast.git
