@@ -7,7 +7,7 @@ name: build-fedora
 on:
   push:
     paths:
-      - fedora.Containerfile
+      - base.Containerfile
       - fedora/**
 
   # Allows you to run this workflow manually from the Actions tab
@@ -50,7 +50,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
-          file: ./fedora.Containerfile
+          file: ./base.Containerfile
           push: true
           target: final
           tags: ${{ steps.meta.outputs.tags }}
