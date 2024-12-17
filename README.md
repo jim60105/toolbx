@@ -46,7 +46,19 @@ toolbox create -i quay.io/jim60105/toolbx-video:latest vid
 - mpv
   - vapoursynth + mvtools + [motion interpolation (to 60fps)](https://gist.github.com/phiresky/4bfcfbbd05b3c2ed8645)
   - [uosc (Nice UI for mpv)](https://github.com/tomasklaen/uosc) + [thumbfast](https://github.com/po5/thumbfast)
-  - [mpv-opener](./video/mpv-opener.sh)
+  - [mpv-opener](./video/mpv-opener.sh)  
+    Execute this script on the youtube video page:
+
+    ```javascript
+    (function () {
+        window.open(window.location.href.replace(/^https?:/, 'mpv:'), '_blank');
+        var video = document.querySelector('video');
+        if (video) {
+            video.pause();
+        }
+    })();
+    ```
+
 - yt-dlp
 - ffmpeg
 
