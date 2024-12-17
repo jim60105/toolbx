@@ -38,4 +38,4 @@ jobs:
           QUAY_TOKEN: ${{ secrets.QUAY_TOKEN }}
           IMAGE_NAME: ${{ env.IMAGE_NAME }}
           CONTAINERFILE: ./base.Containerfile
-          BASE_IMAGE: quay.io/jim60105/toolbx:latest
+          BASE_IMAGE: registry.fedoraproject.org/fedora-toolbox:41
