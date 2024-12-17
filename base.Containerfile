@@ -100,14 +100,13 @@ RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/v
 RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/var/cache/dnf \
     dnf -y install dotnet-sdk-8.0
 
-# Install rust
+# Install Rustup
 RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/var/cache/dnf \
-    dnf -y install rustup && \
-    rustup-init -y
+    dnf -y install rustup
 
 # Install git-credential-manager
-RUN dotnet tool install -g git-credential-manager && \
-    /root/.dotnet/tools/git-credential-manager configure
+RUN curl -L https://aka.ms/gcm/linux-install-source.sh | sh && \
+git-credential-manager configure
 
 ARG VERSION
 ARG RELEASE
