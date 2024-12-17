@@ -2,17 +2,13 @@
 # https://docs.github.com/en/packages/managing-github-packages-using-github-actions-workflows/publishing-and-installing-a-package-with-github-actions#upgrading-a-workflow-that-accesses-ghcrio
 
 # Build the container image and push it to the registry
-name: build-video
+name: build-base
 
 on:
   push:
     paths:
-      - video.Containerfile
-      - video/**
-
-  workflow_run:
-    workflows: [build-base]
-    types: [completed]
+      - base.Containerfile
+      # - base/**
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -23,10 +19,10 @@ permissions:
   packages: write
 
 env:
-  IMAGE_NAME: toolbx-video
+  IMAGE_NAME: toolbx
 
 jobs:
-  build-video:
+  build:
     runs-on: ubuntu-latest
 
     steps:
@@ -35,14 +31,11 @@ jobs:
         with:
           submodules: true
 
-      - name: Remove ,z from video.Containerfile
-        run: sed -i 's/,z//g' video.Containerfile
-
-      - name: Build and push toolbx
+      - name: Setup and login to Quay
         uses: ./.github/workflows/container-reused-steps
         with:
           QUAY_USERNAME: ${{ secrets.QUAY_USERNAME }}
           QUAY_TOKEN: ${{ secrets.QUAY_TOKEN }}
-          CONTAINERFILE: ./video.Containerfile
           IMAGE_NAME: ${{ env.IMAGE_NAME }}
+          CONTAINERFILE: ./base.Containerfile
           BASE_IMAGE: quay.io/jim60105/toolbx:latest

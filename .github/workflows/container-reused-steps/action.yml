@@ -7,6 +7,13 @@ inputs:
     required: true
   QUAY_TOKEN:
     required: true
+  IMAGE_NAME:
+    required: true
+  CONTAINERFILE:
+    required: true
+  BASE_IMAGE:
+    required: false
+    default: latest
 
 runs:
   using: composite
@@ -32,3 +39,31 @@ runs:
         username: ${{ inputs.QUAY_USERNAME }}
         password: ${{ inputs.QUAY_TOKEN }}
 
+    - name: Container meta:${{ github.ref_name }}
+      id: meta
+      uses: docker/metadata-action@v5
+      with:
+        images: ghcr.io/${{ github.repository_owner }}/${{ inputs.IMAGE_NAME }},quay.io/${{ github.repository_owner }}/${{ inputs.IMAGE_NAME }}
+        tags: |
+          ${{ github.ref_name }}
+          latest
+
+    - name: Build and push toolbx
+      uses: docker/build-push-action@v5
+      with:
+        context: .
+        file: ${{ inputs.CONTAINERFILE }}
+        push: true
+        target: final
+        tags: ${{ steps.meta.outputs.tags }}
+        labels: ${{ steps.meta.outputs.labels }}
+        build-args: |
+          VERSION=${{ github.ref_name }}
+          RELEASE=${{ github.run_number }}
+          BASE_IMAGE=${{ inputs.BASE_IMAGE }}
+        platforms: linux/amd64
+        # Cache to registry instead of gha to avoid the capacity limit.
+        cache-from: type=registry,ref=ghcr.io/${{ github.repository_owner }}/${{ inputs.IMAGE_NAME }}:cache
+        cache-to: type=registry,ref=ghcr.io/${{ github.repository_owner }}/${{ inputs.IMAGE_NAME }}:cache,mode=max
+        sbom: true
+        provenance: true
