@@ -1,7 +1,7 @@
 [Desktop Entry]
 Name=Sourcegit
 Comment=Git Management Application
-Exec=toolbox run sourcegit
+Exec=toolbox run -c sourcegit sourcegit
 Icon=sourcegit
 Terminal=false
 Type=Application

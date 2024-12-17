@@ -2,18 +2,12 @@
 ARG UID=1000
 ARG VERSION=EDGE
 ARG RELEASE=0
+ARG BASE_VERSION=quay.io/jim60105/toolbx:latest
 
 ########################################
 # Base stage
 ########################################
-FROM registry.fedoraproject.org/fedora-toolbox:41 AS base
-
-# Set dnf config
-RUN cat <<-"EOF" > /etc/dnf/dnf.conf
-[main]
-install_weak_deps=False
-tsflags=nodocs
-EOF
+FROM ${BASE_VERSION} AS base
 
 ########################################
 # Build mvtools stage
@@ -36,17 +30,6 @@ RUN --mount=source=video/vapoursynth-mvtools,target=/vapoursynth-mvtools,z \
     ninja install
 
 ########################################
-# Font unpack stage
-########################################
-FROM base AS font-unpacker
-
-WORKDIR /fonts
-
-ADD https://github.com/ButTaiwan/iansui/releases/latest/download/iansui.zip /tmp/iansui.zip
-
-RUN unzip /tmp/iansui.zip -d /fonts/iansui
-
-########################################
 # UOSC unpack stage
 # (Mpv configs)
 ########################################
@@ -63,40 +46,11 @@ RUN unzip /tmp/uosc.zip -d /uosc
 # Final stage
 ########################################
 FROM base AS final
-
-# Create directories with correct permissions
 ARG UID
-RUN install -d -m 775 -o $UID -g 0 /licenses
-
-# Copy licenses (OpenShift Policy)
-COPY --chown=$UID:0 --chmod=775 LICENSE /licenses/Containerfile.LICENSE
 
 # ffmpeg
 COPY --from=docker.io/mwader/static-ffmpeg:latest /ffmpeg /usr/bin/
 COPY --from=docker.io/mwader/static-ffmpeg:latest /ffprobe /usr/bin/
-
-# Setup host-runner script and symlinks
-RUN cat <<-"EOF" > /usr/local/bin/host-runner && \
-    chmod 775 /usr/local/bin/host-runner
-#!/bin/bash
-executable="$(basename ${0})"
-exec flatpak-spawn --host "${executable}" "${@}"
-EOF
-
-RUN bins=( \
-    "flatpak" \
-    "podman" \
-    "rpm-ostree" \
-    "systemctl" \
-    "xdg-open" \
-    "kitty" \
-    ); \
-    for f in "${bins[@]}"; do \
-    ln -s host-runner "/usr/local/bin/$f";\
-    done
-
-# Copy fonts
-COPY --chown=$UID:0 --chmod=775 --from=font-unpacker /fonts /usr/local/share/fonts
 
 # Copy mvtools and dependencies
 COPY --from=build-mvtools /lib64/libfftw3q_threads.so /lib64/
@@ -122,7 +76,7 @@ ADD --chown=$UID:0 --chmod=775 https://github.com/mpv-player/mpv/raw/refs/heads/
 # Copy desktop files
 COPY --chown=$UID:0 --chmod=775 video/desktop /usr/share/applications
 
-# Copy mpv-opener
+# Setup mpv-opener
 RUN cat <<-"EOF" > /usr/local/bin/mpv-opener && \
     chmod 775 /usr/local/bin/mpv-opener
 #!/bin/bash
@@ -139,28 +93,13 @@ ARG TARGETVARIANT
 # Make sure the cache is refreshed
 ARG RELEASE
 RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/var/cache/dnf \
-    dnf -y upgrade && \
     dnf -y install \
     # Install mpv and vapoursynth
     mpv python3-vapoursynth vapoursynth-tools \
     # Install yt-dlp
-    yt-dlp \
-    # Install fonts
-    google-noto-sans-cjk-fonts \
-    hanamin-fonts
+    yt-dlp
 
 ARG VERSION
-# ARG RELEASE
-LABEL name="jim60105/toolbx" \
-    # Authors for toolbox
-    vendor="containertoolbx" \
-    # Maintainer for this container image
-    maintainer="jim60105" \
-    # Containerfile source repository
-    url="https://github.com/jim60105/toolbx" \
-    version=${VERSION} \
-    # This should be a number, incremented with each change
+LABEL version=${VERSION} \
     release=${RELEASE} \
     io.k8s.display-name="toolbx-video"
-# summary="" \
-# description=""

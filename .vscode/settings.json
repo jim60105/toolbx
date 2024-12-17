@@ -28,6 +28,7 @@
         "Noto",
         "ostree",
         "pipefail",
+        "rustup",
         "sarif",
         "setopt",
         "sourcegit",

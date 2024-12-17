@@ -7,11 +7,11 @@ This is the Fedora Toolbox images with some additional tools installed.
 > [!NOTE]  
 > toolbx is not a typo, check <https://containertoolbx.org/>
 
-Get the Containerfile at [GitHub](https://github.com/jim60105/toolbx), or pull the image from [ghcr.io](https://github.com/jim60105?tab=packages&repo_name=toolbx) or [quay.io](https://quay.io/repository/jim60105/fedora-toolbox-41).
+Get the Containerfile at [GitHub](https://github.com/jim60105/toolbx), or pull the image from [ghcr.io](https://github.com/jim60105?tab=packages&repo_name=toolbx) or [quay.io](https://quay.io/repository/jim60105/toolbx).
 
-## fedora toolbox
+## bas toolbox
 
-This image is for my main development environment. It contains the tools I use for my coding and development.
+This image is for the basic of the other toolboxes.
 
 ```bash
 toolbox create -i quay.io/jim60105/toolbx:latest fedora-toolbox-41
@@ -21,14 +21,32 @@ toolbox create -i quay.io/jim60105/toolbx:latest fedora-toolbox-41
 > Following this guide to setup os keyring to use `gnome-libsecret`:  
 > <https://code.visualstudio.com/docs/editor/settings-sync#_recommended-configure-the-keyring-to-use-with-vs-code>
 
-- Gnome Seahorse (for os keyring)
-- Git Credential Manager
-- .NET SDK 8.0
 - Fonts
   - Noto Sans CJK
   - Cascadia Code
   - [Iansui 芫荽](https://github.com/ButTaiwan/iansui)
+  - Hina Mincho
+- Gnome Seahorse (for os keyring)
+- Git Credential Manager
+- .NET SDK 8.0
+- Rust
+  - rustup
+  - cargo
+
+## sourcegit toolbox
+
+```bash
+toolbox create -i quay.io/jim60105/toolbx-sourcegit:latest sourcegit
+```
+
 - [**Sourcegit**](https://github.com/sourcegit-scm/sourcegit)
+
+## vscode toolbox
+
+```bash
+toolbox create -i quay.io/jim60105/toolbx-vscode:latest vscode
+```
+
 - **VSCode**
 
 ## video toolbox
@@ -39,12 +57,14 @@ This image is for my video editing and video player.
 toolbox create -i quay.io/jim60105/toolbx-video:latest vid
 ```
 
-- Fonts
-  - Noto Sans CJK
-  - [Iansui 芫荽](https://github.com/ButTaiwan/iansui)
-  - Hina Mincho
+- yt-dlp
+- ffmpeg
 - mpv
   - vapoursynth + mvtools + [motion interpolation (to 60fps)](https://gist.github.com/phiresky/4bfcfbbd05b3c2ed8645)
+
+    > [!TIP]
+    > Trigger motion interpolation in mpv by pressing `b` key.
+
   - [uosc (Nice UI for mpv)](https://github.com/tomasklaen/uosc) + [thumbfast](https://github.com/po5/thumbfast)
   - [mpv-opener](./video/mpv-opener.sh)  
     Execute this script on the youtube video page:
@@ -59,19 +79,19 @@ toolbox create -i quay.io/jim60105/toolbx-video:latest vid
     })();
     ```
 
-- yt-dlp
-- ffmpeg
-
-> [!TIP]
-> Trigger motion interpolation in mpv by pressing `b` key.
-
 ## Toolbox cheat sheet
 
 - Recreate all the toolboxes
 
   ```bash
+  podman pull quay.io/jim60105/toolbx:latest \
+              quay.io/jim60105/toolbx-vscode:latest \
+              quay.io/jim60105/toolbx-sourcegit:latest \
+              quay.io/jim60105/toolbx-video:latest && \
   toolbox rm -af && \
   toolbox create -i quay.io/jim60105/toolbx:latest fedora-toolbox-41 && \
+  toolbox create -i quay.io/jim60105/toolbx-vscode:latest vscode && \
+  toolbox create -i quay.io/jim60105/toolbx-sourcegit:latest sourcegit && \
   toolbox create -i quay.io/jim60105/toolbx-video:latest video
   ```
 
