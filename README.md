@@ -57,14 +57,13 @@ This image is for my video editing and video player.
 toolbox create -i quay.io/jim60105/toolbx-video:latest vid
 ```
 
+> [!TIP] 
+> Trigger mpv motion interpolation by pressing `b` key.
+
 - yt-dlp
 - ffmpeg
 - mpv
   - vapoursynth + mvtools + [motion interpolation (to 60fps)](https://gist.github.com/phiresky/4bfcfbbd05b3c2ed8645)
-
-    > [!TIP]
-    > Trigger motion interpolation in mpv by pressing `b` key.
-
   - [uosc (Nice UI for mpv)](https://github.com/tomasklaen/uosc) + [thumbfast](https://github.com/po5/thumbfast)
   - [mpv-opener](./video/mpv-opener.sh)  
     Execute this script on the youtube video page:
