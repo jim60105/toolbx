@@ -31,7 +31,7 @@ jobs:
         with:
           submodules: true
 
-      - name: Setup and login to Quay
+      - name: Build and push toolbx
         uses: ./.github/workflows/container-reused-steps
         with:
           QUAY_USERNAME: ${{ secrets.QUAY_USERNAME }}
