@@ -3,6 +3,7 @@ ARG UID=1000
 ARG VERSION=EDGE
 ARG RELEASE=0
 ARG BASE_VERSION=quay.io/jim60105/toolbx:latest
+ARG RUSTROVER_VERSION=2024.3.1
 
 ########################################
 # Base stage
@@ -17,8 +18,11 @@ FROM base AS download
 WORKDIR /rustrover
 
 # Install RustRover
-ADD https://download-cdn.jetbrains.com/rustrover/RustRover-2024.3.1.tar.gz /tmp/rustrover.tar.gz
-RUN tar -xzf /tmp/rustrover.tar.gz -C /rustrover
+ARG RUSTROVER_VERSION
+ADD https://download-cdn.jetbrains.com/rustrover/RustRover-${RUSTROVER_VERSION}.tar.gz /tmp/rustrover.tar.gz
+RUN tar -xzf /tmp/rustrover.tar.gz -C /rustrover && \
+    rm -f /tmp/rustrover.tar.gz && \
+    mv /rustrover/RustRover-${RUSTROVER_VERSION}/* /rustrover
 
 ########################################
 # Final stage
@@ -27,7 +31,9 @@ FROM base AS final
 ARG UID
 
 # Copy RustRover
-COPY --chown=$UID:0 --chmod=775 --from=download /rustrover /usr/local/bin
+COPY --chown=$UID:0 --chmod=775 --from=download /rustrover /usr/local/bin/rustrover
+
+ENV PATH="/usr/local/bin/rustrover/bin:${PATH}"
 
 ARG VERSION
 ARG RELEASE
