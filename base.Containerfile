@@ -104,9 +104,17 @@ RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/v
 RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/var/cache/dnf \
     dnf -y install rustup
 
+# Install Java 17 (JetBrains loves this)
+RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/var/cache/dnf \
+    dnf -y install java-17-openjdk
+
 # Install git-credential-manager
 RUN curl -L https://aka.ms/gcm/linux-install-source.sh | sh && \
 git-credential-manager configure
+
+# Install aria2
+RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/var/cache/dnf \
+    dnf -y install aria2
 
 ARG VERSION
 ARG RELEASE

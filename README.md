@@ -49,6 +49,14 @@ toolbox create -i quay.io/jim60105/toolbx-vscode:latest vscode
 
 - **VSCode**
 
+## rustrover toolbox
+
+```bash
+toolbox create -i quay.io/jim60105/toolbx-rustrover:latest rustrover
+```
+
+- **RustRover**
+
 ## video toolbox
 
 This image is for my video editing and video player.
