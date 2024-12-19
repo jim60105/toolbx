@@ -33,6 +33,10 @@ ARG UID
 # Copy RustRover
 COPY --chown=$UID:0 --chmod=775 --from=download /rustrover /usr/local/bin/rustrover
 
+# Copy desktop files
+COPY --chown=$UID:0 --chmod=775 --from=download /usr/local/bin/rustrover/bin/rustrover.svg /usr/share/icons/
+COPY --chown=$UID:0 --chmod=775 rustrover/desktop /usr/share/applications
+
 ENV PATH="/usr/local/bin/rustrover/bin:${PATH}"
 
 ARG VERSION
