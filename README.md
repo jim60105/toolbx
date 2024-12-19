@@ -55,7 +55,15 @@ toolbox create -i quay.io/jim60105/toolbx-vscode:latest vscode
 toolbox create -i quay.io/jim60105/toolbx-rustrover:latest rustrover
 ```
 
-- **RustRover**
+- **[RustRover](https://www.jetbrains.com/rust/)**
+
+## rider toolbox
+
+```bash
+toolbox create -i quay.io/jim60105/toolbx-rider:latest rider
+```
+
+- **[Rider](https://www.jetbrains.com/rider/)**
 
 ## video toolbox
 
@@ -94,12 +102,14 @@ toolbox create -i quay.io/jim60105/toolbx-video:latest video
   podman pull quay.io/jim60105/toolbx:latest \
               quay.io/jim60105/toolbx-vscode:latest \
               quay.io/jim60105/toolbx-rustrover:latest \
+              quay.io/jim60105/toolbx-rider:latest \
               quay.io/jim60105/toolbx-sourcegit:latest \
               quay.io/jim60105/toolbx-video:latest && \
   toolbox rm -af && \
   toolbox create -i quay.io/jim60105/toolbx:latest fedora-toolbox-41 && \
   toolbox create -i quay.io/jim60105/toolbx-vscode:latest vscode && \
   toolbox create -i quay.io/jim60105/toolbx-rustrover:latest rustrover && \
+  toolbox create -i quay.io/jim60105/toolbx-rider:latest rider && \
   toolbox create -i quay.io/jim60105/toolbx-sourcegit:latest sourcegit && \
   toolbox create -i quay.io/jim60105/toolbx-video:latest video
   ```

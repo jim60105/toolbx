@@ -1,0 +1,45 @@
+# Check this guide for more information about publishing to ghcr.io with GitHub Actions:
+# https://docs.github.com/en/packages/managing-github-packages-using-github-actions-workflows/publishing-and-installing-a-package-with-github-actions#upgrading-a-workflow-that-accesses-ghcrio
+
+# Build the container image and push it to the registry
+name: build-rider
+
+on:
+  push:
+    paths:
+      - rider.Containerfile
+      - rider/**
+
+  workflow_run:
+    workflows: [build-base]
+    types: [completed]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# Sets the permissions granted to the GITHUB_TOKEN for the actions in this job.
+permissions:
+  contents: read
+  packages: write
+
+env:
+  IMAGE_NAME: toolbx-rider
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: true
+
+      - name: Build and push toolbx
+        uses: ./.github/workflows/container-reused-steps
+        with:
+          QUAY_USERNAME: ${{ secrets.QUAY_USERNAME }}
+          QUAY_TOKEN: ${{ secrets.QUAY_TOKEN }}
+          IMAGE_NAME: ${{ env.IMAGE_NAME }}
+          CONTAINERFILE: ./rider.Containerfile
+          BASE_IMAGE: quay.io/jim60105/toolbx:latest
