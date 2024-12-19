@@ -84,7 +84,7 @@ RUN cat <<-"EOF" > /usr/local/bin/mpv-opener && \
 # Remove the 'mpv:' prefix from the URL
 url=${1#mpv}
 # Run mpv with the modified URL
-mpv -- https"$url"
+mpv --player-operation-mode=pseudo-gui -- https"$url"
 EOF
 
 # RUN mount cache for multi-arch: https://github.com/docker/buildx/issues/549#issuecomment-1788297892
