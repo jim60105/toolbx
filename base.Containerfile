@@ -79,7 +79,9 @@ ARG TARGETVARIANT
 # Make sure the cache is refreshed
 ARG RELEASE
 RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/var/cache/dnf \
-    dnf -y upgrade
+    dnf -y upgrade && \
+    dnf -y install \
+    xdg-utils
 
 # Fonts
 COPY --chown=$UID:0 --chmod=775 --from=font-unpacker /fonts /usr/local/share/fonts
