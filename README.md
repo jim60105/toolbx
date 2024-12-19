@@ -53,6 +53,8 @@ toolbox create -i quay.io/jim60105/toolbx-vscode:latest vscode
 
 ```bash
 toolbox create -i quay.io/jim60105/toolbx-rustrover:latest rustrover
+toolbox run -c rustrover cp /usr/share/icons/rustrover.svg ~/.local/share/icons/
+toolbox run -c rustrover cp /usr/share/applications/jetbrains-rustrover.desktop ~/.local/share/applications/
 ```
 
 - **[RustRover](https://www.jetbrains.com/rust/)**
