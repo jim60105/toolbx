@@ -29,7 +29,7 @@ RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/v
     dnf -y install code
 
 # Copy desktop file
-COPY --chown=$UID:0 --chmod=775 vscode/desktop /usr/share/applications/
+COPY --chown=$UID:0 --chmod=775 vscode/desktop /usr/share/applications
 
 ARG VERSION
 ARG RELEASE

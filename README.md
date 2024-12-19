@@ -45,6 +45,7 @@ toolbox create -i quay.io/jim60105/toolbx-sourcegit:latest sourcegit
 
 ```bash
 toolbox create -i quay.io/jim60105/toolbx-vscode:latest vscode
+toolbox run -c rustrover cp /usr/share/applications/code.desktop ~/.local/share/applications/
 ```
 
 - **VSCode**
