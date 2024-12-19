@@ -62,7 +62,7 @@ toolbox create -i quay.io/jim60105/toolbx-rustrover:latest rustrover
 This image is for my video editing and video player.
 
 ```bash
-toolbox create -i quay.io/jim60105/toolbx-video:latest vid
+toolbox create -i quay.io/jim60105/toolbx-video:latest video
 ```
 
 > [!TIP]  
