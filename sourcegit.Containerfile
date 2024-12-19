@@ -29,14 +29,15 @@ ARG RELEASE
 ARG TARGETARCH
 ARG TARGETVARIANT
 
+# Copy desktop file
+COPY --chown=$UID:0 --chmod=775 sourcegit/icons /usr/share/icons
+COPY --chown=$UID:0 --chmod=775 sourcegit/desktop /usr/share/applications
+
 # Install sourcegit
 ADD https://github.com/sourcegit-scm/sourcegit/releases/download/v8.43/sourcegit-8.43-1.x86_64.rpm /tmp/sourcegit.rpm
 RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/var/cache/dnf \
     dnf -y install /tmp/sourcegit.rpm && \
     rm -f /tmp/sourcegit.rpm
-
-# Copy desktop file
-COPY --chown=$UID:0 --chmod=775 sourcegit/desktop /usr/share/applications/
 
 ARG VERSION
 ARG RELEASE

@@ -74,6 +74,7 @@ COPY --chown=$UID:0 --chmod=775 video/thumbfast/thumbfast.lua /etc/mpv/scripts
 ADD --chown=$UID:0 --chmod=775 https://github.com/mpv-player/mpv/raw/refs/heads/master/TOOLS/lua/autoload.lua /etc/mpv/scripts/autoload.lua
 
 # Copy desktop files
+COPY --chown=$UID:0 --chmod=775 video/icons /usr/share/icons
 COPY --chown=$UID:0 --chmod=775 video/desktop /usr/share/applications
 
 # Setup mpv-opener

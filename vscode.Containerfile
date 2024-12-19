@@ -18,6 +18,10 @@ ARG UID
 # Make sure the cache is refreshed
 ARG RELEASE
 
+# Copy desktop file
+COPY --chown=$UID:0 --chmod=775 vscode/icons /usr/share/icons
+COPY --chown=$UID:0 --chmod=775 vscode/desktop /usr/share/applications
+
 # RUN mount cache for multi-arch: https://github.com/docker/buildx/issues/549#issuecomment-1788297892
 ARG TARGETARCH
 ARG TARGETVARIANT
@@ -27,9 +31,6 @@ RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/v
     rpm --import https://packages.microsoft.com/keys/microsoft.asc && \
     echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" | tee /etc/yum.repos.d/vscode.repo > /dev/null && \
     dnf -y install code
-
-# Copy desktop file
-COPY --chown=$UID:0 --chmod=775 vscode/desktop /usr/share/applications
 
 ARG VERSION
 ARG RELEASE

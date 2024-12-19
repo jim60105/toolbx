@@ -4,6 +4,6 @@ GenericName[zh_TW]=多媒體播放器啟動器
 Exec=toolbox run -c video mpv-opener %u
 Type=Application
 MimeType=x-scheme-handler/mpv;
-Icon=io.mpv.Mpv
+Icon=mpv
 Categories=AudioVideo;Audio;Video;Player;TV;
 StartupNotify=true

@@ -7,7 +7,7 @@ This is the Fedora Toolbox images with some additional tools installed.
 > [!NOTE]  
 > toolbx is not a typo, check <https://containertoolbx.org/>
 
-Get the Containerfile at [GitHub](https://github.com/jim60105/toolbx), or pull the image from [ghcr.io](https://github.com/jim60105?tab=packages&repo_name=toolbx) or [quay.io](https://quay.io/repository/jim60105/toolbx).
+Get the Containerfile at [GitHub](https://github.com/jim60105/toolbx), or pull the image from [ghcr.io](https://github.com/jim60105?tab=packages&repo_name=toolbx) or [quay.io](https://quay.io/search?q=jim60105%2Ftoolbx).
 
 ## base toolbox
 
@@ -37,6 +37,8 @@ toolbox create -i quay.io/jim60105/toolbx:latest fedora-toolbox-41
 
 ```bash
 toolbox create -i quay.io/jim60105/toolbx-sourcegit:latest sourcegit
+toolbox run -c sourcegit cp /usr/share/icons/sourcegit.png ~/.local/share/icons/
+toolbox run -c sourcegit cp /usr/share/applications/sourcegit.desktop ~/.local/share/applications/
 ```
 
 - [**Sourcegit**](https://github.com/sourcegit-scm/sourcegit)
@@ -45,7 +47,8 @@ toolbox create -i quay.io/jim60105/toolbx-sourcegit:latest sourcegit
 
 ```bash
 toolbox create -i quay.io/jim60105/toolbx-vscode:latest vscode
-toolbox run -c rustrover cp /usr/share/applications/code.desktop ~/.local/share/applications/
+toolbox run -c vscode cp /usr/share/icons/vscode.png ~/.local/share/icons/
+toolbox run -c vscode cp /usr/share/applications/code.desktop ~/.local/share/applications/
 ```
 
 - **VSCode**
@@ -76,6 +79,9 @@ This image is for my video editing and video player.
 
 ```bash
 toolbox create -i quay.io/jim60105/toolbx-video:latest video
+toolbox run -c video cp /usr/share/icons/mpv.svg ~/.local/share/icons/
+toolbox run -c video cp /usr/share/applications/mpv.desktop ~/.local/share/applications/
+toolbox run -c video cp /usr/share/applications/mpv-opener.desktop ~/.local/share/applications/
 ```
 
 > [!TIP]  
