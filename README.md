@@ -65,7 +65,7 @@ This image is for my video editing and video player.
 toolbox create -i quay.io/jim60105/toolbx-video:latest vid
 ```
 
-> [!TIP] 
+> [!TIP]  
 > Trigger mpv motion interpolation by pressing `b` key.
 
 - yt-dlp
@@ -93,11 +93,13 @@ toolbox create -i quay.io/jim60105/toolbx-video:latest vid
   ```bash
   podman pull quay.io/jim60105/toolbx:latest \
               quay.io/jim60105/toolbx-vscode:latest \
+              quay.io/jim60105/toolbx-rustrover:latest \
               quay.io/jim60105/toolbx-sourcegit:latest \
               quay.io/jim60105/toolbx-video:latest && \
   toolbox rm -af && \
   toolbox create -i quay.io/jim60105/toolbx:latest fedora-toolbox-41 && \
   toolbox create -i quay.io/jim60105/toolbx-vscode:latest vscode && \
+  toolbox create -i quay.io/jim60105/toolbx-rustrover:latest rustrover && \
   toolbox create -i quay.io/jim60105/toolbx-sourcegit:latest sourcegit && \
   toolbox create -i quay.io/jim60105/toolbx-video:latest video
   ```
