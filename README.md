@@ -9,7 +9,7 @@ This is the Fedora Toolbox images with some additional tools installed.
 
 Get the Containerfile at [GitHub](https://github.com/jim60105/toolbx), or pull the image from [ghcr.io](https://github.com/jim60105?tab=packages&repo_name=toolbx) or [quay.io](https://quay.io/repository/jim60105/toolbx).
 
-## bas toolbox
+## base toolbox
 
 This image is for the basic of the other toolboxes.
 
@@ -110,6 +110,19 @@ toolbox create -i quay.io/jim60105/toolbx-video:latest vid
   toolbox rm -f video && \
   toolbox create -i quay.io/jim60105/toolbx-video:latest video
   ```
+
+## Troubleshooting
+
+### Random freezes in VSCode/JetBrains IDE
+
+Set `/etc/hosts` to include `toolbx` in localhost. [ref](https://github.com/containers/toolbox/issues/1059#issuecomment-1135307025)
+
+```hostname
+# Loopback entries; do not change.
+# For historical reasons, localhost precedes localhost.localdomain:
+127.0.0.1   toolbx localhost localhost.localdomain localhost4 localhost4.localdomain4
+::1         toolbx localhost localhost.localdomain localhost6 localhost6.localdomain6
+```
 
 ## LICENSE
 
