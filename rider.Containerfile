@@ -35,6 +35,7 @@ COPY --chown=$UID:0 --chmod=775 --from=download /rider /usr/local/bin/rider
 
 # Copy desktop files
 COPY --chown=$UID:0 --chmod=775 --from=download /rider/bin/rider.svg /usr/share/icons/
+COPY --chown=$UID:0 --chmod=775 rider/desktop /usr/share/applications
 
 ENV PATH="/usr/local/bin/rider/bin:${PATH}"
 

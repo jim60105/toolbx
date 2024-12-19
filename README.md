@@ -61,6 +61,8 @@ toolbox create -i quay.io/jim60105/toolbx-rustrover:latest rustrover
 
 ```bash
 toolbox create -i quay.io/jim60105/toolbx-rider:latest rider
+toolbox run -c rider cp /usr/share/icons/rider.svg ~/.local/share/icons/
+toolbox run -c rider cp /usr/share/applications/jetbrains-rider.desktop ~/.local/share/applications/
 ```
 
 - **[Rider](https://www.jetbrains.com/rider/)**
