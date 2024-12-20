@@ -102,7 +102,9 @@ RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/v
     # Install mpv and vapoursynth
     mpv python3-vapoursynth vapoursynth-tools \
     # Install yt-dlp
-    yt-dlp
+    yt-dlp \
+    # Install OBS
+    obs-studio
 
 # Copy desktop files
 COPY --chown=$UID:0 --chmod=775 video/icons /usr/share/icons
