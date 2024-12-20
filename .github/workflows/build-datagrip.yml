@@ -1,0 +1,39 @@
+name: build-datagrip
+
+on:
+  push:
+    paths:
+      - datagrip.Containerfile
+      - datagrip/**
+
+  workflow_run:
+    workflows: [build-base]
+    types: [completed]
+
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
+
+env:
+  IMAGE_NAME: toolbx-datagrip
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: true
+
+      - name: Build and push toolbx
+        uses: ./.github/workflows/container-reused-steps
+        with:
+          QUAY_USERNAME: ${{ secrets.QUAY_USERNAME }}
+          QUAY_TOKEN: ${{ secrets.QUAY_TOKEN }}
+          IMAGE_NAME: ${{ env.IMAGE_NAME }}
+          CONTAINERFILE: ./datagrip.Containerfile
+          BASE_IMAGE: quay.io/jim60105/toolbx:latest

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=JetBrains DataGrip
+Icon=datagrip
+Exec=toolbox run -c datagrip datagrip %f
+Comment=A cross-platform IDE for databases
+Categories=Development;IDE;
+Terminal=false
+StartupWMClass=jetbrains-datagrip
+StartupNotify=true

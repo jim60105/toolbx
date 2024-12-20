@@ -74,6 +74,16 @@ toolbox run -c rider cp /usr/share/applications/jetbrains-rider.desktop ~/.local
 
 - **[Rider](https://www.jetbrains.com/rider/)**
 
+## datagrip toolbox
+
+```bash
+toolbox create -i quay.io/jim60105/toolbx-datagrip:latest datagrip
+toolbox run -c datagrip cp /usr/share/icons/datagrip.svg ~/.local/share/icons/
+toolbox run -c datagrip cp /usr/share/applications/jetbrains-datagrip.desktop ~/.local/share/applications/
+```
+
+- **[DataGrip](https://www.jetbrains.com/datagrip/)**
+
 ## video toolbox
 
 This image is for my video editing and video player.
@@ -144,6 +154,7 @@ Execute this script on the youtube video page:
               quay.io/jim60105/toolbx-vscode:latest \
               quay.io/jim60105/toolbx-rustrover:latest \
               quay.io/jim60105/toolbx-rider:latest \
+              quay.io/jim60105/toolbx-datagrip:latest \
               quay.io/jim60105/toolbx-sourcegit:latest \
               quay.io/jim60105/toolbx-video:latest && \
   toolbox rm -af && \
@@ -151,6 +162,7 @@ Execute this script on the youtube video page:
   toolbox create -i quay.io/jim60105/toolbx-vscode:latest vscode && \
   toolbox create -i quay.io/jim60105/toolbx-rustrover:latest rustrover && \
   toolbox create -i quay.io/jim60105/toolbx-rider:latest rider && \
+  toolbox create -i quay.io/jim60105/toolbx-datagrip:latest datagrip && \
   toolbox create -i quay.io/jim60105/toolbx-sourcegit:latest sourcegit && \
   toolbox create -i quay.io/jim60105/toolbx-video:latest video
   ```
