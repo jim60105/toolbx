@@ -2,7 +2,7 @@
 Type=Application
 Name=JetBrains Rider
 Icon=rider
-Exec=toolbox run -c rider rider %f
+Exec=rider %f
 Comment=A cross-platform IDE for .NET
 Categories=Development;IDE;
 Terminal=false

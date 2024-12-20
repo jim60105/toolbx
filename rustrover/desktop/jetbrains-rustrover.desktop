@@ -2,7 +2,7 @@
 Type=Application
 Name=RustRover
 Icon=rustrover
-Exec=toolbox run -c rustrover rustrover %f
+Exec=rustrover %f
 Comment=Focus on what matters
 Categories=Development;IDE;
 Terminal=false

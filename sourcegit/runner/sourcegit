@@ -1,0 +1,3 @@
+#!/bin/bash
+
+toolbox run -c sourcegit /usr/bin/sourcegit "$@"

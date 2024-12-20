@@ -1,0 +1,3 @@
+#!/bin/bash
+
+toolbox run -c datagrip /usr/local/bin/datagrip/bin/datagrip "$@"

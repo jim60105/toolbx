@@ -37,6 +37,9 @@ COPY --chown=$UID:0 --chmod=775 --from=download /rustrover /usr/local/bin/rustro
 COPY --chown=$UID:0 --chmod=775 --from=download /rustrover/bin/rustrover.svg /usr/share/icons/
 COPY --chown=$UID:0 --chmod=775 rustrover/desktop /usr/share/applications
 
+# Copy toolbox runner
+COPY --chown=$UID:0 --chmod=775 rustrover/runner /copy-to-host
+
 ENV PATH="/usr/local/bin/rustrover/bin:${PATH}"
 
 ARG VERSION

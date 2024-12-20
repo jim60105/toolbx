@@ -15,6 +15,7 @@ This image is for the basic of the other toolboxes.
 
 ```bash
 toolbox create -i quay.io/jim60105/toolbx:latest fedora-toolbox-41
+toolbox run sh -c 'cp /copy-to-host/* ~/.local/bin/'
 ```
 
 > [!IMPORTANT]  
@@ -40,6 +41,7 @@ toolbox create -i quay.io/jim60105/toolbx:latest fedora-toolbox-41
 toolbox create -i quay.io/jim60105/toolbx-sourcegit:latest sourcegit
 toolbox run -c sourcegit cp /usr/share/icons/sourcegit.png ~/.local/share/icons/
 toolbox run -c sourcegit cp /usr/share/applications/sourcegit.desktop ~/.local/share/applications/
+toolbox run -c sourcegit sh -c 'cp /copy-to-host/* ~/.local/bin/'
 ```
 
 - [**Sourcegit**](https://github.com/sourcegit-scm/sourcegit)
@@ -61,6 +63,7 @@ toolbox run -c vscode sh -c 'cp /copy-to-host/* ~/.local/bin/'
 toolbox create -i quay.io/jim60105/toolbx-rustrover:latest rustrover
 toolbox run -c rustrover cp /usr/share/icons/rustrover.svg ~/.local/share/icons/
 toolbox run -c rustrover cp /usr/share/applications/jetbrains-rustrover.desktop ~/.local/share/applications/
+toolbox run -c rustrover sh -c 'cp /copy-to-host/* ~/.local/bin/'
 ```
 
 - **[RustRover](https://www.jetbrains.com/rust/)**
@@ -71,6 +74,7 @@ toolbox run -c rustrover cp /usr/share/applications/jetbrains-rustrover.desktop 
 toolbox create -i quay.io/jim60105/toolbx-rider:latest rider
 toolbox run -c rider cp /usr/share/icons/rider.svg ~/.local/share/icons/
 toolbox run -c rider cp /usr/share/applications/jetbrains-rider.desktop ~/.local/share/applications/
+toolbox run -c rider sh -c 'cp /copy-to-host/* ~/.local/bin/'
 ```
 
 - **[Rider](https://www.jetbrains.com/rider/)**
@@ -81,6 +85,7 @@ toolbox run -c rider cp /usr/share/applications/jetbrains-rider.desktop ~/.local
 toolbox create -i quay.io/jim60105/toolbx-datagrip:latest datagrip
 toolbox run -c datagrip cp /usr/share/icons/datagrip.svg ~/.local/share/icons/
 toolbox run -c datagrip cp /usr/share/applications/jetbrains-datagrip.desktop ~/.local/share/applications/
+toolbox run -c datagrip sh -c 'cp /copy-to-host/* ~/.local/bin/'
 ```
 
 - **[DataGrip](https://www.jetbrains.com/datagrip/)**
@@ -93,6 +98,7 @@ This image is for my video editing and video player.
 toolbox create -i quay.io/jim60105/toolbx-video:latest video
 toolbox run -c video cp /usr/share/icons/mpv.svg ~/.local/share/icons/
 toolbox run -c video cp /usr/share/applications/mpv.desktop ~/.local/share/applications/
+toolbox run -c video sh -c 'cp /copy-to-host/* ~/.local/bin/'
 ```
 
 - yt-dlp

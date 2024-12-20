@@ -31,6 +31,9 @@ RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/v
 COPY --chown=$UID:0 --chmod=775 sourcegit/icons /usr/share/icons
 COPY --chown=$UID:0 --chmod=775 sourcegit/desktop /usr/share/applications
 
+# Copy toolbox runner
+COPY --chown=$UID:0 --chmod=775 sourcegit/runner /copy-to-host
+
 ARG VERSION
 ARG RELEASE
 LABEL version=${VERSION} \

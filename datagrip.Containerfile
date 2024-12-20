@@ -37,6 +37,9 @@ COPY --chown=$UID:0 --chmod=775 --from=download /datagrip /usr/local/bin/datagri
 COPY --chown=$UID:0 --chmod=775 --from=download /datagrip/bin/datagrip.svg /usr/share/icons/
 COPY --chown=$UID:0 --chmod=775 datagrip/desktop /usr/share/applications
 
+# Copy toolbox runner
+COPY --chown=$UID:0 --chmod=775 datagrip/runner /copy-to-host
+
 ENV PATH="/usr/local/bin/datagrip/bin:${PATH}"
 
 ARG VERSION

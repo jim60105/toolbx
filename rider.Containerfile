@@ -37,6 +37,9 @@ COPY --chown=$UID:0 --chmod=775 --from=download /rider /usr/local/bin/rider
 COPY --chown=$UID:0 --chmod=775 --from=download /rider/bin/rider.svg /usr/share/icons/
 COPY --chown=$UID:0 --chmod=775 rider/desktop /usr/share/applications
 
+# Copy toolbox runner
+COPY --chown=$UID:0 --chmod=775 rider/runner /copy-to-host
+
 ENV PATH="/usr/local/bin/rider/bin:${PATH}"
 
 ARG VERSION

@@ -118,6 +118,9 @@ git-credential-manager configure
 RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/var/cache/dnf \
     dnf -y install aria2
 
+# Copy toolbox runners
+COPY --chown=$UID:0 --chmod=775 video/runner /copy-to-host
+
 ARG VERSION
 ARG RELEASE
 LABEL name="jim60105/toolbx" \
