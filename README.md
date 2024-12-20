@@ -2,16 +2,16 @@
 
 [![CodeFactor](https://www.codefactor.io/repository/github/jim60105/toolbx/badge?style=for-the-badge)](https://www.codefactor.io/repository/github/jim60105/toolbx)
 
-This is the Fedora Toolbox images with some additional tools installed.
-
 > [!NOTE]  
 > toolbx is not a typo, check <https://containertoolbx.org/>
+
+Toolbx is a tool for Linux, which allows the use of interactive command line environments for software development and troubleshooting the host operating system, without having to install software on the host. These are my personal Fedora toolbox images, which I use for development and daily usage.
 
 Get the Containerfile at [GitHub](https://github.com/jim60105/toolbx), or pull the image from [ghcr.io](https://github.com/jim60105?tab=packages&repo_name=toolbx) or [quay.io](https://quay.io/search?q=jim60105%2Ftoolbx).
 
 ## base toolbox
 
-This image is for the basic of the other toolboxes.
+This is the base toolbox image for all the other toolboxes.
 
 ```bash
 toolbox create -i quay.io/jim60105/toolbx:latest fedora-toolbox-41
@@ -34,9 +34,10 @@ toolbox run sh -c 'cp /copy-to-host/* ~/.local/bin/'
 - Rust
   - rustup
   - cargo
+- aria2
 - jq
 
-## sourcegit toolbox
+## [Sourcegit](https://github.com/sourcegit-scm/sourcegit) toolbox
 
 ```bash
 toolbox create -i quay.io/jim60105/toolbx-sourcegit:latest sourcegit
@@ -45,9 +46,7 @@ toolbox run -c sourcegit cp /usr/share/applications/sourcegit.desktop ~/.local/s
 toolbox run -c sourcegit sh -c 'cp /copy-to-host/* ~/.local/bin/'
 ```
 
-- [**Sourcegit**](https://github.com/sourcegit-scm/sourcegit)
-
-## vscode toolbox
+## [VSCode](https://code.visualstudio.com/) toolbox
 
 ```bash
 toolbox create -i quay.io/jim60105/toolbx-vscode:latest vscode
@@ -56,9 +55,7 @@ toolbox run -c vscode cp /usr/share/applications/code.desktop ~/.local/share/app
 toolbox run -c vscode sh -c 'cp /copy-to-host/* ~/.local/bin/'
 ```
 
-- **[VSCode](https://code.visualstudio.com/)**
-
-## rustrover toolbox
+## [RustRover](https://www.jetbrains.com/rust/) toolbox
 
 ```bash
 toolbox create -i quay.io/jim60105/toolbx-rustrover:latest rustrover
@@ -67,9 +64,7 @@ toolbox run -c rustrover cp /usr/share/applications/jetbrains-rustrover.desktop 
 toolbox run -c rustrover sh -c 'cp /copy-to-host/* ~/.local/bin/'
 ```
 
-- **[RustRover](https://www.jetbrains.com/rust/)**
-
-## rider toolbox
+## [Rider](https://www.jetbrains.com/rider/) toolbox
 
 ```bash
 toolbox create -i quay.io/jim60105/toolbx-rider:latest rider
@@ -78,9 +73,7 @@ toolbox run -c rider cp /usr/share/applications/jetbrains-rider.desktop ~/.local
 toolbox run -c rider sh -c 'cp /copy-to-host/* ~/.local/bin/'
 ```
 
-- **[Rider](https://www.jetbrains.com/rider/)**
-
-## datagrip toolbox
+## [DataGrip](https://www.jetbrains.com/datagrip/) toolbox
 
 ```bash
 toolbox create -i quay.io/jim60105/toolbx-datagrip:latest datagrip
@@ -89,11 +82,9 @@ toolbox run -c datagrip cp /usr/share/applications/jetbrains-datagrip.desktop ~/
 toolbox run -c datagrip sh -c 'cp /copy-to-host/* ~/.local/bin/'
 ```
 
-- **[DataGrip](https://www.jetbrains.com/datagrip/)**
-
 ## video toolbox
 
-This image is for my video editing and video player.
+This toolbox is for video processing and mpv player.
 
 ```bash
 toolbox create -i quay.io/jim60105/toolbx-video:latest video
