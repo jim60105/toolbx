@@ -38,6 +38,7 @@
         "tsflags",
         "uosc",
         "vapoursynth",
-        "webp"
+        "webp",
+        "ytdl"
     ]
 }

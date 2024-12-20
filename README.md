@@ -81,29 +81,56 @@ This image is for my video editing and video player.
 toolbox create -i quay.io/jim60105/toolbx-video:latest video
 toolbox run -c video cp /usr/share/icons/mpv.svg ~/.local/share/icons/
 toolbox run -c video cp /usr/share/applications/mpv.desktop ~/.local/share/applications/
-toolbox run -c video cp /usr/share/applications/mpv-opener.desktop ~/.local/share/applications/
 ```
-
-> [!TIP]  
-> Trigger mpv motion interpolation by pressing `b` key.
 
 - yt-dlp
 - ffmpeg
-- mpv
+- [mpv](https://mpv.io/manual/stable/)
   - vapoursynth + mvtools + [motion interpolation (to 60fps)](https://gist.github.com/phiresky/4bfcfbbd05b3c2ed8645)
   - [uosc (Nice UI for mpv)](https://github.com/tomasklaen/uosc) + [thumbfast](https://github.com/po5/thumbfast)
   - [mpv-opener](https://github.com/jim60105/toolbx/blob/d08df96fb4d4c43cfa449719d5b896700673831e/video.Containerfile#L83-L87)  
     Execute this script on the youtube video page:
 
     ```javascript
-    (function () {
-        window.open(window.location.href.replace(/^https?:/, 'mpv:'), '_blank');
+    (function() {
+      function getYouTubeVideoId(url) {
+        const regex = /(?:https?:\/\/)?(?:www\.)?youtu(?:\.be\/|be\.com\/(?:v\/|embed\/|watch\?v=|watch\?.+?&v=|live\/))((\w|-){11})(?:\S+)?/;
+        const match = url.match(regex);
+        
+        return match ? match[1] : null;
+      }
+
+      function openInMPV(videoId) {
+        window.open(`ytdl://${videoId}`, '_blank');
+      }
+
+      function stopVideo() {
         var video = document.querySelector('video');
-        if (video) {
-            video.pause();
-        }
+        if (video) video.pause();
+      }
+
+      const url = window.location.href;
+      const videoId = getYouTubeVideoId(url);
+
+      if (!videoId) {
+        console.log("Invalid YouTube URL");
+        return;
+      } 
+
+      console.log(`The video ID is: ${videoId}`);
+
+      openInMPV(videoId);
+
+      stopVideo();
     })();
     ```
+
+> [!NOTE]  
+> Trigger mpv motion interpolation by pressing `b` key.
+
+> [!TIP]  
+> I'm using [Enhancer for YouTube™](https://chromewebstore.google.com/detail/Enhancer%20for%20YouTube%E2%84%A2/ponfpcnoihfmfllpaingbgckeeldkhle) to run this script on the youtube page.
+> It provides a button so I don't have to implement it myself.
 
 ## Toolbox cheat sheet
 

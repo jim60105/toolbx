@@ -73,16 +73,6 @@ COPY --chown=$UID:0 --chmod=775 video/thumbfast/thumbfast.conf /etc/mpv/scripts-
 COPY --chown=$UID:0 --chmod=775 video/thumbfast/thumbfast.lua /etc/mpv/scripts
 ADD --chown=$UID:0 --chmod=775 https://github.com/mpv-player/mpv/raw/refs/heads/master/TOOLS/lua/autoload.lua /etc/mpv/scripts/autoload.lua
 
-# Setup mpv-opener
-RUN cat <<-"EOF" > /usr/local/bin/mpv-opener && \
-    chmod 775 /usr/local/bin/mpv-opener
-#!/bin/bash
-# Remove the 'mpv:' prefix from the URL
-url=${1#mpv}
-# Run mpv with the modified URL
-mpv --player-operation-mode=pseudo-gui -- https"$url"
-EOF
-
 # RUN mount cache for multi-arch: https://github.com/docker/buildx/issues/549#issuecomment-1788297892
 ARG TARGETARCH
 ARG TARGETVARIANT
