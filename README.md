@@ -34,6 +34,7 @@ toolbox run sh -c 'cp /copy-to-host/* ~/.local/bin/'
 - Rust
   - rustup
   - cargo
+- jq
 
 ## sourcegit toolbox
 
@@ -106,6 +107,7 @@ toolbox run -c video sh -c 'cp /copy-to-host/* ~/.local/bin/'
 - [mpv](https://mpv.io/manual/stable/)
   - vapoursynth + mvtools + [motion interpolation (to 60fps)](https://gist.github.com/phiresky/4bfcfbbd05b3c2ed8645)
   - [uosc (Nice UI for mpv)](https://github.com/tomasklaen/uosc) + [thumbfast](https://github.com/po5/thumbfast)
+  - [Anime4K](https://github.com/bloc97/Anime4K)
 
 > [!NOTE]  
 > Trigger mpv motion interpolation by pressing `b` key.
