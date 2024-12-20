@@ -1,5 +1,5 @@
 [Desktop Action new-empty-window]
-Exec=toolbox run -c vscode code --enable-features=UseOzonePlatform --ozone-platform=wayland --enable-wayland-ime --new-window
+Exec=code --new-window
 Icon=vscode
 Name=New Empty Window
 
@@ -7,7 +7,7 @@ Name=New Empty Window
 Actions=new-empty-window;
 Categories=Utility;TextEditor;Development;IDE;
 Comment=Code Editing. Redefined.
-Exec=toolbox run -c vscode code %u --enable-features=UseOzonePlatform --ozone-platform=wayland --enable-wayland-ime
+Exec=code %u
 Icon=vscode
 MimeType=text/plain;inode/directory;text/javascript;text/html;application/xml;application/json;text/x-python;x-scheme-handler/vscode;
 Name=Visual Studio Code

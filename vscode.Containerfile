@@ -32,6 +32,9 @@ RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/v
 COPY --chown=$UID:0 --chmod=775 vscode/icons /usr/share/icons
 COPY --chown=$UID:0 --chmod=775 vscode/desktop /usr/share/applications
 
+# Copy toolbox runner
+COPY --chown=$UID:0 --chmod=775 vscode/runner /copy-to-host
+
 ARG VERSION
 ARG RELEASE
 LABEL version=${VERSION} \

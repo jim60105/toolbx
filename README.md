@@ -50,6 +50,7 @@ toolbox run -c sourcegit cp /usr/share/applications/sourcegit.desktop ~/.local/s
 toolbox create -i quay.io/jim60105/toolbx-vscode:latest vscode
 toolbox run -c vscode cp /usr/share/icons/vscode.png ~/.local/share/icons/
 toolbox run -c vscode cp /usr/share/applications/code.desktop ~/.local/share/applications/
+toolbox run -c vscode sh -c 'cp /copy-to-host/* ~/.local/bin/'
 ```
 
 - **[VSCode](https://code.visualstudio.com/)**

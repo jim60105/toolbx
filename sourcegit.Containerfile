@@ -15,13 +15,6 @@ FROM ${BASE_VERSION} AS base
 FROM base AS final
 ARG UID
 
-# Setup vscode
-RUN cat <<-"EOF" > /usr/local/bin/code && \
-    chmod 775 /usr/local/bin/code
-#!/bin/bash
-exec toolbox run -c vscode code "$@"
-EOF
-
 # Make sure the cache is refreshed
 ARG RELEASE
 
