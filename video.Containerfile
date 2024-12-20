@@ -81,7 +81,7 @@ COPY --chown=$UID:0 --chmod=775 video/desktop /usr/share/applications
 RUN cat <<-"EOF" > /usr/local/bin/mpv-opener && \
     chmod 775 /usr/local/bin/mpv-opener
 #!/bin/bash
-# Remove the 'mpv:' prefix from the URL
+# Remove the 'mpv' prefix from the URL
 url=${1#mpv}
 # Run mpv with the modified URL
 mpv --player-operation-mode=pseudo-gui -- https"$url"
