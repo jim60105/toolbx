@@ -81,6 +81,7 @@ This image is for my video editing and video player.
 toolbox create -i quay.io/jim60105/toolbx-video:latest video
 toolbox run -c video cp /usr/share/icons/mpv.svg ~/.local/share/icons/
 toolbox run -c video cp /usr/share/applications/mpv.desktop ~/.local/share/applications/
+toolbox run -c video cp /usr/share/applications/mpv-opener.desktop ~/.local/share/applications/
 ```
 
 > [!TIP]  
