@@ -24,8 +24,9 @@ toolbox create -i quay.io/jim60105/toolbx:latest fedora-toolbox-41
 - Fonts
   - Noto Sans CJK
   - Cascadia Code
-  - [Iansui 芫荽](https://github.com/ButTaiwan/iansui)
   - Hina Mincho
+  - [Iansui 芫荽](https://github.com/ButTaiwan/iansui)
+  - [Hack Nerd Font](https://github.com/ryanoasis/nerd-fonts)
 - Gnome Seahorse (for os keyring)
 - Git Credential Manager
 - .NET SDK 8.0
@@ -51,7 +52,7 @@ toolbox run -c vscode cp /usr/share/icons/vscode.png ~/.local/share/icons/
 toolbox run -c vscode cp /usr/share/applications/code.desktop ~/.local/share/applications/
 ```
 
-- **VSCode**
+- **[VSCode](https://code.visualstudio.com/)**
 
 ## rustrover toolbox
 
@@ -88,48 +89,50 @@ toolbox run -c video cp /usr/share/applications/mpv.desktop ~/.local/share/appli
 - [mpv](https://mpv.io/manual/stable/)
   - vapoursynth + mvtools + [motion interpolation (to 60fps)](https://gist.github.com/phiresky/4bfcfbbd05b3c2ed8645)
   - [uosc (Nice UI for mpv)](https://github.com/tomasklaen/uosc) + [thumbfast](https://github.com/po5/thumbfast)
-  - [mpv-opener](https://github.com/jim60105/toolbx/blob/d08df96fb4d4c43cfa449719d5b896700673831e/video.Containerfile#L83-L87)  
-    Execute this script on the youtube video page:
-
-    ```javascript
-    (function() {
-      function getYouTubeVideoId(url) {
-        const regex = /(?:https?:\/\/)?(?:www\.)?youtu(?:\.be\/|be\.com\/(?:v\/|embed\/|watch\?v=|watch\?.+?&v=|live\/))((\w|-){11})(?:\S+)?/;
-        const match = url.match(regex);
-        
-        return match ? match[1] : null;
-      }
-
-      function openInMPV(videoId) {
-        window.open(`ytdl://${videoId}`, '_blank');
-      }
-
-      function stopVideo() {
-        var video = document.querySelector('video');
-        if (video) video.pause();
-      }
-
-      const url = window.location.href;
-      const videoId = getYouTubeVideoId(url);
-
-      if (!videoId) {
-        console.log("Invalid YouTube URL");
-        return;
-      } 
-
-      console.log(`The video ID is: ${videoId}`);
-
-      openInMPV(videoId);
-
-      stopVideo();
-    })();
-    ```
 
 > [!NOTE]  
 > Trigger mpv motion interpolation by pressing `b` key.
 
+### Open youtube video in mpv
+
+Execute this script on the youtube video page:
+
+```javascript
+(function() {
+  function getYouTubeVideoId(url) {
+    const regex = /(?:https?:\/\/)?(?:www\.)?youtu(?:\.be\/|be\.com\/(?:v\/|embed\/|watch\?v=|watch\?.+?&v=|live\/))((\w|-){11})(?:\S+)?/;
+    const match = url.match(regex);
+    
+    return match ? match[1] : null;
+  }
+
+  function openInMPV(videoId) {
+    window.open(`ytdl://${videoId}`, '_blank');
+  }
+
+  function stopVideo() {
+    var video = document.querySelector('video');
+    if (video) video.pause();
+  }
+
+  const url = window.location.href;
+  const videoId = getYouTubeVideoId(url);
+
+  if (!videoId) {
+    console.log("Invalid YouTube URL");
+    return;
+  } 
+
+  console.log(`The video ID is: ${videoId}`);
+
+  openInMPV(videoId);
+
+  stopVideo();
+})();
+```
+
 > [!TIP]  
-> I'm using [Enhancer for YouTube™](https://chromewebstore.google.com/detail/Enhancer%20for%20YouTube%E2%84%A2/ponfpcnoihfmfllpaingbgckeeldkhle) to run this script on the youtube page.
+> I'm using [Enhancer for YouTube™](https://chromewebstore.google.com/detail/Enhancer%20for%20YouTube%E2%84%A2/ponfpcnoihfmfllpaingbgckeeldkhle) to run this script on the youtube page.  
 > It provides a button so I don't have to implement it myself.
 
 ## Toolbox cheat sheet
@@ -155,15 +158,20 @@ toolbox run -c video cp /usr/share/applications/mpv.desktop ~/.local/share/appli
 - Recreate video toolbox
 
   ```bash
+  podman pull quay.io/jim60105/toolbx-video:latest && \
   toolbox rm -f video && \
   toolbox create -i quay.io/jim60105/toolbx-video:latest video
   ```
+
+> [!NOTE]
+> The `toolbox create` command will always use the existing image.  
+> Remember to manually run `podman pull` before recreating the toolbox!
 
 ## Troubleshooting
 
 ### Random freezes in VSCode/JetBrains IDE
 
-Set `/etc/hosts` to include `toolbx` in localhost. [ref](https://github.com/containers/toolbox/issues/1059#issuecomment-1135307025)
+Set `/etc/hosts` to include `toolbx` in localhost. [ref][1]
 
 ```hostname
 # Loopback entries; do not change.
@@ -171,6 +179,8 @@ Set `/etc/hosts` to include `toolbx` in localhost. [ref](https://github.com/cont
 127.0.0.1   toolbx localhost localhost.localdomain localhost4 localhost4.localdomain4
 ::1         toolbx localhost localhost.localdomain localhost6 localhost6.localdomain6
 ```
+
+[1]: https://github.com/containers/toolbox/issues/1059#issuecomment-1135307025
 
 ## LICENSE
 
