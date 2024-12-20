@@ -92,7 +92,7 @@ toolbox run -c video cp /usr/share/applications/mpv-opener.desktop ~/.local/shar
 - mpv
   - vapoursynth + mvtools + [motion interpolation (to 60fps)](https://gist.github.com/phiresky/4bfcfbbd05b3c2ed8645)
   - [uosc (Nice UI for mpv)](https://github.com/tomasklaen/uosc) + [thumbfast](https://github.com/po5/thumbfast)
-  - [mpv-opener](./video/mpv-opener.sh)  
+  - [mpv-opener](https://github.com/jim60105/toolbx/blob/d08df96fb4d4c43cfa449719d5b896700673831e/video.Containerfile#L83-L87)  
     Execute this script on the youtube video page:
 
     ```javascript
