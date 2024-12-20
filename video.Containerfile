@@ -104,7 +104,9 @@ RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/v
     # Install yt-dlp
     yt-dlp \
     # Install OBS
-    obs-studio
+    obs-studio \
+    # Install ImageMagick
+    ImageMagick
 
 # Copy desktop files
 COPY --chown=$UID:0 --chmod=775 video/icons /usr/share/icons
