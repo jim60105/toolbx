@@ -30,10 +30,9 @@ ARG TARGETARCH
 ARG TARGETVARIANT
 
 # Install sourcegit
-ADD https://github.com/sourcegit-scm/sourcegit/releases/download/v8.43/sourcegit-8.43-1.x86_64.rpm /tmp/sourcegit.rpm
 RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/var/cache/dnf \
-    dnf -y install /tmp/sourcegit.rpm && \
-    rm -f /tmp/sourcegit.rpm
+    sh -c 'echo -e "[sourcegit-rpm]\nname=sourcegit-rpm\nbaseurl=https://packages.buildkite.com/sourcegit/sourcegit-rpm/rpm_any/rpm_any/\$basearch\nenabled=1\nrepo_gpgcheck=1\ngpgcheck=0\ngpgkey=https://packages.buildkite.com/sourcegit/sourcegit-rpm/gpgkey\npriority=1"' > /etc/yum.repos.d/sourcegit-rpm.repo && \
+    dnf -y install sourcegit
 
 # Copy desktop file
 COPY --chown=$UID:0 --chmod=775 sourcegit/icons /usr/share/icons
