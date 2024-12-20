@@ -113,7 +113,7 @@ RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/v
 RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/var/cache/dnf \
     dnf -y install java-17-openjdk
 
-# Install git-credential-manager
+# Install git-credential-manager (This needs .NET 8)
 RUN curl -L https://aka.ms/gcm/linux-install-source.sh | sh && \
 git-credential-manager configure
 
@@ -127,8 +127,9 @@ COPY --chown=$UID:0 --chmod=775 video/runner /copy-to-host
 ARG VERSION
 ARG RELEASE
 LABEL name="jim60105/toolbx" \
+    org.opencontainers.image.name="jim60105/toolbx" \
     # Authors for toolbox
-    vendor="containertoolbx" \
+    vendor="Fedora Project" \
     # Maintainer for this container image
     maintainer="jim60105" \
     # Containerfile source repository
@@ -136,6 +137,8 @@ LABEL name="jim60105/toolbx" \
     version=${VERSION} \
     # This should be a number, incremented with each change
     release=${RELEASE} \
-    io.k8s.display-name="toolbx"
-# summary="" \
-# description=""
+    io.k8s.display-name="toolbx" \
+    summary="toolbx: My Personal Fedora Toolbox (Containerfile)" \
+    description="Toolbx is a tool for Linux, which allows the use of interactive command line environments for software development and troubleshooting the host operating system, without having to install software on the host. These are my personal Fedora toolbox images, which I use for development and daily usage. For more information about this tool, please visit the following website: https://github.com/jim60105/toolbx" \
+    license="GPL-3.0" \
+    org.opencontainers.image.license="GPL-3.0"
