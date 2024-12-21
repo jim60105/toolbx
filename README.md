@@ -89,6 +89,7 @@ This toolbox is for video processing and mpv player.
 ```bash
 toolbox create -i quay.io/jim60105/toolbx-video:latest video
 toolbox run -c video cp /usr/share/icons/mpv.svg ~/.local/share/icons/
+toolbox run -c video cp /usr/share/icons/obs.svg ~/.local/share/icons/
 toolbox run -c video cp /usr/share/applications/mpv.desktop ~/.local/share/applications/
 toolbox run -c video sh -c 'cp /copy-to-host/* ~/.local/bin/'
 ```

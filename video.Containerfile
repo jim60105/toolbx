@@ -109,7 +109,8 @@ RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/v
     ImageMagick
 
 # Copy desktop files
-COPY --chown=$UID:0 --chmod=775 video/icons /usr/share/icons
+RUN cp /usr/share/icons/hicolor/scalable/apps/com.obsproject.Studio.svg /usr/share/icons/obs.svg
+RUN cp /usr/share/icons/hicolor/scalable/apps/mpv.svg /usr/share/icons/mpv.svg
 COPY --chown=$UID:0 --chmod=775 video/desktop /usr/share/applications
 
 ARG VERSION
