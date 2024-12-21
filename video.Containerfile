@@ -62,10 +62,6 @@ RUN curl -o /tmp/assets.json https://api.github.com/repos/bloc97/Anime4K/release
 FROM base AS final
 ARG UID
 
-# ffmpeg
-COPY --from=docker.io/mwader/static-ffmpeg:latest /ffmpeg /usr/bin/
-COPY --from=docker.io/mwader/static-ffmpeg:latest /ffprobe /usr/bin/
-
 # Copy mvtools and dependencies
 COPY --from=build-mvtools /lib64/libfftw3q_threads.so /lib64/
 COPY --from=build-mvtools /lib64/libfftw3q_omp.so /lib64/
@@ -97,6 +93,16 @@ ARG TARGETVARIANT
 
 # Make sure the cache is refreshed
 ARG RELEASE
+
+# Install ffmpeg-nonfree for x264
+RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/var/cache/dnf \
+    dnf -y install \
+    https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm \
+    https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm && \
+    dnf config-manager setopt fedora-cisco-openh264.enabled=1 && \
+    dnf -y swap ffmpeg-free ffmpeg --allowerasing && \
+    dnf -y remove rpmfusion-free-release rpmfusion-nonfree-release
+
 RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/var/cache/dnf \
     dnf -y install \
     # Install mpv and vapoursynth
