@@ -31,7 +31,6 @@ RUN --mount=source=video/vapoursynth-mvtools,target=/vapoursynth-mvtools,z \
 
 ########################################
 # UOSC unpack stage
-# (Mpv configs)
 ########################################
 
 FROM base AS uosc-unpacker
@@ -43,10 +42,10 @@ ADD https://github.com/tomasklaen/uosc/releases/latest/download/uosc.zip /tmp/uo
 RUN unzip /tmp/uosc.zip -d /uosc
 
 ########################################
-# Anime4K stage
+# Anime4K unpack stage
 ########################################
 
-FROM base AS Anime4K
+FROM base AS anime4k-unpacker
 
 WORKDIR /anime4K
 
@@ -82,7 +81,7 @@ COPY --chown=$UID:0 --chmod=775 --from=uosc-unpacker /uosc /etc/mpv
 COPY --chown=$UID:0 --chmod=775 video/thumbfast/thumbfast.conf /etc/mpv/scripts-opts
 COPY --chown=$UID:0 --chmod=775 video/thumbfast/thumbfast.lua /etc/mpv/scripts
 ADD --chown=$UID:0 --chmod=775 https://github.com/mpv-player/mpv/raw/refs/heads/master/TOOLS/lua/autoload.lua /etc/mpv/scripts/autoload.lua
-COPY --chown=$UID:0 --chmod=775 --from=Anime4K /anime4K /etc/mpv/shaders
+COPY --chown=$UID:0 --chmod=775 --from=anime4k-unpacker /anime4K /etc/mpv/shaders
 
 # Copy toolbox runners
 COPY --chown=$UID:0 --chmod=775 video/runner /copy-to-host
