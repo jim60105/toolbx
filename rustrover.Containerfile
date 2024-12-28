@@ -30,11 +30,6 @@ RUN tar -xzf /tmp/rustrover.tar.gz -C /rustrover && \
 FROM base AS final
 ARG UID
 
-# Install development tools
-# Rust requires gcc etc.
-RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/var/cache/dnf \
-    dnf -y install @development-tools openssl-devel
-
 # Copy RustRover
 COPY --chown=$UID:0 --chmod=775 --from=download /rustrover /usr/local/bin/rustrover
 

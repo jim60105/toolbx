@@ -101,6 +101,10 @@ ENV GCM_CREDENTIAL_STORE=gpg
 RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/var/cache/dnf \
     dnf -y install seahorse
 
+# Install development tools (gcc, make, etc.)
+RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/var/cache/dnf \
+    dnf -y install @development-tools openssl-devel
+
 # Install .NET
 RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/var/cache/dnf \
     dnf -y install dotnet-sdk-8.0
