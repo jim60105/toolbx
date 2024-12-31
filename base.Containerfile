@@ -91,6 +91,7 @@ COPY --chown=$UID:0 --chmod=775 --from=font-unpacker /fonts /usr/local/share/fon
 RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/var/cache/dnf \
     dnf -y install \
     google-noto-sans-cjk-fonts \
+    google-noto-color-emoji-fonts \
     cascadia-fonts-all \
     hanamin-fonts
 

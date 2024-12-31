@@ -24,6 +24,7 @@ toolbox run sh -c 'cp /copy-to-host/* ~/.local/bin/'
 
 - Fonts
   - Noto Sans CJK
+  - Noto Color Emoji
   - Cascadia Code
   - Hina Mincho
   - [Iansui 芫荽](https://github.com/ButTaiwan/iansui)
