@@ -110,8 +110,8 @@ RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/v
     yt-dlp \
     # Install OBS
     obs-studio \
-    # Install ImageMagick
-    ImageMagick
+    # Install ImageMagick and exiftool
+    ImageMagick exiftool
 
 # Copy desktop files
 RUN cp /usr/share/icons/hicolor/scalable/apps/com.obsproject.Studio.svg /usr/share/icons/obs.svg
