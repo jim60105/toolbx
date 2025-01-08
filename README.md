@@ -151,6 +151,21 @@ Execute this script on the youtube video page:
 > I'm using [Enhancer for YouTube™](https://chromewebstore.google.com/detail/Enhancer%20for%20YouTube%E2%84%A2/ponfpcnoihfmfllpaingbgckeeldkhle) to run this script on the youtube page.  
 > It provides a button so I don't have to implement it myself.
 
+## Kubernetes toolbox
+
+This toolbox is for kubernetes related tools.
+
+```bash
+toolbox create -i quay.io/jim60105/toolbx-kubernetes:latest kubernetes
+toolbox run -c kubernetes cp /usr/share/icons/lens.png ~/.local/share/icons/
+toolbox run -c kubernetes cp /usr/share/applications/lens.desktop ~/.local/share/applications/
+toolbox run -c kubernetes sh -c 'cp /copy-to-host/* ~/.local/bin/'
+```
+
+- [Lens](https://docs.k8slens.dev/)
+- [kubectl](https://kubernetes.io/docs/reference/kubectl/overview/)
+- [talosctl](https://www.talos.dev/v1.9/talos-guides/install/talosctl/)
+
 ## Toolbox cheat sheet
 
 - Recreate all the toolboxes
@@ -163,6 +178,7 @@ Execute this script on the youtube video page:
               quay.io/jim60105/toolbx-datagrip:latest \
               quay.io/jim60105/toolbx-sourcegit:latest \
               quay.io/jim60105/toolbx-video:latest && \
+              quay.io/jim60105/toolbx-kubernetes:latest && \
   toolbox rm -af && \
   toolbox create -i quay.io/jim60105/toolbx:latest fedora-toolbox-41 && \
   toolbox create -i quay.io/jim60105/toolbx-vscode:latest vscode && \
@@ -170,7 +186,8 @@ Execute this script on the youtube video page:
   toolbox create -i quay.io/jim60105/toolbx-rider:latest rider && \
   toolbox create -i quay.io/jim60105/toolbx-datagrip:latest datagrip && \
   toolbox create -i quay.io/jim60105/toolbx-sourcegit:latest sourcegit && \
-  toolbox create -i quay.io/jim60105/toolbx-video:latest video
+  toolbox create -i quay.io/jim60105/toolbx-video:latest video && \
+  toolbox create -i quay.io/jim60105/toolbx-kubernetes:latest kubernetes
   ```
 
 - Recreate video toolbox

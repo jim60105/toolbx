@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Lens
+Exec=lens %U
+Terminal=false
+Type=Application
+Icon=lens
+StartupWMClass=Lens
+Comment=Lens - The Kubernetes IDE
+MimeType=x-scheme-handler/lens;
+Categories=Network;
