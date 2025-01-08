@@ -1,3 +1,3 @@
 #!/bin/bash
 
-toolbox run -c kubernetes lens-desktop "$@"
+toolbox run -c kubernetes /usr/bin/lens-desktop "$@"
