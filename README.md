@@ -96,6 +96,9 @@ toolbox run -c video cp /usr/share/applications/obs.desktop ~/.local/share/appli
 toolbox run -c video sh -c 'cp /copy-to-host/* ~/.local/bin/'
 ```
 
+- OBS Studio
+- ImageMagick
+- ExifTool
 - yt-dlp
 - ffmpeg
 - [mpv](https://mpv.io/manual/stable/)
