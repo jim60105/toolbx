@@ -47,6 +47,8 @@ EOF
 RUN bins=( \
     "flatpak" \
     "podman" \
+    "buildah" \
+    "skopeo" \
     "docker" \
     "rpm-ostree" \
     "systemctl" \
