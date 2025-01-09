@@ -164,6 +164,7 @@ toolbox run -c kubernetes sh -c 'cp /copy-to-host/* ~/.local/bin/'
 
 - [Lens](https://docs.k8slens.dev/)
 - [kubectl](https://kubernetes.io/docs/reference/kubectl/overview/)
+- [helm](https://helm.sh/)
 - [talosctl](https://www.talos.dev/v1.9/talos-guides/install/talosctl/)
 
 ## Toolbox cheat sheet

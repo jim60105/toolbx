@@ -33,7 +33,9 @@ gpgcheck=1
 gpgkey=https://pkgs.k8s.io/core:/stable:/v1.32/rpm/repodata/repomd.xml.key
 EOF
 RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/var/cache/dnf \
-    dnf -y install kubectl
+    dnf -y install \
+    kubectl \
+    helm
 
 # Install Lens
 # https://docs.k8slens.dev/getting-started/install-lens/#install-lens-desktop-from-the-rpm-repository
