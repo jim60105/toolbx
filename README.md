@@ -178,7 +178,7 @@ toolbox run -c kubernetes sh -c 'cp /copy-to-host/* ~/.local/bin/'
               quay.io/jim60105/toolbx-rider:latest \
               quay.io/jim60105/toolbx-datagrip:latest \
               quay.io/jim60105/toolbx-sourcegit:latest \
-              quay.io/jim60105/toolbx-video:latest && \
+              quay.io/jim60105/toolbx-video:latest \
               quay.io/jim60105/toolbx-kubernetes:latest && \
   toolbox rm -af && \
   toolbox create -i quay.io/jim60105/toolbx:latest fedora-toolbox-41 && \
