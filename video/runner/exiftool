@@ -1,0 +1,3 @@
+#!/bin/bash
+
+toolbox run -c video /usr/bin/exiftool "$@"
