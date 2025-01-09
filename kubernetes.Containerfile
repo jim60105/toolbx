@@ -10,6 +10,18 @@ ARG BASE_VERSION=quay.io/jim60105/toolbx:latest
 FROM ${BASE_VERSION} AS base
 
 ########################################
+# oc unpack stage
+########################################
+FROM base AS oc-unpacker
+
+WORKDIR /unpacker
+
+# https://mirror.openshift.com/pub/openshift-v4/x86_64/clients/ocp/latest/
+ADD https://mirror.openshift.com/pub/openshift-v4/x86_64/clients/ocp/latest/openshift-client-linux.tar.gz /tmp/openshift-client-linux.tar.gz
+
+RUN tar -xzf /tmp/openshift-client-linux.tar.gz
+
+########################################
 # Final stage
 ########################################
 FROM base AS final
@@ -46,6 +58,9 @@ RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/v
 # Install talosctl
 # https://www.talos.dev/v1.9/talos-guides/install/talosctl/
 RUN curl -sL https://talos.dev/install | sh
+
+# Install oc
+COPY --from=oc-unpacker /unpacker/oc /usr/bin
 
 # Copy desktop file
 COPY --chown=$UID:0 --chmod=775 kubernetes/icons /usr/share/icons
