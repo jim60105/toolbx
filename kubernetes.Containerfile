@@ -49,11 +49,11 @@ RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/v
     kubectl \
     helm
 
-# Install Lens
-# https://docs.k8slens.dev/getting-started/install-lens/#install-lens-desktop-from-the-rpm-repository
+# Install OpenLens
 RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/var/cache/dnf \
-    dnf config-manager addrepo --from-repofile=https://downloads.k8slens.dev/rpm/lens.repo && \
-    dnf -y install lens
+    curl -L https://github.com/MuhammedKalkan/OpenLens/releases/download/v6.5.2-366/OpenLens-6.5.2-366.x86_64.rpm -o /tmp/OpenLens.rpm && \
+    dnf -y install /tmp/OpenLens.rpm && \
+    rm -f /tmp/OpenLens.rpm
 
 # Install talosctl
 # https://www.talos.dev/v1.9/talos-guides/install/talosctl/

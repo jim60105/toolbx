@@ -1,6 +1,6 @@
 [Desktop Entry]
-Name=Lens
-Exec=lens %U
+Name=OpenLens
+Exec=open-lens %U
 Terminal=false
 Type=Application
 Icon=lens

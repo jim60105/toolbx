@@ -158,11 +158,11 @@ This toolbox is for kubernetes related tools.
 ```bash
 toolbox create -i quay.io/jim60105/toolbx-kubernetes:latest kubernetes
 toolbox run -c kubernetes cp /usr/share/icons/lens.png ~/.local/share/icons/
-toolbox run -c kubernetes cp /usr/share/applications/lens.desktop ~/.local/share/applications/
+toolbox run -c kubernetes cp /usr/share/applications/open-lens.desktop ~/.local/share/applications/
 toolbox run -c kubernetes sh -c 'cp /copy-to-host/* ~/.local/bin/'
 ```
 
-- [Lens](https://docs.k8slens.dev/)
+- [OpenLens](https://github.com/MuhammedKalkan/OpenLens)
 - [kubectl](https://kubernetes.io/docs/reference/kubectl/overview/)
 - [helm](https://helm.sh/)
 - [talosctl](https://www.talos.dev/v1.9/talos-guides/install/talosctl/)
