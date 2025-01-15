@@ -23,10 +23,10 @@ ARG TARGETARCH
 ARG TARGETVARIANT
 
 # Install sourcegit
-ADD https://github.com/sourcegit-scm/sourcegit/releases/download/v2025.01/sourcegit-2025.01-1.x86_64.rpm /tmp/sourcegit.rpm
 RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/var/cache/dnf \
-    dnf -y install /tmp/sourcegit.rpm && \
-    rm -f /tmp/sourcegit.rpm
+    curl https://codeberg.org/api/packages/yataro/rpm.repo | sed -e 's/gpgcheck=1/gpgcheck=0/' > sourcegit.repo && \
+    dnf config-manager addrepo --from-repofile=./sourcegit.repo && \
+    dnf -y install sourcegit
 
 # Copy desktop file
 COPY --chown=$UID:0 --chmod=775 sourcegit/icons /usr/share/icons

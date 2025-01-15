@@ -1,5 +1,6 @@
 {
     "cSpell.words": [
+        "addrepo",
         "aquasecurity",
         "autoload",
         "autoremove",
@@ -38,6 +39,7 @@
         "obsproject",
         "ostree",
         "pipefail",
+        "repofile",
         "rpmfusion",
         "rustrover",
         "rustup",
