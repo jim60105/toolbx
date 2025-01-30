@@ -3,7 +3,7 @@ ARG UID=1000
 ARG VERSION=EDGE
 ARG RELEASE=0
 ARG BASE_VERSION=quay.io/jim60105/toolbx:latest
-ARG RUSTROVER_VERSION=2024.3.2
+ARG RUSTROVER_VERSION=2024.3.4
 
 ########################################
 # Base stage
