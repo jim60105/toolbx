@@ -18,10 +18,6 @@ toolbox create -i quay.io/jim60105/toolbx:latest fedora-toolbox-41
 toolbox run sh -c 'cp /copy-to-host/* ~/.local/bin/'
 ```
 
-> [!IMPORTANT]  
-> Following this guide to setup os keyring to use `gnome-libsecret`:  
-> <https://code.visualstudio.com/docs/editor/settings-sync#_recommended-configure-the-keyring-to-use-with-vs-code>
-
 - Fonts
   - Noto Sans CJK
   - Noto Color Emoji
@@ -55,6 +51,10 @@ toolbox run -c vscode cp /usr/share/icons/vscode.png ~/.local/share/icons/
 toolbox run -c vscode cp /usr/share/applications/code.desktop ~/.local/share/applications/
 toolbox run -c vscode sh -c 'cp /copy-to-host/* ~/.local/bin/'
 ```
+
+> [!IMPORTANT]  
+> Following this guide to setup os keyring to use `gnome-libsecret`:  
+> <https://code.visualstudio.com/docs/editor/settings-sync#_recommended-configure-the-keyring-to-use-with-vs-code>
 
 ## [RustRover](https://www.jetbrains.com/rust/) toolbox
 
