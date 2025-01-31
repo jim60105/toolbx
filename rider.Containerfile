@@ -11,6 +11,17 @@ ARG RIDER_VERSION=2024.3.4
 FROM ${BASE_VERSION} AS base
 
 ########################################
+# Azure Functions Core Tools unpack stage
+########################################
+
+FROM base AS azure-functions-core-tools-unpacker
+
+WORKDIR /azure-functions-core-tools
+
+RUN --mount=source=rider/download-azure-functions-core-tools.sh,target=/download-azure-functions-core-tools.sh,z \
+    . /download-azure-functions-core-tools.sh
+
+########################################
 # Download stage
 ########################################
 FROM base AS download
@@ -38,6 +49,9 @@ ARG TARGETVARIANT
 RUN --mount=type=cache,id=npm-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/root/.npm \
     npm install -g azurite@3
 
+# Copy Azure Functions Core Tools
+COPY --chown=$UID:0 --chmod=775 --from=azure-functions-core-tools-unpacker /azure-functions-core-tools /usr/local/bin/azure-functions-core-tools
+
 # Copy Rider
 COPY --chown=$UID:0 --chmod=775 --from=download /rider /usr/local/bin/rider
 
@@ -48,7 +62,7 @@ COPY --chown=$UID:0 --chmod=775 rider/desktop /usr/share/applications
 # Copy toolbox runner
 COPY --chown=$UID:0 --chmod=775 rider/runner /copy-to-host
 
-ENV PATH="/usr/local/bin/rider/bin:${PATH}"
+ENV PATH="/usr/local/bin/rider/bin:/usr/local/bin/azure-functions-core-tools:${PATH}"
 
 ARG VERSION
 ARG RELEASE
