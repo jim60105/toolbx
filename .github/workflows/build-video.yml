@@ -35,9 +35,6 @@ jobs:
         with:
           submodules: true
 
-      - name: Remove ,z from video.Containerfile
-        run: sed -i 's/,z//g' video.Containerfile
-
       - name: Build and push toolbx
         uses: ./.github/workflows/container-reused-steps
         with:
