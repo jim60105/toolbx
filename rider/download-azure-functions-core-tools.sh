@@ -44,7 +44,7 @@ echo "Setting executable permissions..."
 find "$install_dir" -type f \( -name "func" -o -name "gozip" \) -exec chmod +x {} \;
 
 # Clean up temporary files (optional)
-sudo rm "$download_path"
+rm "$download_path"
 
 echo "Installation complete!"
 echo "Executable files location: $install_dir"
