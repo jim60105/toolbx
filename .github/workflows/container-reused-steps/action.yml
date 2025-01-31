@@ -20,6 +20,7 @@ runs:
   steps:
     - name: Remove ,z from ${{ inputs.CONTAINERFILE }}
       run: sed -i 's/,z//g' ${{ inputs.CONTAINERFILE }}
+      shell: bash
 
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v3
