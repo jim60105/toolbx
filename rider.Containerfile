@@ -30,6 +30,17 @@ RUN tar -xzf /tmp/rider.tar.gz -C /rider && \
 FROM base AS final
 ARG UID
 
+# RUN mount cache for multi-arch: https://github.com/docker/buildx/issues/549#issuecomment-1788297892
+ARG TARGETARCH
+ARG TARGETVARIANT
+
+RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/var/cache/dnf \
+    dnf -y install \
+    # Install nodejs for Azurite
+    nodejs nodejs-npm && \
+    # Install Azurite
+    npm install -g azurite@3
+
 # Copy Rider
 COPY --chown=$UID:0 --chmod=775 --from=download /rider /usr/local/bin/rider
 
