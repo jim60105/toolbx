@@ -34,11 +34,8 @@ ARG UID
 ARG TARGETARCH
 ARG TARGETVARIANT
 
-RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/var/cache/dnf \
-    dnf -y install \
-    # Install nodejs for Azurite
-    nodejs nodejs-npm && \
-    # Install Azurite
+# Install Azurite
+RUN --mount=type=cache,id=npm-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/root/.npm \
     npm install -g azurite@3
 
 # Copy Rider
