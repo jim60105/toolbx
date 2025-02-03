@@ -54,6 +54,7 @@ RUN bins=( \
     "systemctl" \
     "xdg-open" \
     "kitty" \
+    "waveterm" \
     ); \
     for f in "${bins[@]}"; do \
     ln -s host-runner "/host-runner/$f";\
