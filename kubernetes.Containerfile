@@ -51,9 +51,9 @@ RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/v
 
 # Install OpenLens
 RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/var/cache/dnf \
+    --mount=type=tmpfs,target=/tmp \
     curl -L https://github.com/MuhammedKalkan/OpenLens/releases/download/v6.5.2-366/OpenLens-6.5.2-366.x86_64.rpm -o /tmp/OpenLens.rpm && \
-    dnf -y install /tmp/OpenLens.rpm && \
-    rm -f /tmp/OpenLens.rpm
+    dnf -y install /tmp/OpenLens.rpm
 
 # Install talosctl
 # https://www.talos.dev/v1.9/talos-guides/install/talosctl/
@@ -61,6 +61,12 @@ RUN curl -sL https://talos.dev/install | sh
 
 # Install oc
 COPY --from=oc-unpacker /unpacker/oc /usr/bin
+
+# Verify installation
+RUN kubectl version --client && \
+    oc version --client && \
+    helm version && \
+    talosctl version || true
 
 # Copy desktop file
 COPY --chown=$UID:0 --chmod=775 kubernetes/icons /usr/share/icons

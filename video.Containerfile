@@ -113,6 +113,12 @@ RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/v
     # Install ImageMagick and exiftool
     ImageMagick exiftool
 
+# Verify installation
+RUN mpv --version && \
+    yt-dlp --version && \
+    magick -version && \
+    exiftool -ver
+
 # Copy desktop files
 RUN cp /usr/share/icons/hicolor/scalable/apps/com.obsproject.Studio.svg /usr/share/icons/obs.svg
 RUN cp /usr/share/icons/hicolor/scalable/apps/mpv.svg /usr/share/icons/mpv.svg

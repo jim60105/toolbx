@@ -26,7 +26,7 @@ ARG TARGETVARIANT
 RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/var/cache/dnf \
     curl https://codeberg.org/api/packages/yataro/rpm.repo | sed -e 's/gpgcheck=1/gpgcheck=0/' > sourcegit.repo && \
     dnf config-manager addrepo --from-repofile=./sourcegit.repo && \
-    dnf -y install sourcegit
+    dnf -y install --repo=gitea-yataro sourcegit
 
 # Copy desktop file
 COPY --chown=$UID:0 --chmod=775 sourcegit/icons /usr/share/icons

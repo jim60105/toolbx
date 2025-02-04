@@ -133,7 +133,7 @@ RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/v
 
 # Install git-credential-manager (This needs .NET 8)
 RUN curl -L https://aka.ms/gcm/linux-install-source.sh | sh && \
-git-credential-manager configure
+    git-credential-manager configure
 
 # Install aria2
 RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/var/cache/dnf \
@@ -141,6 +141,18 @@ RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/v
 
 # Copy toolbox runners
 COPY --chown=$UID:0 --chmod=775 video/runner /copy-to-host
+
+# Verify installation
+RUN zsh --version && \
+    seahorse -v && \
+    dotnet --info && \
+    rustup-init -V && \
+    java -version && \
+    node -v && \
+    npm -v && \
+    gh --version && \
+    git-credential-manager --version && \
+    aria2c -v
 
 ARG VERSION
 ARG RELEASE
