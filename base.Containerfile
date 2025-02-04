@@ -87,7 +87,8 @@ RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/v
     dnf -y upgrade && \
     dnf -y install \
     xdg-utils \
-    jq
+    jq \
+    zsh
 
 # Fonts
 COPY --chown=$UID:0 --chmod=775 --from=font-unpacker /fonts /usr/local/share/fonts
