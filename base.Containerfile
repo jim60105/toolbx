@@ -88,7 +88,8 @@ RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/v
     dnf -y install \
     xdg-utils \
     jq \
-    zsh
+    zsh \
+    vim
 
 # Install gh-cli
 RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/var/cache/dnf \
