@@ -106,8 +106,6 @@ RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/v
     hanamin-fonts
 
 # Install os keyring
-#! Following this guide to setup os keyring to use gnome-libsecret:
-# https://code.visualstudio.com/docs/editor/settings-sync#_recommended-configure-the-keyring-to-use-with-vs-code
 ENV GCM_CREDENTIAL_STORE=gpg
 RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/var/cache/dnf \
     dnf -y install seahorse
