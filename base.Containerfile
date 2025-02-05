@@ -140,7 +140,7 @@ RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/v
     dnf -y install aria2
 
 # Copy toolbox runners
-COPY --chown=$UID:0 --chmod=775 video/runner /copy-to-host
+COPY --chown=$UID:0 --chmod=775 base/runner /copy-to-host
 
 # Verify installation
 RUN zsh --version && \
