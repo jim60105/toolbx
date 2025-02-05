@@ -142,18 +142,6 @@ RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/v
 # Copy toolbox runners
 COPY --chown=$UID:0 --chmod=775 base/runner /copy-to-host
 
-# Verify installation
-RUN zsh --version && \
-    seahorse -v && \
-    dotnet --info && \
-    rustup-init -V && \
-    java -version && \
-    node -v && \
-    npm -v && \
-    gh --version && \
-    git-credential-manager --version && \
-    aria2c -v
-
 ARG VERSION
 ARG RELEASE
 LABEL name="jim60105/toolbx" \
