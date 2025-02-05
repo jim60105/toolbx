@@ -1,0 +1,3 @@
+#!/bin/bash
+
+toolbox run /usr/bin/dotnet "$@"
