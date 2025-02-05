@@ -18,6 +18,7 @@ toolbox create -i quay.io/jim60105/toolbx:latest fedora-toolbox-41
 toolbox run sh -c 'cp /copy-to-host/* ~/.local/bin/'
 ```
 
+- zsh
 - Fonts
   - Noto Sans CJK
   - Noto Color Emoji
@@ -31,8 +32,12 @@ toolbox run sh -c 'cp /copy-to-host/* ~/.local/bin/'
 - Rust
   - rustup
   - cargo
+- Java 17 (JetBrains loves this 😆)
+- Node.js and npm
 - aria2
 - jq
+- vim
+- gh cli
 
 ## [Sourcegit](https://github.com/sourcegit-scm/sourcegit) toolbox
 
