@@ -110,8 +110,11 @@ RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/v
     yt-dlp \
     # Install OBS
     obs-studio \
-    # Install ImageMagick and exiftool
-    ImageMagick exiftool
+    # Install ImageMagick
+    # Why ImageMagick-heic: https://discussion.fedoraproject.org/t/imagemagick-heic-avif-disappeared-after-updates/144279/5
+    ImageMagick ImageMagick-heic \
+    # Install exiftool
+    exiftool
 
 # Verify installation
 RUN mpv --version && \
