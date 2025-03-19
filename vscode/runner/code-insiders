@@ -1,0 +1,3 @@
+#!/bin/bash
+
+toolbox run -c vscode /usr/bin/code-insiders "$@" --password-store="gnome-libsecret" --enable-features=UseOzonePlatform --ozone-platform=wayland --enable-wayland-ime

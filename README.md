@@ -53,7 +53,11 @@ toolbox run -c sourcegit sh -c 'cp /copy-to-host/* ~/.local/bin/'
 ```bash
 toolbox create -i quay.io/jim60105/toolbx-vscode:latest vscode
 toolbox run -c vscode cp /usr/share/icons/vscode.png ~/.local/share/icons/
+toolbox run -c vscode cp /usr/share/icons/vscode-insiders.png ~/.local/share/icons/
 toolbox run -c vscode cp /usr/share/applications/code.desktop ~/.local/share/applications/
+toolbox run -c vscode cp /usr/share/applications/code-url-handler.desktop ~/.local/share/applications/
+toolbox run -c vscode cp /usr/share/applications/code-insiders.desktop ~/.local/share/applications/
+toolbox run -c vscode cp /usr/share/applications/code-insiders-url-handler.desktop ~/.local/share/applications/
 toolbox run -c vscode sh -c 'cp /copy-to-host/* ~/.local/bin/'
 ```
 
