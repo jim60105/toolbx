@@ -10,6 +10,10 @@ on:
       - vscode.Containerfile
       - vscode/**
 
+  # Run daily at 21:00
+  schedule:
+    - cron: '0 21 * * *'
+
   workflow_run:
     workflows: [build-base]
     types: [completed]
