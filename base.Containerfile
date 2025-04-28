@@ -2,7 +2,7 @@
 ARG UID=1000
 ARG VERSION=EDGE
 ARG RELEASE=0
-ARG BASE_IMAGE=registry.fedoraproject.org/fedora-toolbox:41
+ARG BASE_IMAGE=registry.fedoraproject.org/fedora-toolbox:42
 
 ########################################
 # Base stage
@@ -116,7 +116,7 @@ RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/v
 
 # Install .NET
 RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/var/cache/dnf \
-    dnf -y install dotnet-sdk-8.0
+    dnf -y install dotnet-sdk-8.0 dotnet-sdk-9.0
 
 # Install Rustup
 RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/var/cache/dnf \
