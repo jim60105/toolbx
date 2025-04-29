@@ -141,6 +141,9 @@ RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/v
 # Copy toolbox runners
 COPY --chown=$UID:0 --chmod=775 base/runner /copy-to-host
 
+# Input method for JetBrains IDE
+ENV XMODIFIERS=@im=fcitx
+
 ARG VERSION
 ARG RELEASE
 LABEL name="jim60105/toolbx" \
