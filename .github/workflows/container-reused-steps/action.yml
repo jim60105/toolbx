@@ -95,11 +95,9 @@ runs:
       with:
         subject-name: ghcr.io/${{ github.repository_owner }}/${{ inputs.IMAGE_NAME }}
         subject-digest: ${{ steps.build_push.outputs.digest }}
-        push-to-registry: true
 
     - name: Add attestations for Quay Container Registry
       uses: actions/attest-build-provenance@v2
       with:
         subject-name: quay.io/${{ github.repository_owner }}/${{ inputs.IMAGE_NAME }}
         subject-digest: ${{ steps.build_push.outputs.digest }}
-        push-to-registry: true
