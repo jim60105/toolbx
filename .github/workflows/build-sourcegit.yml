@@ -9,6 +9,8 @@ on:
     paths:
       - sourcegit.Containerfile
       - sourcegit/**
+      - '!base.Containerfile'
+      - '!base/**'
 
   workflow_run:
     workflows: [build-base]

@@ -9,6 +9,8 @@ on:
     paths:
       - kubernetes.Containerfile
       - kubernetes/**
+      - '!base.Containerfile'
+      - '!base/**'
 
   workflow_run:
     workflows: [build-base]

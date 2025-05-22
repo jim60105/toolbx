@@ -9,6 +9,8 @@ on:
     paths:
       - rider.Containerfile
       - rider/**
+      - '!base.Containerfile'
+      - '!base/**'
 
   workflow_run:
     workflows: [build-base]

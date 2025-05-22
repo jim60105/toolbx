@@ -5,6 +5,8 @@ on:
     paths:
       - datagrip.Containerfile
       - datagrip/**
+      - '!base.Containerfile'
+      - '!base/**'
 
   workflow_run:
     workflows: [build-base]
