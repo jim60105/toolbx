@@ -9,8 +9,6 @@ on:
     paths:
       - video.Containerfile
       - video/**
-      - '!base.Containerfile'
-      - '!base/**'
 
   workflow_run:
     workflows: [build-base]

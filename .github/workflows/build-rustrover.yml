@@ -9,8 +9,6 @@ on:
     paths:
       - rustrover.Containerfile
       - rustrover/**
-      - '!base.Containerfile'
-      - '!base/**'
 
   workflow_run:
     workflows: [build-base]

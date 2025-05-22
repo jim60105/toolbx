@@ -9,8 +9,6 @@ on:
     paths:
       - vscode.Containerfile
       - vscode/**
-      - '!base.Containerfile'
-      - '!base/**'
 
   # Run daily at 21:00
   schedule:
