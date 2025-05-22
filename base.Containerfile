@@ -112,15 +112,11 @@ RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/v
 
 # Install development tools (gcc, make, etc.)
 RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/var/cache/dnf \
-    dnf -y install @development-tools openssl-devel
+    dnf -y install @development-tools @c-development openssl-devel cmake ninja-build pkg-config
 
 # Install .NET
 RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/var/cache/dnf \
     dnf -y install dotnet-sdk-8.0 dotnet-sdk-9.0
-
-# Install Rustup
-RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/var/cache/dnf \
-    dnf -y install rustup
 
 # Install Java 17 (JetBrains loves this)
 RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/var/cache/dnf \
@@ -128,7 +124,7 @@ RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/v
 
 # Install nodejs
 RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/var/cache/dnf \
-    dnf -y install nodejs nodejs-npm
+    dnf -y install nodejs nodejs-npm nodejs-pnpm yarnpkg
 
 # Install git-credential-manager (This needs .NET 8)
 RUN curl -L https://aka.ms/gcm/linux-install-source.sh | sh && \
