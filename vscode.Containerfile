@@ -22,6 +22,18 @@ ARG RELEASE
 ARG TARGETARCH
 ARG TARGETVARIANT
 
+# Tauri Prerequisites
+# https://v2.tauri.app/start/prerequisites/#linux
+RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/var/cache/dnf \
+    dnf -y install webkit2gtk4.1-devel \
+    openssl-devel \
+    curl \
+    wget \
+    file \
+    libappindicator-gtk3-devel \
+    librsvg2-devel \
+    @c-development
+
 # Install vscode repository
 RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/var/cache/dnf \
     rpm --import https://packages.microsoft.com/keys/microsoft.asc && \
