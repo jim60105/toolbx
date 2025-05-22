@@ -26,18 +26,16 @@ toolbox run sh -c 'cp /copy-to-host/* ~/.local/bin/'
   - Hina Mincho
   - [Iansui 芫荽](https://github.com/ButTaiwan/iansui)
   - [Hack Nerd Font](https://github.com/ryanoasis/nerd-fonts)
-- Gnome Seahorse (for os keyring)
+- Gnome Seahorse (OS keyring)
 - Git Credential Manager
-- .NET SDK 8.0
-- Rust
-  - rustup
-  - cargo
+- .NET SDK 8.0 and 9.0
 - Java 17 (JetBrains loves this 😆)
-- Node.js and npm
+- Node.js, npm, pnpm, yarn
 - aria2
 - jq
 - vim
 - gh cli
+- Development Tools (@development-tools @c-development openssl-devel cmake ninja-build pkg-config)
 
 ## [Sourcegit](https://github.com/sourcegit-scm/sourcegit) toolbox
 

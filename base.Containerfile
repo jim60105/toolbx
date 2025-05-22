@@ -110,7 +110,7 @@ ENV GCM_CREDENTIAL_STORE=gpg
 RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/var/cache/dnf \
     dnf -y install seahorse
 
-# Install development tools (gcc, make, etc.)
+# Install development tools
 RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/var/cache/dnf \
     dnf -y install @development-tools @c-development openssl-devel cmake ninja-build pkg-config
 
