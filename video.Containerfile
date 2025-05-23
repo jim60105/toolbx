@@ -93,21 +93,17 @@ ARG TARGETVARIANT
 # Make sure the cache is refreshed
 ARG RELEASE
 
-# Install ffmpeg-nonfree for x264
-RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/var/cache/dnf \
-    dnf -y install \
-    https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm \
-    https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm && \
-    dnf config-manager setopt fedora-cisco-openh264.enabled=1 && \
-    dnf -y swap ffmpeg-free ffmpeg --allowerasing && \
-    dnf -y remove rpmfusion-free-release rpmfusion-nonfree-release
+# Install ffmpeg
+COPY --from=docker.io/mwader/static-ffmpeg:7.1.1 /ffmpeg /usr/bin/
+COPY --from=docker.io/mwader/static-ffmpeg:7.1.1 /ffprobe /usr/bin/
+
+# Install yt-dlp
+ADD --chown=$UID:0 --chmod=775 https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp /usr/bin/yt-dlp
 
 RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/var/cache/dnf \
     dnf -y install \
     # Install mpv and vapoursynth
     mpv python3-vapoursynth vapoursynth-tools \
-    # Install yt-dlp
-    yt-dlp \
     # Install OBS
     obs-studio \
     # Install ImageMagick
