@@ -44,4 +44,4 @@ jobs:
           QUAY_TOKEN: ${{ secrets.QUAY_TOKEN }}
           CONTAINERFILE: ./video.Containerfile
           IMAGE_NAME: ${{ env.IMAGE_NAME }}
-          BASE_IMAGE: quay.io/jim60105/toolbx:latest
+          BASE_IMAGE: ghcr.io/jim60105/toolbx:latest

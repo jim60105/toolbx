@@ -44,4 +44,4 @@ jobs:
           QUAY_TOKEN: ${{ secrets.QUAY_TOKEN }}
           IMAGE_NAME: ${{ env.IMAGE_NAME }}
           CONTAINERFILE: ./kubernetes.Containerfile
-          BASE_IMAGE: quay.io/jim60105/toolbx:latest
+          BASE_IMAGE: ghcr.io/jim60105/toolbx:latest
