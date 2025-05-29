@@ -51,6 +51,7 @@ RUN --mount=type=cache,id=pnpm-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/
 
 # Copy Azure Functions Core Tools
 COPY --chown=$UID:0 --chmod=775 --from=azure-functions-core-tools-unpacker /azure-functions-core-tools /usr/local/bin/azure-functions-core-tools
+ENV PATH="/usr/local/bin/azure-functions-core-tools${PATH:+:${PATH}}"
 
 # Copy Rider
 COPY --chown=$UID:0 --chmod=775 --from=download /rider /usr/local/bin/rider
