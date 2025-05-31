@@ -13,6 +13,11 @@ Get the Containerfile at [GitHub](https://github.com/jim60105/toolbx), or pull t
 
 This is the base toolbox image for all the other toolboxes.
 
+> [!NOTE]  
+> This base image includes many development dependencies, making it quite large.  
+> Even though some tools don't use these dependencies, I still include them in the base image. For example, sourcegit toolbox doesn't need Java, and video toolbox doesn't require most of the development tools.  
+> The reason for this design is that my computer always runs all toolboxes simultaneously on Fedora using Podman; in theory, there is no extra overhead when sharing base image layers.
+
 ```bash
 toolbox create -i quay.io/jim60105/toolbx:latest fedora-toolbox-42
 toolbox run sh -c 'cp /copy-to-host/* ~/.local/bin/'
@@ -29,7 +34,7 @@ toolbox run sh -c 'cp /copy-to-host/* ~/.local/bin/'
 - Gnome Seahorse (OS keyring)
 - Git Credential Manager
 - .NET SDK 8.0 and 9.0
-- Java 17 (JetBrains loves this 😆)
+- Java 21 (JetBrains loves this 😆)
 - Node.js, npm, pnpm, yarn
 - aria2
 - jq
