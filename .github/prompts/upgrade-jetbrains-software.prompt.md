@@ -1,7 +1,9 @@
 ---
-applyTo: 'rider*,datagrip*,rustrover*'
+mode: agent
+description: "Write a comprehensive work report in Chinese, detailing the work performed, code changes, and test results for the SubX project."
+tools: ['changes', 'codebase', 'editFiles', 'runCommands', 'search']
 ---
-When upgrading JetBrains software, follow these steps:
+Follow these steps to upgrade JetBrains software:
 
 1. **Check for Updates**: Get the latest version from the JetBrains website.
 
@@ -14,9 +16,9 @@ curl -s -I "https://data.services.jetbrains.com/products/download?code=RD&platfo
 2. **Carefully check if the version number is the same**: The version number in our container file may not match the version number on the JetBrains website. If the version number is the same, you can skip the next step. If the version number is different, proceed to the next step.
 
 Jetbrains Containerfiles:
-- #rider.Containerfile
-- #datagrip.Containerfile
-- #rustrover.Containerfile
+- #file:rider.Containerfile
+- #file:datagrip.Containerfile
+- #file:rustrover.Containerfile
 
 3. **Update the version number in our Containerfile**: Open the Containerfiles and update the version number in the `ARG {{SOFTWARE}}_VERSION={{version}}` line. For example, change `ARG RUSTROVER_VERSION=2024.3.7` to `ARG RUSTROVER_VERSION=2025.1`.`
 
@@ -37,3 +39,4 @@ Signed-off-by: CHEN, CHUN <jim60105@gmail.com>
 > Write the software name in the commit title. Or write `bump Jetbrains to 2024.3.7` if you are updating multiple JetBrains software.
 
 Let's do this step by step.
+
