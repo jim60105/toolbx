@@ -3,7 +3,8 @@ ARG UID=1000
 ARG VERSION=EDGE
 ARG RELEASE=0
 ARG BASE_IMAGE=registry.fedoraproject.org/fedora-toolbox:42
-ARG PNPM_HOME=/pnpm-store
+# Set pnpm home in the host means that we can't install packages in the build time
+ARG PNPM_HOME=/run/host/var/pnpm-store
 
 ########################################
 # Base stage
