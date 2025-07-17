@@ -45,6 +45,10 @@ RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/v
     librsvg2-devel \
     @c-development
 
+# Install uv
+RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/var/cache/dnf \
+    dnf -y install uv
+
 # Install Azurite
 RUN --mount=type=cache,id=npm-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/root/.npm \
     npm install -g azurite@3
