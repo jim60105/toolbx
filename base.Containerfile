@@ -124,7 +124,7 @@ RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/v
 
 # Install nodejs
 RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/var/cache/dnf \
-    dnf -y install nodejs nodejs-npm pnpm yarnpkg
+    dnf -y install nodejs nodejs-npm nodejs-pnpm yarnpkg
 
 # Install git-credential-manager (This needs .NET 8)
 RUN curl -L https://aka.ms/gcm/linux-install-source.sh | sh && \
