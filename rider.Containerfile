@@ -46,8 +46,8 @@ ARG TARGETARCH
 ARG TARGETVARIANT
 
 # Install Azurite
-RUN --mount=type=cache,id=pnpm-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/pnpm/store \
-    pnpm install -g azurite@3
+RUN --mount=type=cache,id=npm-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/root/.npm \
+    npm install -g azurite@3
 
 # Copy Azure Functions Core Tools
 COPY --chown=$UID:0 --chmod=775 --from=azure-functions-core-tools-unpacker /azure-functions-core-tools /usr/local/bin/azure-functions-core-tools
