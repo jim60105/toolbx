@@ -47,7 +47,7 @@ RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/v
 
 # Install Azurite
 RUN --mount=type=cache,id=pnpm-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/pnpm/store \
-    pnpm add -g azurite@3
+    pnpm install azurite@3
 
 # Copy Azure Functions Core Tools
 COPY --chown=$UID:0 --chmod=775 --from=azure-functions-core-tools-unpacker /azure-functions-core-tools /usr/local/bin/azure-functions-core-tools

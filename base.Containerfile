@@ -3,7 +3,6 @@ ARG UID=1000
 ARG VERSION=EDGE
 ARG RELEASE=0
 ARG BASE_IMAGE=registry.fedoraproject.org/fedora-toolbox:42
-ARG PNPM_HOME=/pnpm-store
 
 ########################################
 # Base stage
@@ -124,12 +123,8 @@ RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/v
     dnf -y install java-21-openjdk
 
 # Install nodejs
-ARG PNPM_HOME
-ENV PNPM_HOME=${PNPM_HOME}
 RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/var/cache/dnf \
-    install -d -m 775 -o $UID -g 0 ${PNPM_HOME} && \
     dnf -y install nodejs nodejs-npm pnpm yarnpkg
-ENV PATH="${PNPM_HOME}${PATH:+:${PATH}}"
 
 # Install git-credential-manager (This needs .NET 8)
 RUN curl -L https://aka.ms/gcm/linux-install-source.sh | sh && \
