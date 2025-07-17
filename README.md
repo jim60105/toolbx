@@ -35,7 +35,7 @@ toolbox run sh -c 'cp /copy-to-host/* ~/.local/bin/'
 - Git Credential Manager
 - .NET SDK 8.0 and 9.0
 - Java 21 (JetBrains loves this 😆)
-- Node.js, npm, pnpm, yarn
+- Node.js, npm, yarn
 - aria2
 - jq
 - vim
