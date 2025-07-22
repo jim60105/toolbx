@@ -55,11 +55,17 @@ toolbox run -c sourcegit sh -c 'cp /copy-to-host/* ~/.local/bin/'
 
 ```bash
 toolbox create -i quay.io/jim60105/toolbx-vscode:latest vscode
+toolbox run -c vscode cp /usr/share/icons/vscode.png ~/.local/share/icons/
 toolbox run -c vscode cp /usr/share/icons/vscode-insiders.png ~/.local/share/icons/
+toolbox run -c vscode cp /usr/share/applications/code.desktop ~/.local/share/applications/
+toolbox run -c vscode cp /usr/share/applications/code-url-handler.desktop ~/.local/share/applications/
 toolbox run -c vscode cp /usr/share/applications/code-insiders.desktop ~/.local/share/applications/
 toolbox run -c vscode cp /usr/share/applications/code-insiders-url-handler.desktop ~/.local/share/applications/
 toolbox run -c vscode sh -c 'cp /copy-to-host/* ~/.local/bin/'
 ```
+
+> [!NOTE]  
+> The regular `code` command and desktop entries are bridged to VSCode Insiders for compatibility with other applications and XDG.
 
 > [!IMPORTANT]  
 > Following this guide to setup os keyring to use `gnome-libsecret`:  
