@@ -235,18 +235,6 @@ Set `/etc/hosts` to include `toolbx` in localhost. [ref][1]
 
 ## LICENSE
 
-<img src="https://github.com/user-attachments/assets/77148063-7bd8-4c07-a776-ec297d2f6ad8" alt="gplv3" width="300" />
-
-[GNU GENERAL PUBLIC LICENSE Version 3](LICENSE)
-
-Copyright (C) 2025 Jim Chen <Jim@ChenJ.im>.
-
-This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
-
-This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License along with this program. If not, see <https://www.gnu.org/licenses/>.
-
 > [!CAUTION]
 > A GPLv3 licensed Containerfile means that you _**MUST**_ **distribute the source code with the same license**, if you
 >
@@ -257,3 +245,15 @@ You should have received a copy of the GNU General Public License along with thi
 > "Distribute" means to make the image available for other people to download, usually by pushing it to a public registry. If you are solely using it for your personal purposes, this has no impact on you.
 >
 > Please consult the [LICENSE](LICENSE) for more details.
+
+<img src="https://github.com/user-attachments/assets/77148063-7bd8-4c07-a776-ec297d2f6ad8" alt="gplv3" width="300" />
+
+[GNU GENERAL PUBLIC LICENSE Version 3](LICENSE)
+
+Copyright (C) 2024 Jim Chen <Jim@ChenJ.im>.
+
+This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along with this program. If not, see <https://www.gnu.org/licenses/>.
