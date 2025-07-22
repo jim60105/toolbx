@@ -62,10 +62,6 @@ RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/v
     rpm --import https://packages.microsoft.com/keys/microsoft.asc && \
     echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" | tee /etc/yum.repos.d/vscode.repo > /dev/null
 
-# Install VSCode
-RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/var/cache/dnf \
-    dnf -y install code
-
 # Install VSCode Insiders
 RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/var/cache/dnf \
     dnf -y install code-insiders
@@ -80,7 +76,7 @@ COPY --chown=$UID:0 --chmod=775 vscode/desktop /usr/share/applications
 COPY --chown=$UID:0 --chmod=775 vscode/runner /copy-to-host
 
 # Set git editor
-ENV GIT_EDITOR="code --wait"
+ENV GIT_EDITOR="code-insiders --wait"
 
 ARG VERSION
 ARG RELEASE

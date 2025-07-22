@@ -51,14 +51,11 @@ toolbox run -c sourcegit cp /usr/share/applications/sourcegit.desktop ~/.local/s
 toolbox run -c sourcegit sh -c 'cp /copy-to-host/* ~/.local/bin/'
 ```
 
-## [VSCode](https://code.visualstudio.com/) toolbox
+## [VSCode Insiders](https://code.visualstudio.com/insiders/) toolbox
 
 ```bash
 toolbox create -i quay.io/jim60105/toolbx-vscode:latest vscode
-toolbox run -c vscode cp /usr/share/icons/vscode.png ~/.local/share/icons/
 toolbox run -c vscode cp /usr/share/icons/vscode-insiders.png ~/.local/share/icons/
-toolbox run -c vscode cp /usr/share/applications/code.desktop ~/.local/share/applications/
-toolbox run -c vscode cp /usr/share/applications/code-url-handler.desktop ~/.local/share/applications/
 toolbox run -c vscode cp /usr/share/applications/code-insiders.desktop ~/.local/share/applications/
 toolbox run -c vscode cp /usr/share/applications/code-insiders-url-handler.desktop ~/.local/share/applications/
 toolbox run -c vscode sh -c 'cp /copy-to-host/* ~/.local/bin/'
@@ -235,6 +232,8 @@ Set `/etc/hosts` to include `toolbx` in localhost. [ref][1]
 <img src="https://github.com/user-attachments/assets/77148063-7bd8-4c07-a776-ec297d2f6ad8" alt="gplv3" width="300" />
 
 [GNU GENERAL PUBLIC LICENSE Version 3](LICENSE)
+
+Copyright (C) 2025 Jim Chen <Jim@ChenJ.im>.
 
 This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 
