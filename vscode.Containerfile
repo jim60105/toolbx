@@ -76,7 +76,7 @@ COPY --chown=$UID:0 --chmod=775 vscode/desktop /usr/share/applications
 COPY --chown=$UID:0 --chmod=775 vscode/runner /copy-to-host
 
 # Set git editor
-ENV GIT_EDITOR="code --wait"
+ENV GIT_EDITOR="code-insiders --wait"
 
 ARG VERSION
 ARG RELEASE
