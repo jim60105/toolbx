@@ -94,8 +94,8 @@ ARG TARGETVARIANT
 ARG RELEASE
 
 # Install ffmpeg
-COPY --from=docker.io/mwader/static-ffmpeg:7.1.1 /ffmpeg /usr/bin/
-COPY --from=docker.io/mwader/static-ffmpeg:7.1.1 /ffprobe /usr/bin/
+COPY --from=docker.io/mwader/static-ffmpeg:8.0 /ffmpeg /usr/bin/
+COPY --from=docker.io/mwader/static-ffmpeg:8.0 /ffprobe /usr/bin/
 
 # Install yt-dlp
 ADD --chown=$UID:0 --chmod=775 https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp /usr/bin/yt-dlp
