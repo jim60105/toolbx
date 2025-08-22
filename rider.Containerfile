@@ -3,7 +3,7 @@ ARG UID=1000
 ARG VERSION=EDGE
 ARG RELEASE=0
 ARG BASE_IMAGE=quay.io/jim60105/toolbx:latest
-ARG RIDER_VERSION=2025.1.3
+ARG RIDER_VERSION=2025.2.0.1
 
 ########################################
 # Base stage
