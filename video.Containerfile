@@ -93,13 +93,6 @@ ARG TARGETVARIANT
 # Make sure the cache is refreshed
 ARG RELEASE
 
-# Install ffmpeg
-COPY --from=docker.io/mwader/static-ffmpeg:8.0 /ffmpeg /usr/bin/
-COPY --from=docker.io/mwader/static-ffmpeg:8.0 /ffprobe /usr/bin/
-
-# Install yt-dlp
-ADD --chown=$UID:0 --chmod=775 https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp /usr/bin/yt-dlp
-
 RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/var/cache/dnf \
     dnf -y install \
     # Install mpv and vapoursynth
@@ -112,8 +105,17 @@ RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/v
     # Install exiftool
     exiftool
 
+# Install ffmpeg
+# Overwrite the ffmpeg-free installed in the previous step.
+COPY --from=docker.io/mwader/static-ffmpeg:8.0 /ffmpeg /usr/bin/
+COPY --from=docker.io/mwader/static-ffmpeg:8.0 /ffprobe /usr/bin/
+
+# Install yt-dlp
+ADD --chown=$UID:0 --chmod=775 https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp /usr/bin/yt-dlp
+
 # Verify installation
-RUN mpv --version && \
+RUN ffmpeg -version && \
+    mpv --version && \
     yt-dlp --version && \
     magick -version && \
     exiftool -ver
