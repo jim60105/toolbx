@@ -32,8 +32,10 @@ Use the following commit message:
 
 ```
 chore: bump Rider to 2024.3.7
-
-Signed-off-by: CHEN, CHUN <jim60105@gmail.com>
+```
+or
+```
+chore: bump Jetbrains to 2024.3.7
 ```
 > Note: The version number in the commit message should match the version number in the Containerfile.
 > Write the software name in the commit title. Or write `bump Jetbrains to 2024.3.7` if you are updating multiple JetBrains software.
