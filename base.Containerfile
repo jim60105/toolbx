@@ -35,18 +35,14 @@ RUN unzip -uo /tmp/iansui.zip -d /fonts/iansui && \
 ########################################
 FROM base AS host-runner
 
-WORKDIR /host-runner
+COPY --chown=$UID:0 --chmod=775 base/host-runner /host-runner
 
-RUN cat <<-"EOF" > /host-runner/host-runner
-#!/bin/bash
-executable="$(basename ${0})"
-exec flatpak-spawn --host "${executable}" "${@}"
-EOF
+WORKDIR /host-runner
 
 # Setup host-runner script and symlinks
 RUN bins=( \
     "flatpak" \
-    "podman" \
+    # "podman" \
     "buildah" \
     "skopeo" \
     "docker" \

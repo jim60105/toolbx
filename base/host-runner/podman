@@ -1,0 +1,34 @@
+#!/bin/bash
+# Privileged and Security-Opt Disable are needed for SELinux
+# to allow Workspace Read-Write Permission and Building DevContainer Features.
+# Source: https://gist.github.com/theonlyfoxy/d7a3d8e90493a00faaef1cbd782da196
+
+set -x
+
+if [ "$1" == "exec" ]; then
+  # Remove 'exec' from $@
+  shift
+  script='
+    result_command="podman exec"
+    for i in $(printenv | grep "=" | grep -Ev " |\"" |
+        grep -Ev "^(HOST|HOSTNAME|HOME|PATH|SHELL|USER|_)"); do
+      result_command=$result_command --env="$i"
+    done
+    exec ${result_command} "$@"
+  '
+  exec flatpak-spawn --host sh -c "$script" - "$@"
+elif [[ "$1" == "run"* ]]; then
+  # Remove 'run' from $@
+  shift
+  exec flatpak-spawn --host podman run --runtime crun --device nvidia.com/gpu=all --privileged --cap-add=sys_resource "$@"
+elif [[ "$1" == "start"* ]]; then
+  # Remove 'start' from $@
+  shift
+  exec flatpak-spawn --host podman start --runtime crun "$@"
+elif [[ "$1" == "buildx" && "$2" == "build" ]]; then
+  # Remove 'buildx build' from $@
+  shift 2
+  exec flatpak-spawn --host podman build --security-opt label=disable "$@"
+else
+  exec flatpak-spawn --host podman "$@"
+fi
