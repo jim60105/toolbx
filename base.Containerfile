@@ -51,6 +51,9 @@ RUN bins=( \
     "xdg-open" \
     "kitty" \
     "waveterm" \
+    "chrome" \
+    "firefox" \
+    "brave" \
     ); \
     for f in "${bins[@]}"; do \
     ln -s host-runner "/host-runner/$f";\
