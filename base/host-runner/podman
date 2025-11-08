@@ -3,8 +3,6 @@
 # to allow Workspace Read-Write Permission and Building DevContainer Features.
 # Source: https://gist.github.com/theonlyfoxy/d7a3d8e90493a00faaef1cbd782da196
 
-set -x
-
 if [ "$1" == "exec" ]; then
   # Remove 'exec' from $@
   shift
