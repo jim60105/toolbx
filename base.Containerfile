@@ -2,7 +2,7 @@
 ARG UID=1000
 ARG VERSION=EDGE
 ARG RELEASE=0
-ARG BASE_IMAGE=registry.fedoraproject.org/fedora-toolbox:42
+ARG BASE_IMAGE=registry.fedoraproject.org/fedora-toolbox:43
 
 ########################################
 # Base stage

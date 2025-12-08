@@ -18,7 +18,7 @@ inputs:
   BASE_IMAGE:
     description: 'Base image'
     required: false
-    default: 'registry.fedoraproject.org/fedora-toolbox:42'
+    default: 'registry.fedoraproject.org/fedora-toolbox:43'
 
 runs:
   using: composite
