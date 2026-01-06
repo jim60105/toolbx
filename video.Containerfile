@@ -98,7 +98,7 @@ RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/v
     # Install mpv and vapoursynth
     mpv python3-vapoursynth vapoursynth-tools \
     # Install OBS
-    obs-studio \
+    obs-studio obs-studio-plugin-browser \
     # Install ImageMagick
     # Why ImageMagick-heic: https://discussion.fedoraproject.org/t/imagemagick-heic-avif-disappeared-after-updates/144279/5
     ImageMagick ImageMagick-heic \
