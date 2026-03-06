@@ -26,7 +26,8 @@ RUN --mount=type=cache,id=apt-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/v
     FULL_VERSION=$(curl -s https://updates.networkoptix.com/metavms/releases.json | jq -r '[.releases[] | select(.product == "vms" and .publication_type == "release")] | first | .version') && \
     BUILD_NUMBER=$(echo "$FULL_VERSION" | rev | cut -d. -f1 | rev) && \
     echo "Nx Meta version: ${FULL_VERSION}, build number: ${BUILD_NUMBER}" && \
-    curl -L -o /download/nxmeta-client.deb "https://updates.networkoptix.com/metavms/${BUILD_NUMBER}/linux/metavms-client-${FULL_VERSION}-linux_x64.deb"
+    curl -L -o /download/nxmeta-client.deb "https://updates.networkoptix.com/metavms/${BUILD_NUMBER}/linux/metavms-client-${FULL_VERSION}-linux_x64.deb" && \
+    curl -L -o /download/nxmeta-server.deb "https://updates.networkoptix.com/metavms/${BUILD_NUMBER}/linux/metavms-server-${FULL_VERSION}-linux_x64.deb"
 
 ########################################
 # Final stage
@@ -49,6 +50,13 @@ RUN --mount=type=cache,id=apt-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/v
     apt-get install -y --no-install-recommends /tmp/nxmeta-client.deb \
     libxdamage1 libvulkan1 mesa-vulkan-drivers
 
+# Install Nx Meta VMS Server (mediaserver) and runtime dependencies
+RUN --mount=type=cache,id=apt-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/var/cache/apt \
+    --mount=type=cache,id=aptlists-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/var/lib/apt/lists \
+    --mount=type=bind,from=download,source=/download/nxmeta-server.deb,target=/tmp/nxmeta-server.deb \
+    apt-get update && \
+    apt-get install -y --no-install-recommends /tmp/nxmeta-server.deb
+
 # Create wrapper script for the client binary
 # A symlink would cause the client's dirname-based path resolution to break,
 # so we use a wrapper that exec's the actual binary with the correct $0 path
@@ -57,6 +65,12 @@ COPY --chmod=775 <<"EOF" /usr/local/bin/nxmeta-client
 #!/bin/bash
 export QTWEBENGINE_CHROMIUM_FLAGS="--disable-gpu ${QTWEBENGINE_CHROMIUM_FLAGS}"
 exec /opt/networkoptix-metavms/client/*/bin/client "$@"
+EOF
+
+# Create wrapper script for the server binary
+COPY --chmod=775 <<"EOF" /usr/local/bin/nxmeta-server
+#!/bin/bash
+exec /opt/networkoptix-metavms/mediaserver/bin/mediaserver -e "$@"
 EOF
 
 # Copy icon
