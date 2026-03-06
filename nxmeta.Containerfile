@@ -2,7 +2,7 @@
 ARG UID=1000
 ARG VERSION=EDGE
 ARG RELEASE=0
-ARG BASE_IMAGE=quay.io/toolbx/ubuntu-toolbox:22.04
+ARG BASE_IMAGE=quay.io/toolbx/ubuntu-toolbox:24.04
 
 ########################################
 # Base stage
@@ -41,15 +41,23 @@ ARG RELEASE
 ARG TARGETARCH
 ARG TARGETVARIANT
 
-# Install Nx Meta VMS Client
+# Install Nx Meta VMS Client and runtime dependencies
 RUN --mount=type=cache,id=apt-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/var/cache/apt \
     --mount=type=cache,id=aptlists-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/var/lib/apt/lists \
     --mount=type=bind,from=download,source=/download/nxmeta-client.deb,target=/tmp/nxmeta-client.deb \
     apt-get update && \
-    apt-get install -y --no-install-recommends /tmp/nxmeta-client.deb
+    apt-get install -y --no-install-recommends /tmp/nxmeta-client.deb \
+    libxdamage1 libvulkan1 mesa-vulkan-drivers
 
-# Create stable symlink for the client binary
-RUN ln -s /opt/networkoptix-metavms/client/*/bin/client /usr/local/bin/nxmeta-client
+# Create wrapper script for the client binary
+# A symlink would cause the client's dirname-based path resolution to break,
+# so we use a wrapper that exec's the actual binary with the correct $0 path
+# Disable GPU for Qt WebEngine (Chromium) to prevent SharedImage/EGL crashes in containers
+COPY --chmod=775 <<"EOF" /usr/local/bin/nxmeta-client
+#!/bin/bash
+export QTWEBENGINE_CHROMIUM_FLAGS="--disable-gpu ${QTWEBENGINE_CHROMIUM_FLAGS}"
+exec /opt/networkoptix-metavms/client/*/bin/client "$@"
+EOF
 
 # Copy icon
 RUN cp /usr/share/icons/hicolor/scalable/apps/vmsclient-metavms.png /usr/share/icons/nxmeta.png
