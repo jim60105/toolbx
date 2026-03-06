@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Nx Meta
+Comment=Nx Meta VMS Desktop Client
+Exec=nxmeta-client %u
+Icon=nxmeta
+Terminal=false
+Type=Application
+StartupNotify=true
+StartupWMClass=metavms
+Categories=Video;AudioVideo;Network;
