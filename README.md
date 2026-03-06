@@ -163,6 +163,17 @@ Execute this script on the youtube video page:
 > I'm using [Enhancer for YouTube™](https://chromewebstore.google.com/detail/Enhancer%20for%20YouTube%E2%84%A2/ponfpcnoihfmfllpaingbgckeeldkhle) to run this script on the youtube page.  
 > It provides a button so I don't have to implement it myself.
 
+## [Nx Meta](https://meta.nxvms.com/) toolbox
+
+This toolbox is for the Nx Meta VMS desktop client. It is Ubuntu-based (22.04) since Nx Meta only supports Ubuntu.
+
+```bash
+toolbox create -i quay.io/jim60105/toolbx-nxmeta:latest nxmeta
+toolbox run -c nxmeta cp /usr/share/icons/nxmeta.png ~/.local/share/icons/
+toolbox run -c nxmeta cp /usr/share/applications/metavms.desktop ~/.local/share/applications/
+toolbox run -c nxmeta sh -c 'cp /copy-to-host/* ~/.local/bin/'
+```
+
 ## Kubernetes toolbox
 
 This toolbox is for kubernetes related tools.
@@ -191,6 +202,7 @@ toolbox run -c kubernetes sh -c 'cp /copy-to-host/* ~/.local/bin/'
               quay.io/jim60105/toolbx-datagrip:latest \
               quay.io/jim60105/toolbx-sourcegit:latest \
               quay.io/jim60105/toolbx-video:latest \
+              quay.io/jim60105/toolbx-nxmeta:latest \
               quay.io/jim60105/toolbx-kubernetes:latest && \
   toolbox rm -af && \
   toolbox create -i quay.io/jim60105/toolbx:latest fedora-toolbox-43 && \
@@ -200,6 +212,7 @@ toolbox run -c kubernetes sh -c 'cp /copy-to-host/* ~/.local/bin/'
   toolbox create -i quay.io/jim60105/toolbx-datagrip:latest datagrip && \
   toolbox create -i quay.io/jim60105/toolbx-sourcegit:latest sourcegit && \
   toolbox create -i quay.io/jim60105/toolbx-video:latest video && \
+  toolbox create -i quay.io/jim60105/toolbx-nxmeta:latest nxmeta && \
   toolbox create -i quay.io/jim60105/toolbx-kubernetes:latest kubernetes
   ```
 
