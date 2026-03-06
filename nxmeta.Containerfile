@@ -51,17 +51,11 @@ RUN --mount=type=cache,id=apt-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/v
     libxdamage1 libvulkan1 mesa-vulkan-drivers
 
 # Install Nx Meta VMS Server (mediaserver) and runtime dependencies
-# The package creates a system user with home dir under /home, which blocks
-# toolbox's /home → /var/home redirect on immutable systems; relocate it
 RUN --mount=type=cache,id=apt-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/var/cache/apt \
     --mount=type=cache,id=aptlists-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/var/lib/apt/lists \
     --mount=type=bind,from=download,source=/download/nxmeta-server.deb,target=/tmp/nxmeta-server.deb \
     apt-get update && \
-    apt-get install -y --no-install-recommends /tmp/nxmeta-server.deb && \
-    usermod -d /var/home/networkoptix-metavms networkoptix-metavms && \
-    mkdir -p /var/home/networkoptix-metavms && \
-    chown networkoptix-metavms:networkoptix-metavms /var/home/networkoptix-metavms && \
-    rm -rf /home/networkoptix-metavms
+    apt-get install -y --no-install-recommends /tmp/nxmeta-server.deb
 
 # Create wrapper script for the client binary
 # A symlink would cause the client's dirname-based path resolution to break,
