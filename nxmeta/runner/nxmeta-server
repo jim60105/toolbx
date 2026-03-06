@@ -1,3 +1,0 @@
-#!/bin/bash
-
-toolbox run -c nxmeta /usr/local/bin/nxmeta-server "$@"
