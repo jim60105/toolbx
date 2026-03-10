@@ -8,3 +8,5 @@ Type=Application
 StartupNotify=true
 StartupWMClass=metavms
 Categories=Video;AudioVideo;Network;
+NoDisplay=true
+MimeType=x-scheme-handler/nx-metavms

@@ -47,7 +47,9 @@ RUN --mount=type=cache,id=apt-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/v
     --mount=type=bind,from=download,source=/download/nxmeta-client.deb,target=/tmp/nxmeta-client.deb \
     apt-get update && \
     apt-get install -y --no-install-recommends /tmp/nxmeta-client.deb \
-    libxdamage1 libvulkan1 mesa-vulkan-drivers locate
+    libxdamage1 libvulkan1 mesa-vulkan-drivers locate \
+    fonts-noto-cjk \
+    fonts-noto-color-emoji
 
 # Create wrapper script for the client binary
 # A symlink would cause the client's dirname-based path resolution to break,

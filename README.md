@@ -165,7 +165,7 @@ Execute this script on the youtube video page:
 
 ## [Nx Meta](https://meta.nxvms.com/) toolbox
 
-This toolbox is for the Nx Meta VMS desktop client. It is Ubuntu-based (22.04) since Nx Meta only supports Ubuntu.
+This toolbox is for the Nx Meta VMS desktop client. It is Ubuntu-based (24.04) since Nx Meta only supports Ubuntu.
 
 ```bash
 toolbox create -i quay.io/jim60105/toolbx-nxmeta:latest nxmeta
