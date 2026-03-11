@@ -245,6 +245,8 @@ Set `/etc/hosts` to include `toolbx` in localhost. [ref][1]
 
 ## LICENSE
 
+### GPLv3
+
 > [!CAUTION]
 > A GPLv3 licensed Containerfile means that you _**MUST**_ **distribute the source code with the same license**, if you
 >
@@ -267,3 +269,11 @@ This program is free software: you can redistribute it and/or modify it under th
 This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License along with this program. If not, see <https://www.gnu.org/licenses/>.
+
+---
+
+### Special Closed Source Authorization
+
+I, 陳鈞, authorize the following organizations and their clients to use this project in a closed-source capacity for any projects I have participated in or collaborated on.
+
+- Chunghwa Telecom Co., Ltd.

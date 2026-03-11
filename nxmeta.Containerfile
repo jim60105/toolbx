@@ -72,6 +72,19 @@ COPY --chown=$UID:0 --chmod=775 nxmeta/runner /copy-to-host
 
 ARG VERSION
 ARG RELEASE
-LABEL version=${VERSION} \
+LABEL name="jim60105/toolbx-nxmeta" \
+    org.opencontainers.image.name="jim60105/toolbx-nxmeta" \
+    # Authors for toolbox base image and application
+    vendor="Canonical, Network Optix" \
+    # Maintainer for this container image
+    maintainer="jim60105" \
+    # Containerfile source repository
+    url="https://github.com/jim60105/toolbx" \
+    version=${VERSION} \
+    # This should be a number, incremented with each change
     release=${RELEASE} \
-    io.k8s.display-name="toolbx-nxmeta"
+    io.k8s.display-name="toolbx-nxmeta" \
+    summary="toolbx-nxmeta: Nx Meta VMS Desktop Client Toolbox (Containerfile)" \
+    description="A toolbx container image for the Nx Meta VMS desktop client. It is Ubuntu-based (24.04) since Nx Meta only supports Ubuntu. Toolbx is a tool for Linux, which allows the use of interactive command line environments without having to install software on the host. For more information about this tool, please visit the following website: https://github.com/jim60105/toolbx" \
+    license="GPL-3.0" \
+    org.opencontainers.image.license="GPL-3.0"
