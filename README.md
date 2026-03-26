@@ -174,6 +174,14 @@ toolbox run -c nxmeta cp /usr/share/applications/metavms.desktop ~/.local/share/
 toolbox run -c nxmeta sh -c 'cp /copy-to-host/* ~/.local/bin/'
 ```
 
+## [Antigravity](https://antigravity.google/) toolbox
+
+```bash
+toolbox create -i quay.io/jim60105/toolbx-antigravity:latest antigravity
+toolbox run -c antigravity cp /usr/share/applications/antigravity.desktop ~/.local/share/applications/
+toolbox run -c antigravity sh -c 'cp /copy-to-host/* ~/.local/bin/'
+```
+
 ## Kubernetes toolbox
 
 This toolbox is for kubernetes related tools.
@@ -203,6 +211,7 @@ toolbox run -c kubernetes sh -c 'cp /copy-to-host/* ~/.local/bin/'
               quay.io/jim60105/toolbx-sourcegit:latest \
               quay.io/jim60105/toolbx-video:latest \
               quay.io/jim60105/toolbx-nxmeta:latest \
+              quay.io/jim60105/toolbx-antigravity:latest \
               quay.io/jim60105/toolbx-kubernetes:latest && \
   toolbox rm -af && \
   toolbox create -i quay.io/jim60105/toolbx:latest fedora-toolbox-43 && \
@@ -213,6 +222,7 @@ toolbox run -c kubernetes sh -c 'cp /copy-to-host/* ~/.local/bin/'
   toolbox create -i quay.io/jim60105/toolbx-sourcegit:latest sourcegit && \
   toolbox create -i quay.io/jim60105/toolbx-video:latest video && \
   toolbox create -i quay.io/jim60105/toolbx-nxmeta:latest nxmeta && \
+  toolbox create -i quay.io/jim60105/toolbx-antigravity:latest antigravity && \
   toolbox create -i quay.io/jim60105/toolbx-kubernetes:latest kubernetes
   ```
 
