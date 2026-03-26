@@ -23,18 +23,20 @@ ARG TARGETARCH
 ARG TARGETVARIANT
 
 # Install antigravity repository
-RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/var/cache/dnf \
-    tee /etc/yum.repos.d/antigravity.repo << EOL
+COPY <<EOF /etc/yum.repos.d/antigravity.repo
 [antigravity-rpm]
 name=Antigravity RPM Repository
 baseurl=https://us-central1-yum.pkg.dev/projects/antigravity-auto-updater-dev/antigravity-rpm
 enabled=1
 gpgcheck=0
-EOL
+EOF
 
 # Install antigravity
 RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/var/cache/dnf \
     dnf -y install antigravity
+
+# Icons
+COPY --chown=$UID:0 --chmod=775 antigravity/icons /usr/share/icons
 
 # Copy desktop files
 COPY --chown=$UID:0 --chmod=775 antigravity/desktop /usr/share/applications
