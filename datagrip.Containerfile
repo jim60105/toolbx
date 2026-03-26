@@ -3,7 +3,7 @@ ARG UID=1000
 ARG VERSION=EDGE
 ARG RELEASE=0
 ARG BASE_IMAGE=quay.io/jim60105/toolbx:latest
-ARG DATAGRIP_VERSION=2025.2.2
+ARG DATAGRIP_VERSION=2025.3.5
 
 ########################################
 # Base stage
