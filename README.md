@@ -178,7 +178,9 @@ toolbox run -c nxmeta sh -c 'cp /copy-to-host/* ~/.local/bin/'
 
 ```bash
 toolbox create -i quay.io/jim60105/toolbx-antigravity:latest antigravity
+toolbox run -c antigravity cp /usr/share/icons/antigravity.png ~/.local/share/icons/
 toolbox run -c antigravity cp /usr/share/applications/antigravity.desktop ~/.local/share/applications/
+toolbox run -c antigravity cp /usr/share/applications/antigravity-url-handler.desktop ~/.local/share/applications/
 toolbox run -c antigravity sh -c 'cp /copy-to-host/* ~/.local/bin/'
 ```
 
