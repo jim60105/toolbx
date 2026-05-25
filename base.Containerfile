@@ -117,10 +117,6 @@ RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/v
 RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/var/cache/dnf \
     dnf -y install dotnet-sdk-8.0 dotnet-sdk-9.0
 
-# Install Java 21
-RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/var/cache/dnf \
-    dnf -y install java-21-openjdk
-
 # Install nodejs
 RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/var/cache/dnf \
     dnf -y install nodejs nodejs-npm yarnpkg
@@ -136,7 +132,7 @@ RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/v
 # Copy toolbox runners
 COPY --chown=$UID:0 --chmod=775 base/runner /copy-to-host
 
-# Input method for JetBrains IDE
+# Input method
 ENV XMODIFIERS=@im=fcitx
 
 ARG VERSION
