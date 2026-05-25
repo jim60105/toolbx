@@ -10,17 +10,6 @@ ARG BASE_IMAGE=quay.io/jim60105/toolbx:latest
 FROM ${BASE_IMAGE} AS base
 
 ########################################
-# Azure Functions Core Tools unpack stage
-########################################
-
-FROM base AS azure-functions-core-tools-unpacker
-
-WORKDIR /azure-functions-core-tools
-
-RUN --mount=source=rider/download-azure-functions-core-tools.sh,target=/download-azure-functions-core-tools.sh,z \
-    . /download-azure-functions-core-tools.sh
-
-########################################
 # Final stage
 ########################################
 FROM base AS final
@@ -48,14 +37,6 @@ RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/v
 # Install uv
 RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/var/cache/dnf \
     dnf -y install uv
-
-# Install Azurite
-RUN --mount=type=cache,id=npm-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/root/.npm \
-    npm install -g azurite@3
-
-# Copy Azure Functions Core Tools
-COPY --chown=$UID:0 --chmod=775 --from=azure-functions-core-tools-unpacker /azure-functions-core-tools /usr/local/bin/azure-functions-core-tools
-ENV PATH="/usr/local/bin/azure-functions-core-tools${PATH:+:${PATH}}"
 
 # Install vscode repository
 RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/var/cache/dnf \
