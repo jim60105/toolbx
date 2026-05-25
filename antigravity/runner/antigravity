@@ -1,3 +1,0 @@
-#!/bin/bash
-
-toolbox run -c antigravity /usr/bin/antigravity "$@"

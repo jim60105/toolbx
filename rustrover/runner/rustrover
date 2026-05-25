@@ -1,3 +1,0 @@
-#!/bin/bash
-
-toolbox run -c rustrover /usr/local/bin/rustrover/bin/rustrover "$@"

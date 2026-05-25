@@ -68,24 +68,6 @@ toolbox run -c vscode sh -c 'cp /copy-to-host/* ~/.local/bin/'
 > Following this guide to setup os keyring to use `gnome-libsecret`:  
 > <https://code.visualstudio.com/docs/editor/settings-sync#_recommended-configure-the-keyring-to-use-with-vs-code>
 
-## [RustRover](https://www.jetbrains.com/rust/) toolbox
-
-```bash
-toolbox create -i quay.io/jim60105/toolbx-rustrover:latest rustrover
-toolbox run -c rustrover cp /usr/share/icons/rustrover.svg ~/.local/share/icons/
-toolbox run -c rustrover cp /usr/share/applications/jetbrains-rustrover.desktop ~/.local/share/applications/
-toolbox run -c rustrover sh -c 'cp /copy-to-host/* ~/.local/bin/'
-```
-
-## [Rider](https://www.jetbrains.com/rider/) toolbox
-
-```bash
-toolbox create -i quay.io/jim60105/toolbx-rider:latest rider
-toolbox run -c rider cp /usr/share/icons/rider.svg ~/.local/share/icons/
-toolbox run -c rider cp /usr/share/applications/jetbrains-rider.desktop ~/.local/share/applications/
-toolbox run -c rider sh -c 'cp /copy-to-host/* ~/.local/bin/'
-```
-
 ## [DataGrip](https://www.jetbrains.com/datagrip/) toolbox
 
 ```bash
@@ -174,16 +156,6 @@ toolbox run -c nxmeta cp /usr/share/applications/metavms.desktop ~/.local/share/
 toolbox run -c nxmeta sh -c 'cp /copy-to-host/* ~/.local/bin/'
 ```
 
-## [Antigravity](https://antigravity.google/) toolbox
-
-```bash
-toolbox create -i quay.io/jim60105/toolbx-antigravity:latest antigravity
-toolbox run -c antigravity cp /usr/share/icons/antigravity.png ~/.local/share/icons/
-toolbox run -c antigravity cp /usr/share/applications/antigravity.desktop ~/.local/share/applications/
-toolbox run -c antigravity cp /usr/share/applications/antigravity-url-handler.desktop ~/.local/share/applications/
-toolbox run -c antigravity sh -c 'cp /copy-to-host/* ~/.local/bin/'
-```
-
 ## Kubernetes toolbox
 
 This toolbox is for kubernetes related tools.
@@ -207,24 +179,18 @@ toolbox run -c kubernetes sh -c 'cp /copy-to-host/* ~/.local/bin/'
   ```bash
   podman pull quay.io/jim60105/toolbx:latest \
               quay.io/jim60105/toolbx-vscode:latest \
-              quay.io/jim60105/toolbx-rustrover:latest \
-              quay.io/jim60105/toolbx-rider:latest \
               quay.io/jim60105/toolbx-datagrip:latest \
               quay.io/jim60105/toolbx-sourcegit:latest \
               quay.io/jim60105/toolbx-video:latest \
               quay.io/jim60105/toolbx-nxmeta:latest \
-              quay.io/jim60105/toolbx-antigravity:latest \
               quay.io/jim60105/toolbx-kubernetes:latest && \
   toolbox rm -af && \
   toolbox create -i quay.io/jim60105/toolbx:latest fedora-toolbox-43 && \
   toolbox create -i quay.io/jim60105/toolbx-vscode:latest vscode && \
-  toolbox create -i quay.io/jim60105/toolbx-rustrover:latest rustrover && \
-  toolbox create -i quay.io/jim60105/toolbx-rider:latest rider && \
   toolbox create -i quay.io/jim60105/toolbx-datagrip:latest datagrip && \
   toolbox create -i quay.io/jim60105/toolbx-sourcegit:latest sourcegit && \
   toolbox create -i quay.io/jim60105/toolbx-video:latest video && \
   toolbox create -i quay.io/jim60105/toolbx-nxmeta:latest nxmeta && \
-  toolbox create -i quay.io/jim60105/toolbx-antigravity:latest antigravity && \
   toolbox create -i quay.io/jim60105/toolbx-kubernetes:latest kubernetes
   ```
 

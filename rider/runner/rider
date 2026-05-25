@@ -1,3 +1,0 @@
-#!/bin/bash
-
-toolbox run -c rider /usr/local/bin/rider/bin/rider "$@"
