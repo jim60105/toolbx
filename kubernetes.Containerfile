@@ -53,7 +53,7 @@ RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/v
 RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/var/cache/dnf \
     --mount=type=tmpfs,target=/tmp \
     curl -L https://github.com/MuhammedKalkan/OpenLens/releases/download/v6.5.2-366/OpenLens-6.5.2-366.x86_64.rpm -o /tmp/OpenLens.rpm && \
-    dnf -y install /tmp/OpenLens.rpm
+    dnf -y install /tmp/OpenLens.rpm alsa-lib
 
 # Install talosctl
 # https://www.talos.dev/v1.9/talos-guides/install/talosctl/
