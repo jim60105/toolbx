@@ -99,7 +99,10 @@ runs:
         # Cache to registry instead of gha to avoid the capacity limit.
         cache-from: type=registry,ref=ghcr.io/${{ github.repository_owner }}/${{ inputs.IMAGE_NAME }}:cache
         cache-to: type=registry,ref=ghcr.io/${{ github.repository_owner }}/${{ inputs.IMAGE_NAME }}:cache,mode=max
-        sbom: true
+        # SBOM disabled: BuildKit caps a single attestation blob at 40 MiB, and this
+        # image's package/file inventory now exceeds that, failing the push outright.
+        # See https://github.com/jim60105/toolbx/actions/runs/31857677172/job/94945377954
+        sbom: false
         provenance: true
 
     - name: Add attestations for GitHub Container Registry
