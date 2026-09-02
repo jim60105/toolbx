@@ -33,7 +33,7 @@ toolbox run sh -c 'cp /copy-to-host/* ~/.local/bin/'
   - [Hack Nerd Font](https://github.com/ryanoasis/nerd-fonts)
 - Gnome Seahorse (OS keyring)
 - Git Credential Manager
-- .NET SDK 8.0 and 9.0
+- .NET SDK 10.0
 - Node.js, npm, yarn
 - aria2
 - jq

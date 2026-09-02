@@ -115,7 +115,7 @@ RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/v
 
 # Install .NET
 RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/var/cache/dnf \
-    dnf -y install dotnet-sdk-8.0 dotnet-sdk-9.0
+    dnf -y install dotnet-sdk-10.0
 
 # Install nodejs
 RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/var/cache/dnf \
