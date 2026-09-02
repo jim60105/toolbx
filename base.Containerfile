@@ -121,9 +121,10 @@ RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/v
 RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/var/cache/dnf \
     dnf -y install nodejs nodejs-npm yarnpkg
 
-# Install git-credential-manager (This needs .NET 8)
-RUN curl -L https://aka.ms/gcm/linux-install-source.sh | sh -s -- -y && \
-    git-credential-manager configure
+# Install git-credential-manager
+RUN curl -L https://raw.githubusercontent.com/git-ecosystem/git-credential-manager/main/build/install-from-source.sh | sh -s -- -y && \
+    git-credential-manager configure && \
+    rm -rf /git-credential-manager /root/.dotnet /dotnet-install.sh
 
 # Install aria2
 RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/var/cache/dnf \
