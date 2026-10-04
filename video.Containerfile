@@ -71,8 +71,6 @@ COPY --from=build-mvtools /lib64/libfftw3l.so /lib64/
 COPY --from=build-mvtools /lib64/libfftw3f_threads.so /lib64/
 COPY --from=build-mvtools /lib64/libfftw3f_omp.so /lib64/
 COPY --from=build-mvtools /lib64/libfftw3f.so /lib64/
-COPY --from=build-mvtools /lib64/libvapoursynth-script.so /lib64/
-COPY --from=build-mvtools /lib64/libvapoursynth.so /lib64/
 COPY --from=build-mvtools /usr/local/lib64/libmvtools.so /usr/local/lib64/
 
 # Copy mpv configs
@@ -82,6 +80,9 @@ COPY --chown=$UID:0 --chmod=775 video/thumbfast/thumbfast.conf /etc/mpv/scripts-
 COPY --chown=$UID:0 --chmod=775 video/thumbfast/thumbfast.lua /etc/mpv/scripts
 ADD --chown=$UID:0 --chmod=775 https://github.com/mpv-player/mpv/raw/refs/heads/master/TOOLS/lua/autoload.lua /etc/mpv/scripts/autoload.lua
 COPY --chown=$UID:0 --chmod=775 --from=anime4k-unpacker /anime4K /etc/mpv/shaders
+
+# Keep VSScript on the container's system Python instead of a host virtualenv.
+COPY --chown=$UID:0 --chmod=775 video/bin/mpv /usr/local/bin/mpv
 
 # Copy toolbox runners
 COPY --chown=$UID:0 --chmod=775 video/runner /copy-to-host

@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# Toolbx inherits the host PATH. A host Python virtualenv can make VSScript
+# initialize against the wrong Python installation and fail before loading .vpy.
+unset PYTHONHOME PYTHONPATH
+export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
+exec /usr/bin/mpv "$@"
