@@ -25,10 +25,10 @@ WORKDIR /fonts
 
 ADD https://github.com/ButTaiwan/iansui/releases/download/v1.000/iansui.zip /tmp/iansui.zip
 
-ADD https://github.com/ryanoasis/nerd-fonts/releases/download/v3.3.0/Hack.zip /tmp/hack.zip
+ADD https://github.com/jim60105/JimMonoTC/releases/download/v0.4.0/JimMonoTC-0.4.0-otf.zip /tmp/jimmonotc.zip
 
 RUN unzip -uo /tmp/iansui.zip -d /fonts/iansui && \
-    unzip -uo /tmp/hack.zip -d /fonts/hack
+    unzip -uo /tmp/jimmonotc.zip -d /fonts/jimmonotc
 
 ########################################
 # Host runner stage
@@ -96,12 +96,14 @@ RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/v
     dnf -y install gh --repo gh-cli
 
 # Fonts
+# Jim Mono TC already ships Cascadia Code and the Nerd Fonts icon set, so those
+# monospace fonts are not installed separately. Noto Sans CJK stays for
+# proportional CJK usage.
 COPY --chown=$UID:0 --chmod=775 --from=font-unpacker /fonts /usr/local/share/fonts
 RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/var/cache/dnf \
     dnf -y install \
     google-noto-sans-cjk-fonts \
     google-noto-color-emoji-fonts \
-    cascadia-fonts-all \
     hanamin-fonts
 
 # Install os keyring

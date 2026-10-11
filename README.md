@@ -25,12 +25,11 @@ toolbox run sh -c 'cp /copy-to-host/* ~/.local/bin/'
 
 - zsh
 - Fonts
+  - [Jim Mono TC](https://github.com/jim60105/JimMonoTC) (Cascadia Code + Noto Sans CJK TC + Nerd Fonts icons, all in one)
   - Noto Sans CJK
   - Noto Color Emoji
-  - Cascadia Code
   - Hina Mincho
   - [Iansui 芫荽](https://github.com/ButTaiwan/iansui)
-  - [Hack Nerd Font](https://github.com/ryanoasis/nerd-fonts)
 - Gnome Seahorse (OS keyring)
 - Git Credential Manager
 - .NET SDK 10.0
