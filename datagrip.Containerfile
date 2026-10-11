@@ -10,14 +10,6 @@ ARG DATAGRIP_VERSION=2026.2.6
 ########################################
 FROM ${BASE_IMAGE} AS base
 
-# RUN mount cache for multi-arch: https://github.com/docker/buildx/issues/549#issuecomment-1788297892
-ARG TARGETARCH
-ARG TARGETVARIANT
-
-# Install Java 25
-RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/var/cache/dnf \
-    dnf -y install java-25-openjdk
-
 ########################################
 # Download stage
 ########################################
