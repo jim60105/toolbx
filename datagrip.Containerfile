@@ -10,6 +10,10 @@ ARG DATAGRIP_VERSION=2025.3.5
 ########################################
 FROM ${BASE_IMAGE} AS base
 
+# RUN mount cache for multi-arch: https://github.com/docker/buildx/issues/549#issuecomment-1788297892
+ARG TARGETARCH
+ARG TARGETVARIANT
+
 # Install Java 21
 RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/var/cache/dnf \
     dnf -y install java-21-openjdk
