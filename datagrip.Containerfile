@@ -27,7 +27,7 @@ WORKDIR /datagrip
 
 # Install DataGrip
 ARG DATAGRIP_VERSION
-ADD https://download-cdn.jetbrains.com/datagrip/datagrip-${DATAGRIP_VERSION}.tar.gz /tmp/datagrip.tar.gz
+ADD https://download.jetbrains.com/datagrip/datagrip-${DATAGRIP_VERSION}.tar.gz /tmp/datagrip.tar.gz
 RUN tar -xzf /tmp/datagrip.tar.gz -C /datagrip && \
     rm -f /tmp/datagrip.tar.gz && \
     mv /datagrip/"DataGrip-${DATAGRIP_VERSION}"/* /datagrip
