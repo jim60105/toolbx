@@ -14,9 +14,9 @@ FROM ${BASE_IMAGE} AS base
 ARG TARGETARCH
 ARG TARGETVARIANT
 
-# Install Java 21
+# Install Java 25
 RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/var/cache/dnf \
-    dnf -y install java-21-openjdk
+    dnf -y install java-25-openjdk
 
 ########################################
 # Download stage
