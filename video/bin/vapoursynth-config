@@ -1,0 +1,104 @@
+#!/usr/bin/python3
+"""Write the VSScript Python entry that mpv's vapoursynth filter looks up.
+
+VSScript stores the Python interpreter and libpython paths in a per-user TOML
+file, keyed by the path of the libvsscript.so it was loaded from, with every
+"/lib64/" in that path rewritten to "/lib/". Fedora's `vapoursynth config`
+derives the key from the Python package's own copy of the library instead, so
+the entry never matches the library mpv dlopens and mpv fails with "Python
+executable and library path couldn't be determined despite automatic
+configuration". Mirror VSScript's own key computation and write the entry it
+actually reads.
+"""
+
+import ctypes
+import os
+import sys
+import sysconfig
+
+CONFIG_PATH = ("vapoursynth", "vapoursynth.toml")
+
+
+class DlInfo(ctypes.Structure):
+    _fields_ = [
+        ("dli_fname", ctypes.c_char_p),
+        ("dli_fbase", ctypes.c_void_p),
+        ("dli_sname", ctypes.c_char_p),
+        ("dli_saddr", ctypes.c_void_p),
+    ]
+
+
+def library_key():
+    """Return the config key VSScript computes for the loaded libvsscript.so."""
+    library = ctypes.CDLL("libvsscript.so.0", mode=ctypes.RTLD_GLOBAL)
+    symbol = ctypes.cast(library.getVSScriptAPI, ctypes.c_void_p)
+    info = DlInfo()
+    ctypes.CDLL("libc.so.6").dladdr(symbol, ctypes.byref(info))
+    return info.dli_fname.decode().replace("/lib64/", "/lib/", 1)
+
+
+def python_entry():
+    """Return the interpreter path, libpython path and interpreter mtime."""
+    executable = sys.executable
+    libpython = os.path.join(
+        sysconfig.get_config_var("LIBDIR"), sysconfig.get_config_var("INSTSONAME")
+    )
+    if not os.path.exists(libpython):
+        raise OSError(f"libpython not found at {libpython}")
+    return executable, libpython, int(os.stat(executable).st_mtime)
+
+
+def config_path():
+    base = os.environ.get("XDG_CONFIG_HOME")
+    if not base:
+        home = os.environ.get("HOME")
+        if not home:
+            raise OSError("neither XDG_CONFIG_HOME nor HOME is set")
+        base = os.path.join(home, ".config")
+    return os.path.join(base, *CONFIG_PATH)
+
+
+def toml_key(line):
+    """Return the first quoted string of a TOML line, as VSScript parses it."""
+    start = line.find('"')
+    if start < 0:
+        return None
+    end = line.find('"', start + 1)
+    if end < 0:
+        return None
+    return line[start + 1:end]
+
+
+def main():
+    try:
+        key = library_key()
+        entry = '"{}" = ["{}", "{}", "{}"]'.format(key, *python_entry())
+        path = config_path()
+
+        try:
+            with open(path, encoding="utf-8") as handle:
+                lines = [line.rstrip("\n") for line in handle]
+        except FileNotFoundError:
+            lines = []
+
+        if entry in lines:
+            return 0
+
+        # Drop whatever entry exists for this library: it is either stale or
+        # written with a key that never matches.
+        lines = [line for line in lines if toml_key(line) != key]
+        lines.append(entry)
+
+        os.makedirs(os.path.dirname(path), exist_ok=True)
+        with open(path, "w", encoding="utf-8") as handle:
+            handle.write("\n".join(lines) + "\n")
+    except OSError as error:
+        print(f"vapoursynth-config: {error}", file=sys.stderr)
+        return 1
+
+    print(f"vapoursynth-config: set {entry} in {path}")
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

@@ -93,7 +93,7 @@ ADD --chown=$UID:0 --chmod=775 https://github.com/mpv-player/mpv/raw/refs/heads/
 COPY --chown=$UID:0 --chmod=775 --from=anime4k-unpacker /anime4K /etc/mpv/shaders
 
 # Keep VSScript on the container's system Python instead of a host virtualenv.
-COPY --chown=$UID:0 --chmod=775 video/bin/mpv /usr/local/bin/mpv
+COPY --chown=$UID:0 --chmod=775 video/bin /usr/local/bin
 
 # Copy toolbox runners
 COPY --chown=$UID:0 --chmod=775 video/runner /copy-to-host

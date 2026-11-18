@@ -5,4 +5,10 @@
 unset PYTHONHOME PYTHONPATH
 export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
+# VSScript looks Python up in a per-user TOML keyed by the libvsscript path, and
+# Fedora's `vapoursynth config` writes a key that never matches the one mpv's
+# dlopen leads to. Keep the entry it needs current; it costs one stat when the
+# entry is already right.
+vapoursynth-config || true
+
 exec /usr/bin/mpv "$@"

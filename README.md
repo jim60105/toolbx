@@ -101,6 +101,9 @@ toolbox run -c video sh -c 'cp /copy-to-host/* ~/.local/bin/'
 > [!NOTE]  
 > Trigger mpv motion interpolation by pressing `b` key.
 
+> [!IMPORTANT]  
+> The mpv vapoursynth filter needs VSScript's Python configuration, which Fedora's `vapoursynth config` writes with a library key that never matches the one VSScript looks up. The `mpv` wrapper regenerates the correct entry on every start, so interpolation works out of the box; see [mpv motion interpolation does not start](#mpv-motion-interpolation-does-not-start) if it does not.
+
 ### Open youtube video in mpv
 
 Execute this script on the youtube video page:
@@ -218,6 +221,28 @@ Set `/etc/hosts` to include `toolbx` in localhost. [ref][1]
 ```
 
 [1]: https://github.com/containers/toolbox/issues/1059#issuecomment-1135307025
+
+### mpv motion interpolation does not start
+
+Pressing `b` leaves the video unchanged and mpv prints:
+
+```text
+[vapoursynth] Failed to initialize VapourSynth VSScript library: Python executable and library path couldn't be determined despite automatic configuration. Run `vapoursynth config` to set it for this Python installation and then try again.
+```
+
+VSScript keeps its interpreter in `~/.config/vapoursynth/vapoursynth.toml` (or `$XDG_CONFIG_HOME/vapoursynth/vapoursynth.toml`). It takes the path of the `libvsscript.so` loaded into the process, rewrites every `/lib64/` in it to `/lib/`, and looks that string up as the key. Fedora's `vapoursynth config` writes a key derived from the Python package's copy of the library instead, so its entry never matches.
+
+The image ships `vapoursynth-config`, which recomputes the key the way VSScript does and rewrites the entry, and the `mpv` wrapper runs it before every start. To repair the file by hand:
+
+```bash
+toolbox run -c video vapoursynth-config
+```
+
+The result looks like this; the third field is the interpreter's mtime, so the entry is rewritten when Python is updated:
+
+```toml
+"/lib/libvsscript.so.0" = ["/usr/bin/python3", "/usr/lib64/libpython3.15.so.1.0", "1792972800"]
+```
 
 ## LICENSE
 
