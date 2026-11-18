@@ -23,11 +23,22 @@ ARG TARGETVARIANT
 RUN --mount=type=cache,id=dnf-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/var/cache/dnf \
     dnf -y upgrade && \
     dnf -y group install c-development development-tools && \
-    dnf -y install meson cmake vapoursynth-devel fftw-devel nasm
+    dnf -y install meson cmake vapoursynth-devel fftw-devel nasm python3-vapoursynth
 
+# Fedora packages the vapoursynth Python module without the C headers, but
+# vapoursynth.get_include() still reports a path inside that package and the
+# mvtools build resolves its include dir through that call. Point it at the
+# API 4 headers installed by vapoursynth-devel.
+RUN ln -s /usr/include/vapoursynth "$(python3 -c 'import vapoursynth; print(vapoursynth.get_include())')"
+
+# mvtools v23 is API 3 only, and Fedora 45 (VapourSynth R79) ships API 4 headers
+# exclusively. The pinned submodule (v29_2) targets API 4. Build out of tree,
+# since the source mount is read-only, and install under the name that
+# /etc/mpv/motioninterpolation.vpy loads.
 RUN --mount=source=video/vapoursynth-mvtools,target=/vapoursynth-mvtools,z \
-    meson setup /vapoursynth-mvtools && \
-    ninja install
+    meson setup /build/mvtools /vapoursynth-mvtools && \
+    ninja -C /build/mvtools && \
+    install -Dm755 /build/mvtools/mvtools.so /usr/local/lib64/libmvtools.so
 
 ########################################
 # UOSC unpack stage
